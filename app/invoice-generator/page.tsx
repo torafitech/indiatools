@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { InvoiceGenerator } from "@/components/tools/InvoiceGenerator";
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   keywords: [
     "GST invoice generator", "free invoice generator India", "GST invoice online",
     "invoice maker India", "download invoice PDF", "GST bill generator",
+    "CGST SGST invoice", "IGST invoice", "tax invoice India",
   ],
   openGraph: {
     title: "Free GST Invoice Generator — No Signup, Download PDF Instantly",
@@ -52,10 +54,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "Can I add my company logo to the invoice?",
+      name: "How does the CGST, SGST, and IGST split work?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. You can upload your company logo and it will appear on the generated PDF invoice. Supported formats: PNG, JPG, SVG. Recommended size: 200x80 pixels.",
+        text: "If the seller and buyer are in the same state (intra-state supply), GST is split equally into CGST and SGST. For example, 18% GST = 9% CGST + 9% SGST. If seller and buyer are in different states (inter-state supply), the full tax is charged as IGST — 18% IGST. You choose the supply type in the Invoice Details section and the tool calculates automatically.",
       },
     },
     {
@@ -71,7 +73,7 @@ const faqSchema = {
       name: "Is my invoice data saved anywhere?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. All invoice data is processed entirely in your browser using JavaScript. Nothing is sent to or stored on our servers. For security, your GSTIN, bank details, and invoice amounts never leave your device.",
+        text: "No. All invoice data is processed entirely in your browser using JavaScript. Nothing is sent to or stored on our servers. For security, your GSTIN, bank details, and invoice amounts never leave your device. Invoice numbers are auto-incremented using browser localStorage — this is also local to your device.",
       },
     },
   ],
@@ -94,55 +96,23 @@ export default function InvoiceGeneratorPage() {
           Free GST Invoice Generator — No Signup, Download PDF Instantly
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
-          Create professional GST-compliant invoices and download as PDF. Free for freelancers
-          and businesses. All data stays in your browser — nothing is stored.
+          Create professional GST-compliant invoices and download as PDF. Supports CGST+SGST
+          (intra-state) and IGST (inter-state). All data stays in your browser — nothing stored.
         </p>
 
-        {/* Coming soon card */}
-        <div className="bg-white rounded-2xl border-2 border-dashed border-blue-200 p-10 text-center">
-          <div className="text-5xl mb-4">🧾</div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Invoice Generator — Coming Soon</h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto mb-6">
-            We&apos;re building a full GST invoice generator with PDF download, logo upload, multiple
-            line items, and automatic CGST/SGST/IGST calculation. Launching very soon.
-          </p>
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
-            {[
-              "GST-compliant PDF", "Logo upload", "Multiple line items",
-              "CGST + SGST auto-calc", "Bank details", "No signup",
-            ].map((f) => (
-              <span key={f} className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 rounded-full font-medium">
-                ✓ {f}
-              </span>
-            ))}
-          </div>
-          <p className="text-sm text-gray-400">
-            In the meantime, try our other tools:
-          </p>
-          <div className="flex flex-wrap justify-center gap-2 mt-3">
-            {[
-              { href: "/emi-calculator", label: "EMI Calculator" },
-              { href: "/income-tax-calculator", label: "Tax Calculator" },
-              { href: "/sip-calculator", label: "SIP Calculator" },
-            ].map((t) => (
-              <Link key={t.href} href={t.href}
-                className="text-sm px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
-                {t.label} →
-              </Link>
-            ))}
-          </div>
-        </div>
+        <InvoiceGenerator />
 
         <AdSlot slot="AFTER_RESULT_SLOT" className="my-6" />
 
-        {/* SEO content — important for Google indexing even on coming soon */}
+        {/* SEO content */}
         <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-          <h2 className="text-xl font-bold text-gray-900">What Makes a Valid GST Invoice?</h2>
+          <h2 className="text-xl font-bold text-gray-900">What Makes a Valid GST Invoice in India?</h2>
 
           <p className="text-gray-600 leading-relaxed">
             Under the GST Act, a <strong>tax invoice</strong> is mandatory for every supply of goods or services
-            by a registered taxpayer. A valid GST invoice must include specific fields — missing any of them
+            by a GST-registered taxpayer. A valid GST invoice must include specific fields — missing any of them
             can make the invoice non-compliant, affecting your buyer&apos;s ability to claim Input Tax Credit (ITC).
+            Our free GST invoice generator ensures all mandatory fields are covered so your invoices are always compliant.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800">Mandatory Fields on a GST Invoice</h3>
@@ -164,20 +134,40 @@ export default function InvoiceGeneratorPage() {
             ))}
           </div>
 
-          <h3 className="text-lg font-semibold text-gray-800">CGST + SGST vs IGST</h3>
+          <h3 className="text-lg font-semibold text-gray-800">CGST + SGST vs IGST — When to Use Which</h3>
           <p className="text-gray-600 leading-relaxed text-sm">
             If the supplier and buyer are in the <strong>same state</strong>, the GST is split equally into
             CGST (Central GST) and SGST (State GST). For an 18% GST rate: CGST = 9%, SGST = 9%.
             If the supplier and buyer are in <strong>different states</strong>, the full GST is charged
-            as IGST (Integrated GST): 18% IGST. Our invoice generator auto-detects this based on
-            the place of supply you select.
+            as IGST (Integrated GST): 18% IGST. Our invoice generator auto-calculates this when you
+            toggle between intra-state and inter-state in the Invoice Details section.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800">Invoice Numbering Rules</h3>
+          <h3 className="text-lg font-semibold text-gray-800">GST Invoice Numbering Rules</h3>
           <p className="text-gray-600 leading-relaxed text-sm">
             GST invoice numbers must be unique, sequential, and reset at the start of each financial year
             (April 1). You can use any format — e.g., INV-2025-001, 2025-26/001, or just 001 — as long
-            as it&apos;s consecutive and doesn&apos;t repeat. Our generator auto-increments for you.
+            as it&apos;s consecutive and doesn&apos;t repeat within a financial year. Our generator auto-increments
+            and tracks your current sequence using browser local storage. The counter resets automatically
+            at the start of each financial year (April 1).
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800">Who Needs to Issue GST Invoices?</h3>
+          <p className="text-gray-600 leading-relaxed text-sm">
+            Any business or individual registered under GST must issue a tax invoice for every taxable supply.
+            This includes freelancers providing services, retailers selling goods, and B2B suppliers.
+            Businesses with turnover below the GST registration threshold (₹20 lakh for services, ₹40 lakh
+            for goods) are exempt from registration and need not issue GST invoices. However, even unregistered
+            businesses can use this tool to create professional invoices — simply leave the GSTIN field blank.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800">HSN and SAC Codes</h3>
+          <p className="text-gray-600 leading-relaxed text-sm">
+            HSN (Harmonised System of Nomenclature) codes are used for goods, while SAC (Services Accounting
+            Code) codes are used for services. Businesses with turnover above ₹5 crore must use 6-digit codes;
+            those between ₹1.5 crore and ₹5 crore use 4-digit codes; and those below ₹1.5 crore may use
+            2-digit codes. Common SAC codes include 9983 (IT services), 9985 (support services), and 9954
+            (construction services).
           </p>
         </section>
 
@@ -203,8 +193,11 @@ export default function InvoiceGeneratorPage() {
               { href: "/income-tax-calculator", label: "Income Tax Calculator" },
               { href: "/sip-calculator", label: "SIP Calculator" },
             ].map((t) => (
-              <Link key={t.href} href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors">
+              <Link
+                key={t.href}
+                href={t.href}
+                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+              >
                 {t.label} →
               </Link>
             ))}
