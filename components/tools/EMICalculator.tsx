@@ -121,7 +121,7 @@ function SliderRow({
 // Affordability config
 const AFFORD = {
   danger:  { label: "High Risk",    color: "text-red-600",   bg: "bg-red-50 border-red-200",     bar: "bg-red-500",   msg: "EMI exceeds 50% of income. Consider longer tenure or smaller loan." },
-  warning: { label: "Manageable",   color: "text-[#E8500A]", bg: "bg-amber-50 border-amber-200", bar: "bg-[#E8500A]", msg: "EMI is 30–50% of income. Tight but workable." },
+  warning: { label: "Manageable",   color: "text-[#E8500A]", bg: "bg-[#FFF8F2] border-[#E8500A]/20", bar: "bg-[#E8500A]", msg: "EMI is 30–50% of income. Tight but workable." },
   safe:    { label: "Comfortable",  color: "text-green-600", bg: "bg-green-50 border-green-200", bar: "bg-green-500", msg: "EMI is under 30% of income. Healthy debt level." },
 } as const;
 
@@ -145,7 +145,7 @@ interface EMICalculatorProps {
 const TYPE_COLORS = [
   { iconBg: "bg-[#F0F4FF]",   iconText: "text-[#E8500A]",   activeBg: "bg-[#0F2447]" },
   { iconBg: "bg-emerald-50", iconText: "text-emerald-600", activeBg: "bg-[#0F2447]" },
-  { iconBg: "bg-amber-50",  iconText: "text-[#E8500A]",  activeBg: "bg-[#0F2447]" },
+  { iconBg: "bg-[#FFF8F2]", iconText: "text-[#E8500A]",  activeBg: "bg-[#0F2447]" },
 ] as const;
 
 export function EMICalculator({
@@ -581,14 +581,6 @@ export function EMICalculator({
             >
               {copied ? "✓ Copied!" : "📋 Copy"}
             </button>
-            <a
-              href="/go/bankbazaar"
-              rel="nofollow noopener sponsored"
-              className="flex-1 flex items-center justify-between bg-[#E8500A]/20 hover:bg-[#E8500A]/30 border border-[#E8500A]/30 text-white text-xs py-2.5 px-3 rounded-xl transition-all group"
-            >
-              <span>Compare rates</span>
-              <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-            </a>
           </div>
         </div>
       </div>
@@ -618,7 +610,7 @@ export function EMICalculator({
         {income > 0 && (
           <div className={`text-xs px-3 py-1.5 rounded-xl font-semibold text-center mb-3 ${
             affordLevel === "danger"  ? "bg-red-500/25 text-red-300" :
-            affordLevel === "warning" ? "bg-[#E8500A]/25 text-amber-300" :
+            affordLevel === "warning" ? "bg-[#E8500A]/25 text-[#E8500A]/80" :
                                         "bg-green-500/25 text-green-300"
           }`}>
             {afford.label} — EMI is {emiIncomePct}% of income
@@ -633,13 +625,6 @@ export function EMICalculator({
           >
             {copied ? "✓ Copied!" : "📋 Copy Summary"}
           </button>
-          <a
-            href="/go/bankbazaar"
-            rel="nofollow noopener sponsored"
-            className="flex-1 text-xs bg-[#E8500A]/20 hover:bg-[#E8500A]/30 border border-[#E8500A]/30 text-white py-2.5 rounded-xl text-center font-medium transition-all"
-          >
-            Compare rates →
-          </a>
         </div>
       </div>
 
