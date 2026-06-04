@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -46,6 +47,13 @@ export default function RootLayout({
         )}
       </head>
       <body className="min-h-screen bg-[#FFFCF8] text-[#1C1209] antialiased">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9CFW2QSZB0"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9CFW2QSZB0');`}
+        </Script>
         <Header />
         {children}
         <Footer />
