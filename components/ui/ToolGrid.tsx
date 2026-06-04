@@ -17,8 +17,8 @@ type Tool = {
 const CAT: Record<string, {
   iconBg: string; iconText: string; badge: string; dot: string; borderL: string;
 }> = {
-  Finance:   { iconBg: "bg-blue-50",   iconText: "text-blue-600",   badge: "bg-blue-50 text-blue-700 ring-blue-100",     dot: "bg-blue-500",    borderL: "border-l-blue-500"   },
-  Health:    { iconBg: "bg-emerald-50", iconText: "text-emerald-600",badge: "bg-emerald-50 text-emerald-700 ring-emerald-100", dot: "bg-emerald-500", borderL: "border-l-emerald-500"},
+  Finance:   { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  Health:    { iconBg: "bg-teal-50",    iconText: "text-teal-600",   badge: "bg-teal-50 text-teal-700 ring-teal-100",         dot: "bg-teal-500",    borderL: "border-l-teal-500"    },
   Writing:   { iconBg: "bg-violet-50", iconText: "text-violet-600", badge: "bg-violet-50 text-violet-700 ring-violet-100",   dot: "bg-violet-500",  borderL: "border-l-violet-500" },
   Business:  { iconBg: "bg-orange-50", iconText: "text-orange-600", badge: "bg-orange-50 text-orange-700 ring-orange-100",   dot: "bg-orange-500",  borderL: "border-l-orange-500" },
   Developer: { iconBg: "bg-purple-50", iconText: "text-purple-600", badge: "bg-purple-50 text-purple-700 ring-purple-100",   dot: "bg-purple-500",  borderL: "border-l-purple-500" },
@@ -140,7 +140,7 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
             >
               {/* Popular badge */}
               {tool.popular && (
-                <span className="absolute top-4 right-4 bg-gradient-to-r from-amber-400 to-orange-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide uppercase shadow-sm">
+                <span className="absolute top-4 right-4 bg-gradient-to-r from-[#E8500A] to-orange-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide uppercase shadow-sm">
                   Popular
                 </span>
               )}

@@ -91,12 +91,12 @@ export default function TDEECalculatorPage() {
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/" className="hover:text-[#E8500A]">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">TDEE Calculator</span>
         </nav>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
           TDEE Calculator — Find Your Daily Calorie &amp; Macro Targets
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
@@ -126,7 +126,7 @@ export default function TDEECalculatorPage() {
             ].map((item) => (
               <div key={item.goal} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <p className="font-semibold text-gray-900 text-sm mb-1">{item.goal}</p>
-                <p className="text-blue-600 text-sm font-medium mb-2">{item.action}</p>
+                <p className="text-[#E8500A] text-sm font-medium mb-2">{item.action}</p>
                 <p className="text-gray-500 text-xs leading-relaxed">{item.tip}</p>
               </div>
             ))}
@@ -153,7 +153,7 @@ export default function TDEECalculatorPage() {
                   <tr key={level} className="hover:bg-gray-50">
                     <td className="px-3 py-2 font-medium">{level}</td>
                     <td className="px-3 py-2 text-gray-500">{desc}</td>
-                    <td className="px-3 py-2 text-right font-bold text-blue-600">{mult}</td>
+                    <td className="px-3 py-2 text-right font-bold text-[#E8500A]">{mult}</td>
                   </tr>
                 ))}
               </tbody>
@@ -191,7 +191,7 @@ export default function TDEECalculatorPage() {
               { href: "/sip-calculator", label: "SIP Calculator" },
             ].map((t) => (
               <Link key={t.href} href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors">
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors">
                 {t.label} →
               </Link>
             ))}

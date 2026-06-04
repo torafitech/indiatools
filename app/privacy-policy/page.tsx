@@ -36,7 +36,7 @@ export default function PrivacyPolicyPage() {
             <p>
               <strong>Advertising:</strong> We use Google AdSense to display ads. Google may use cookies to show you
               relevant ads based on your browsing history. You can opt out via{" "}
-              <a href="https://adssettings.google.com" className="text-blue-600 hover:underline" rel="noopener noreferrer" target="_blank">
+              <a href="https://adssettings.google.com" className="text-[#E8500A] hover:underline" rel="noopener noreferrer" target="_blank">
                 Google Ad Settings
               </a>
               .
@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Contact</h2>
           <p className="text-gray-600 leading-relaxed">
             Questions about this policy? Email us at{" "}
-            <a href="mailto:hello@utilspot.app" className="text-blue-600 hover:underline">
+            <a href="mailto:hello@utilspot.app" className="text-[#E8500A] hover:underline">
               hello@utilspot.app
             </a>
           </p>

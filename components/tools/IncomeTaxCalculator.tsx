@@ -342,7 +342,7 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
           <div>
             <button
               onClick={() => setShowOldInputs(!showOldInputs)}
-              className="w-full flex items-center justify-between text-sm font-semibold text-[#0F2447] bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 hover:bg-amber-100 transition-colors"
+              className="w-full flex items-center justify-between text-sm font-semibold text-[#0F2447] bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 hover:bg-[#FFF8F2] transition-colors"
             >
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
@@ -357,7 +357,7 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
             </button>
 
             {showOldInputs && (
-              <div className="mt-2 space-y-3.5 p-4 bg-amber-50/60 rounded-2xl border border-amber-200">
+              <div className="mt-2 space-y-3.5 p-4 bg-[#FFF8F2]/60 rounded-2xl border border-amber-200">
                 <InputRow label="HRA Received" value={hra} onChange={setHra} note="From salary slip" />
                 <InputRow label="Rent Paid (annual)" value={rentPaid} onChange={setRentPaid} />
 
@@ -512,7 +512,7 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
                       : "bg-amber-50 border border-amber-200"
                   }`}
                 >
-                  <p className={`text-xs font-medium mb-0.5 ${r.isNew ? "text-emerald-600" : "text-amber-600"}`}>
+                  <p className={`text-xs font-medium mb-0.5 ${r.isNew ? "text-emerald-600" : "text-[#E8500A]"}`}>
                     {r.label}
                   </p>
                   <p className={`text-2xl font-bold tabular-nums ${r.isNew ? "text-emerald-700" : "text-amber-700"}`}>

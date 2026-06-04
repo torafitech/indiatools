@@ -64,7 +64,7 @@ export default async function IncomeTaxVariantPage({
           <span className="text-[#7A6048]">₹{v.lpa} LPA</span>
         </nav>
         <IndiaBadge note="Uses Indian IT Act slabs, FY 2025-26 — not applicable outside India" />
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#0F2447] mb-2">{v.h1}</h1>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">{v.h1}</h1>
         <p className="text-[#7A6048] mb-6 text-sm sm:text-base">{v.description}</p>
         <IncomeTaxCalculator defaultIncome={v.grossIncome} />
         <section className="mt-6">
@@ -75,7 +75,7 @@ export default async function IncomeTaxVariantPage({
                 <Link
                   key={x.slug}
                   href={`/income-tax-calculator/${x.slug}`}
-                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-amber-50 hover:text-amber-700 transition-colors"
+                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-[#FFF8F2] hover:text-[#E8500A] transition-colors"
                 >
                   ₹{x.lpa} LPA →
                 </Link>

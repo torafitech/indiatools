@@ -386,7 +386,7 @@ export function InvoiceGenerator() {
         </SectionCard>
 
         {/* Buyer */}
-        <SectionCard title="Buyer / Client Details" accentColor="bg-blue-500">
+        <SectionCard title="Buyer / Client Details" accentColor="bg-[#F0F4FF]0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Client Name" value={buyerName} onChange={setBuyerName} placeholder="Client Pvt Ltd" required />
             <Field label="GSTIN (optional)" value={buyerGSTIN} onChange={setBuyerGSTIN} placeholder="22AAAAA0000A1Z5" />
@@ -397,7 +397,7 @@ export function InvoiceGenerator() {
         </SectionCard>
 
         {/* Invoice Details */}
-        <SectionCard title="Invoice Details" accentColor="bg-amber-500">
+        <SectionCard title="Invoice Details" accentColor="bg-[#E8500A]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Field label="Invoice Number" value={invoiceNumber} onChange={setInvoiceNumber} placeholder="INV-2025-001" required />
             <Field label="Invoice Date" value={invoiceDate} onChange={setInvoiceDate} type="date" required />
@@ -443,7 +443,7 @@ export function InvoiceGenerator() {
         </SectionCard>
 
         {/* Line Items */}
-        <SectionCard title="Line Items" accentColor="bg-amber-400">
+        <SectionCard title="Line Items" accentColor="bg-[#E8500A]/80">
           <div className="overflow-x-auto -mx-1">
             <table className="w-full min-w-[580px] text-sm">
               <thead>

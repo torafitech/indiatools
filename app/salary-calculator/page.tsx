@@ -114,13 +114,13 @@ export default function SalaryCalculatorPage() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/" className="hover:text-[#E8500A]">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">Salary Calculator</span>
         </nav>
 
         <IndiaBadge note="Uses Indian PF rules, professional tax & CTC structure" />
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
           CTC to In-Hand Salary Calculator — India 2025
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
@@ -192,7 +192,7 @@ export default function SalaryCalculatorPage() {
               <span className="mt-2">Employee PF:</span><span className="mt-2">−₹4,800/mo</span>
               <span>Professional Tax (KA):</span><span>−₹200/mo</span>
               <span>Income Tax (new regime):</span><span>≈ −₹0/mo (under ₹12L)</span>
-              <span className="font-bold text-blue-700 mt-1">In-Hand Monthly:</span><span className="font-bold text-blue-700 mt-1">≈ ₹81,000/mo</span>
+              <span className="font-bold text-[#0F2447] mt-1">In-Hand Monthly:</span><span className="font-bold text-[#0F2447] mt-1">≈ ₹81,000/mo</span>
             </div>
           </div>
 
@@ -228,7 +228,7 @@ export default function SalaryCalculatorPage() {
               <Link
                 key={t.href}
                 href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors"
               >
                 {t.label} →
               </Link>

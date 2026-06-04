@@ -81,25 +81,25 @@ export default async function SalaryVariantPage({
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/" className="hover:text-[#E8500A]">Home</Link>
           <span className="mx-2">›</span>
-          <Link href="/salary-calculator" className="hover:text-blue-600">Salary Calculator</Link>
+          <Link href="/salary-calculator" className="hover:text-[#E8500A]">Salary Calculator</Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">{variant.label}</span>
         </nav>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{heading}</h1>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">{heading}</h1>
 
         {/* Quick summary card */}
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-5 text-sm">
-          <p className="text-blue-900">
+        <div className="bg-[#F0F4FF] border border-[#CBD5EF] rounded-xl p-4 mb-5 text-sm">
+          <p className="text-[#0F2447]">
             For <strong>{formatINRShort(variant.ctc)} CTC</strong> in <strong>{variant.state}</strong>{" "}
             ({variant.city} city):
           </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-1 mt-2 text-blue-700">
-            <span>Monthly In-Hand: <strong className="text-blue-800">{formatINR(result.inHandMonthly)}</strong></span>
-            <span>Annual In-Hand: <strong className="text-blue-800">{formatINRShort(result.inHandAnnual)}</strong></span>
-            <span>Take-Home: <strong className="text-blue-800">{result.takeHomePercent}% of CTC</strong></span>
+          <div className="flex flex-wrap gap-x-6 gap-y-1 mt-2 text-[#0F2447]">
+            <span>Monthly In-Hand: <strong className="text-[#0F2447]">{formatINR(result.inHandMonthly)}</strong></span>
+            <span>Annual In-Hand: <strong className="text-[#0F2447]">{formatINRShort(result.inHandAnnual)}</strong></span>
+            <span>Take-Home: <strong className="text-[#0F2447]">{result.takeHomePercent}% of CTC</strong></span>
           </div>
         </div>
 
@@ -149,14 +149,14 @@ export default async function SalaryVariantPage({
                 <Link
                   key={v.slug}
                   href={`/salary-calculator/${v.slug}`}
-                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-[#F0F4FF] hover:text-[#E8500A] transition-colors"
                 >
                   {v.label} →
                 </Link>
               ))}
             <Link
               href="/salary-calculator"
-              className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+              className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full hover:bg-[#1A3A5C] transition-colors"
             >
               Main Salary Calculator
             </Link>

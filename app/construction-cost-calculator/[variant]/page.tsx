@@ -71,39 +71,39 @@ export default async function ConstructionVariantPage({
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/" className="hover:text-[#E8500A]">Home</Link>
           <span className="mx-2">›</span>
-          <Link href="/construction-cost-calculator" className="hover:text-blue-600">
+          <Link href="/construction-cost-calculator" className="hover:text-[#E8500A]">
             Construction Cost Calculator
           </Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">{v.cityName}</span>
         </nav>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
           Construction Cost per Sqft in {v.cityName} 2025 — Home Building Cost
         </h1>
 
         {/* City rate summary card */}
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-5">
-          <p className="text-blue-900 text-sm font-medium mb-2">
+        <div className="bg-[#F0F4FF] border border-[#CBD5EF] rounded-xl p-4 mb-5">
+          <p className="text-[#0F2447] text-sm font-medium mb-2">
             2025 construction rates in {v.cityName}, {v.state} ({tierLabel} city)
           </p>
           <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="bg-white rounded-lg px-3 py-2 border border-blue-100">
+            <div className="bg-white rounded-lg px-3 py-2 border border-[#CBD5EF]">
               <p className="text-xs text-gray-500 mb-0.5">Basic</p>
               <p className="font-bold text-gray-900 text-sm">₹{city.basicCostPerSqft}/sqft</p>
             </div>
-            <div className="bg-white rounded-lg px-3 py-2 border border-blue-200 ring-1 ring-blue-300">
-              <p className="text-xs text-blue-600 mb-0.5 font-medium">Standard</p>
-              <p className="font-bold text-blue-700 text-sm">₹{city.standardCostPerSqft}/sqft</p>
+            <div className="bg-white rounded-lg px-3 py-2 border border-[#CBD5EF] ring-1 ring-[#CBD5EF]">
+              <p className="text-xs text-[#E8500A] mb-0.5 font-medium">Standard</p>
+              <p className="font-bold text-[#0F2447] text-sm">₹{city.standardCostPerSqft}/sqft</p>
             </div>
-            <div className="bg-white rounded-lg px-3 py-2 border border-blue-100">
+            <div className="bg-white rounded-lg px-3 py-2 border border-[#CBD5EF]">
               <p className="text-xs text-gray-500 mb-0.5">Premium</p>
               <p className="font-bold text-gray-900 text-sm">₹{city.premiumCostPerSqft}/sqft</p>
             </div>
           </div>
-          <p className="text-xs text-blue-600 mt-2">
+          <p className="text-xs text-[#E8500A] mt-2">
             A 1,000 sqft standard home in {v.cityName} costs approximately{" "}
             <strong>{formatINRShort(city.standardCostPerSqft * 1000)}</strong> to build
             (before contingency).
@@ -167,14 +167,14 @@ export default async function ConstructionVariantPage({
                 <Link
                   key={x.slug}
                   href={`/construction-cost-calculator/${x.slug}`}
-                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-[#F0F4FF] hover:text-[#E8500A] transition-colors"
                 >
                   {x.cityName} →
                 </Link>
               ))}
             <Link
               href="/construction-cost-calculator"
-              className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+              className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full hover:bg-[#1A3A5C] transition-colors"
             >
               All Cities
             </Link>
@@ -193,7 +193,7 @@ export default async function ConstructionVariantPage({
               <Link
                 key={t.href}
                 href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors"
               >
                 {t.label} →
               </Link>

@@ -95,13 +95,13 @@ export default function IncomeTaxCalculatorPage() {
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/" className="hover:text-[#E8500A]">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">Income Tax Calculator</span>
         </nav>
 
         <IndiaBadge note="Uses Indian IT Act slabs, FY 2025-26 — not applicable outside India" />
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
           Income Tax Calculator FY 2025-26 — New vs Old Regime
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
@@ -127,9 +127,9 @@ export default function IncomeTaxCalculatorPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-blue-50 border-b border-blue-100">
-                  <th className="text-left px-3 py-2 font-semibold text-blue-800">Income Slab</th>
-                  <th className="text-right px-3 py-2 font-semibold text-blue-800">Tax Rate</th>
+                <tr className="bg-[#F0F4FF] border-b border-[#CBD5EF]">
+                  <th className="text-left px-3 py-2 font-semibold text-[#0F2447]">Income Slab</th>
+                  <th className="text-right px-3 py-2 font-semibold text-[#0F2447]">Tax Rate</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 text-gray-600">
@@ -144,7 +144,7 @@ export default function IncomeTaxCalculatorPage() {
                 ].map(([slab, rate]) => (
                   <tr key={slab} className="hover:bg-gray-50">
                     <td className="px-3 py-2">{slab}</td>
-                    <td className="px-3 py-2 text-right font-bold text-blue-600">{rate}</td>
+                    <td className="px-3 py-2 text-right font-bold text-[#E8500A]">{rate}</td>
                   </tr>
                 ))}
               </tbody>
@@ -204,7 +204,7 @@ export default function IncomeTaxCalculatorPage() {
               { href: "/word-counter", label: "Word Counter" },
             ].map((t) => (
               <Link key={t.href} href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors">
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors">
                 {t.label} →
               </Link>
             ))}

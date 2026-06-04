@@ -34,8 +34,8 @@ const TYPE_OPTIONS: {
     description: "Vitrified tiles, modular kitchen, granite countertops, standard fittings",
     icon: "🏠",
     priceHint: "Popular choice",
-    activeColor: "text-blue-700",
-    activeBg: "bg-blue-50",
+    activeColor: "text-[#0F2447]",
+    activeBg: "bg-[#F0F4FF]",
     activeBorder: "border-[#E8500A]",
   },
   {
@@ -54,15 +54,15 @@ const BREAKDOWN_ITEMS = [
   {
     key: "materialCost" as const,
     label: "Material & Structure",
-    color: "bg-blue-500",
-    textColor: "text-blue-600",
+    color: "bg-[#F0F4FF]0",
+    textColor: "text-[#E8500A]",
     trackBg: "bg-blue-100",
   },
   {
     key: "labourCost" as const,
     label: "Labour",
-    color: "bg-amber-500",
-    textColor: "text-amber-600",
+    color: "bg-[#E8500A]",
+    textColor: "text-[#E8500A]",
     trackBg: "bg-amber-100",
   },
   {

@@ -7,12 +7,12 @@ type QRSize = 150 | 300 | 500;
 type ECCLevel = "L" | "M" | "Q" | "H";
 
 const QR_TYPES: { id: QRType; label: string; emoji: string; color: string; activeColor: string }[] = [
-  { id: "url",       label: "URL",       emoji: "🔗", color: "text-blue-600",   activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "url",       label: "URL",       emoji: "🔗", color: "text-[#E8500A]",   activeColor: "border-[#E8500A] bg-orange-50" },
   { id: "text",      label: "Text",      emoji: "📝", color: "text-slate-600",  activeColor: "border-[#E8500A] bg-orange-50" },
   { id: "phone",     label: "Phone",     emoji: "📞", color: "text-emerald-600",activeColor: "border-[#E8500A] bg-orange-50" },
   { id: "whatsapp",  label: "WhatsApp",  emoji: "💬", color: "text-green-600",  activeColor: "border-[#E8500A] bg-orange-50" },
   { id: "email",     label: "Email",     emoji: "✉️", color: "text-violet-600", activeColor: "border-[#E8500A] bg-orange-50" },
-  { id: "wifi",      label: "WiFi",      emoji: "📶", color: "text-amber-600",  activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "wifi",      label: "WiFi",      emoji: "📶", color: "text-[#E8500A]",  activeColor: "border-[#E8500A] bg-orange-50" },
 ];
 
 const SIZE_OPTIONS: { value: QRSize; label: string; short: string }[] = [

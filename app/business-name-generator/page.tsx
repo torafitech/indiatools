@@ -105,14 +105,14 @@ export default function BusinessNameGeneratorPage() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">
+          <Link href="/" className="hover:text-[#E8500A]">
             Home
           </Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">Business Name Generator</span>
         </nav>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
           AI Business Name Generator — 10 Unique Name Ideas Instantly
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
@@ -223,7 +223,7 @@ export default function BusinessNameGeneratorPage() {
             <Link
               href="/go/namecheap"
               rel="nofollow noopener sponsored"
-              className="text-blue-600 hover:underline"
+              className="text-[#E8500A] hover:underline"
             >
               affiliate link →
             </Link>{" "}
@@ -257,7 +257,7 @@ export default function BusinessNameGeneratorPage() {
               <Link
                 key={t.href}
                 href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors"
               >
                 {t.label} →
               </Link>

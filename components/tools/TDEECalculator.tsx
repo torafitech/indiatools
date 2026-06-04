@@ -14,7 +14,7 @@ const ACTIVITY_OPTIONS: { value: ActivityLevel; label: string; emoji: string; de
 const GOAL_OPTIONS: { value: Goal; label: string; icon: string; color: string; textColor: string; borderColor: string; bgColor: string }[] = [
   { value: "lose",     label: "Cut",     icon: "📉", color: "#DC2626", textColor: "text-red-600",     borderColor: "border-red-500",     bgColor: "bg-red-50"     },
   { value: "maintain", label: "Maintain", icon: "⚖️",  color: "#059669", textColor: "text-emerald-600", borderColor: "border-emerald-500", bgColor: "bg-emerald-50" },
-  { value: "gain",     label: "Bulk",    icon: "💪", color: "#2563EB", textColor: "text-blue-600",    borderColor: "border-blue-500",    bgColor: "bg-blue-50"    },
+  { value: "gain",     label: "Bulk",    icon: "💪", color: "#7C3AED", textColor: "text-violet-600",  borderColor: "border-violet-500", bgColor: "bg-violet-50"  },
 ];
 
 export function TDEECalculator() {
@@ -42,9 +42,9 @@ export function TDEECalculator() {
     : "Maintenance";
 
   const bmiColor =
-    result.bmi < 18.5 ? "text-blue-600" :
+    result.bmi < 18.5 ? "text-[#0F2447]" :
     result.bmi < 25   ? "text-emerald-600" :
-    result.bmi < 30   ? "text-amber-600" : "text-red-600";
+    result.bmi < 30   ? "text-[#E8500A]" : "text-red-600";
 
   const activeGoal = GOAL_OPTIONS.find((g) => g.value === goal)!;
 
@@ -208,8 +208,8 @@ export function TDEECalculator() {
           <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-4">Daily Macros</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Protein", grams: result.protein, cal: result.protein * 4, pillBg: "bg-blue-100",   pillText: "text-blue-700",   barColor: "bg-blue-500"   },
-              { label: "Fat",     grams: result.fat,     cal: result.fat * 9,     pillBg: "bg-amber-100",  pillText: "text-amber-700",  barColor: "bg-amber-500"  },
+              { label: "Protein", grams: result.protein, cal: result.protein * 4, pillBg: "bg-blue-100",   pillText: "text-[#0F2447]",   barColor: "bg-[#F0F4FF]0"   },
+              { label: "Fat",     grams: result.fat,     cal: result.fat * 9,     pillBg: "bg-amber-100",  pillText: "text-amber-700",  barColor: "bg-[#E8500A]"  },
               { label: "Carbs",   grams: result.carbs,   cal: result.carbs * 4,   pillBg: "bg-emerald-100",pillText: "text-emerald-700",barColor: "bg-emerald-500"},
             ].map((m) => {
               const maxCal = result.targetCalories;

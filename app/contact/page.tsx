@@ -21,7 +21,7 @@ export default function ContactPage() {
             id="name"
             type="text"
             placeholder="Rahul Sharma"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]"
           />
         </div>
 
@@ -33,7 +33,7 @@ export default function ContactPage() {
             id="email"
             type="email"
             placeholder="rahul@example.com"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]"
           />
         </div>
 
@@ -43,7 +43,7 @@ export default function ContactPage() {
           </label>
           <select
             id="subject"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]"
           >
             <option>Bug report</option>
             <option>Feature suggestion</option>
@@ -61,26 +61,26 @@ export default function ContactPage() {
             id="message"
             rows={5}
             placeholder="Describe your issue or suggestion..."
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A] resize-none"
           />
         </div>
 
         <button
           type="button"
-          className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+          className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-[#1A3A5C] transition-colors text-sm"
         >
           Send Message
         </button>
 
         <p className="text-xs text-gray-400 text-center">
           Or email directly:{" "}
-          <a href="mailto:hello@utilspot.app" className="text-blue-600 hover:underline">
+          <a href="mailto:hello@utilspot.app" className="text-[#E8500A] hover:underline">
             hello@utilspot.app
           </a>
         </p>
       </div>
 
-      <div className="mt-6 bg-amber-50 border border-amber-100 rounded-xl p-4 text-sm text-amber-800">
+      <div className="mt-6 bg-[#FFF8F2] border border-[#E8500A]/10 rounded-xl p-4 text-sm text-[#0F2447]">
         <strong>Note:</strong> This is a static contact form — backend not yet connected. Please email us directly at{" "}
         <a href="mailto:hello@utilspot.app" className="underline">hello@utilspot.app</a> for now.
       </div>

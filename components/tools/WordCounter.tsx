@@ -34,14 +34,14 @@ export function WordCounter() {
     result.fleschScore >= 70
       ? "text-emerald-700 bg-emerald-50 border-emerald-200"
       : result.fleschScore >= 50
-      ? "text-amber-700 bg-amber-50 border-amber-200"
+      ? "text-[#E8500A] bg-[#FFF8F2] border-[#E8500A]/20"
       : "text-red-700 bg-red-50 border-red-200";
 
   const fleschBarColor =
     result.fleschScore >= 70
       ? "bg-emerald-500"
       : result.fleschScore >= 50
-      ? "bg-amber-500"
+      ? "bg-[#E8500A]"
       : "bg-red-500";
 
   return (
@@ -112,13 +112,13 @@ export function WordCounter() {
               label="Reading Time"
               value={`~${result.readingTimeMin} min`}
               sub="@ 200 wpm"
-              color="text-amber-600"
+              color="text-[#E8500A]"
             />
             <StatCard
               label="No-Space Chars"
               value={result.charactersNoSpaces.toLocaleString()}
               sub="no spaces"
-              color="text-blue-600"
+              color="text-[#E8500A]"
             />
           </div>
 

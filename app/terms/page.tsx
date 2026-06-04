@@ -67,7 +67,7 @@ export default function TermsPage() {
           <h2 className="text-xl font-semibold text-gray-800 mb-2">7. Contact</h2>
           <p>
             For any questions about these terms, email{" "}
-            <a href="mailto:hello@utilspot.app" className="text-blue-600 hover:underline">
+            <a href="mailto:hello@utilspot.app" className="text-[#E8500A] hover:underline">
               hello@utilspot.app
             </a>
           </p>

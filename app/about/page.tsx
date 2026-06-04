@@ -28,9 +28,9 @@ export default function AboutPage() {
           your salary, loan amount, or health data. What you calculate is yours.
         </p>
 
-        <section className="bg-blue-50 rounded-xl p-5 border border-blue-100">
-          <h2 className="font-semibold text-blue-900 mb-2">Our Tools</h2>
-          <ul className="space-y-1 text-sm text-blue-800">
+        <section className="bg-[#F0F4FF] rounded-xl p-5 border border-[#CBD5EF]">
+          <h2 className="font-semibold text-[#0F2447] mb-2">Our Tools</h2>
+          <ul className="space-y-1 text-sm text-[#0F2447]">
             <li>
               <Link href="/emi-calculator" className="hover:underline">EMI Calculator</Link>
               {" "}— Home, car, and personal loan EMI with amortization schedule
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Get in Touch</h2>
           <p>
             Found a bug? Have a tool suggestion? We&apos;d love to hear from you.{" "}
-            <Link href="/contact" className="text-blue-600 hover:underline">
+            <Link href="/contact" className="text-[#E8500A] hover:underline">
               Contact us here →
             </Link>
           </p>

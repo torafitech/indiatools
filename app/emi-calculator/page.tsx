@@ -125,13 +125,13 @@ export default function EMICalculatorPage() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-gray-400 mb-4">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
+          <Link href="/" className="hover:text-[#E8500A]">Home</Link>
           <span className="mx-2">›</span>
           <span className="text-gray-600">EMI Calculator</span>
         </nav>
 
         <IndiaBadge note="Uses Indian bank rates, RBI rules & ₹ currency" />
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
           EMI Calculator — Calculate Your Monthly Loan EMI Instantly
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
@@ -227,24 +227,24 @@ export default function EMICalculatorPage() {
                 <h3 className="text-sm font-semibold text-gray-700 mb-3">{CATEGORY_LABELS[cat]}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                   {banks.map((bank) => (
-                    <div key={bank.slug} className="border border-gray-200 rounded-lg p-3 hover:border-blue-300 transition-colors">
+                    <div key={bank.slug} className="border border-gray-200 rounded-lg p-3 hover:border-[#CBD5EF] transition-colors">
                       <p className="font-semibold text-gray-900 text-sm mb-2">{bank.name}</p>
                       <div className="flex flex-wrap gap-1.5">
                         {bank.homeLoan !== undefined && (
                           <Link href={`/emi-calculator/${bank.slug}-home-loan`}
-                            className="text-xs px-2 py-1 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors">
+                            className="text-xs px-2 py-1 bg-[#F0F4FF] text-[#0F2447] rounded-md hover:bg-[#E5EAFF] transition-colors">
                             Home {bank.homeLoan}%
                           </Link>
                         )}
                         {bank.carLoan !== undefined && (
                           <Link href={`/emi-calculator/${bank.slug}-car-loan`}
-                            className="text-xs px-2 py-1 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors">
+                            className="text-xs px-2 py-1 bg-[#F0F4FF] text-[#0F2447] rounded-md hover:bg-[#E5EAFF] transition-colors">
                             Car {bank.carLoan}%
                           </Link>
                         )}
                         {bank.personalLoan !== undefined && (
                           <Link href={`/emi-calculator/${bank.slug}-personal-loan`}
-                            className="text-xs px-2 py-1 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors">
+                            className="text-xs px-2 py-1 bg-[#F0F4FF] text-[#0F2447] rounded-md hover:bg-[#E5EAFF] transition-colors">
                             Personal {bank.personalLoan}%
                           </Link>
                         )}
@@ -269,7 +269,7 @@ export default function EMICalculatorPage() {
                 ["1-crore-home-loan", "₹1 Crore"],
               ].map(([slug, label]) => (
                 <Link key={slug} href={`/emi-calculator/${slug}`}
-                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                  className="text-xs px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full hover:bg-[#F0F4FF] hover:text-[#E8500A] transition-colors">
                   {label} Home Loan
                 </Link>
               ))}
@@ -304,7 +304,7 @@ export default function EMICalculatorPage() {
               <Link
                 key={t.href}
                 href={t.href}
-                className="text-sm px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full hover:bg-blue-100 transition-colors"
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors"
               >
                 {t.label} →
               </Link>
