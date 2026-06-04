@@ -214,8 +214,8 @@ function RegimeCard({
 
 /* ─── Main component ─────────────────────────────────────────────────── */
 
-const SLIDER_MIN = 100000;   // ₹1L
-const SLIDER_MAX = 5000000;  // ₹50L
+const SLIDER_MIN = 100000;    // ₹1L
+const SLIDER_MAX = 10000000;  // ₹1Cr
 
 export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number }) {
   const [grossIncome, setGrossIncome]           = useState(defaultIncome ?? 1000000);
@@ -259,46 +259,30 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
     <div className="bg-white rounded-2xl border border-[#F0E4D4] shadow-sm overflow-hidden">
 
       {/* ── HERO VERDICT BANNER ─────────────────────────────────────── */}
-      <div className={`px-6 py-5 border-b border-[#F0E4D4] ${
-        betterRegime === "new"
-          ? "bg-emerald-50"
-          : betterRegime === "old"
-          ? "bg-amber-50"
-          : "bg-[#FFFCF8]"
-      }`}>
+      <div className="bg-[#0F2447] px-6 py-5 border-b border-[#0F2447]">
         {betterRegime === "equal" ? (
-          <p className="text-center text-[#7A6048] font-medium text-sm">
+          <p className="text-center text-white/60 font-medium text-sm">
             Both regimes result in equal tax for this income.
           </p>
         ) : (
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <p className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${
-                betterRegime === "new" ? "text-emerald-600" : "text-amber-600"
-              }`}>
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#E8500A]">
                 ✓ {betterRegime === "new" ? "New Regime" : "Old Regime"} saves you more
               </p>
-              <p className="font-extrabold text-4xl sm:text-5xl text-[#0F2447] tabular-nums leading-none">
+              <p className="font-extrabold text-4xl sm:text-5xl text-white tabular-nums leading-none">
                 {formatINR(savings)}
               </p>
-              <p className="text-sm text-[#7A6048] mt-1.5">
+              <p className="text-sm text-white/50 mt-1.5">
                 per year &nbsp;·&nbsp;{" "}
                 <span className="font-semibold text-[#E8500A]">
                   {formatINR(Math.round(savings / 12))} more every month
                 </span>
               </p>
             </div>
-            <div className={`rounded-2xl px-5 py-3 text-center shrink-0 ${
-              betterRegime === "new"
-                ? "bg-emerald-100 border border-emerald-200"
-                : "bg-amber-100 border border-amber-200"
-            }`}>
-              <p className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${
-                betterRegime === "new" ? "text-emerald-600" : "text-amber-600"
-              }`}>Switch to</p>
-              <p className={`font-extrabold text-xl ${
-                betterRegime === "new" ? "text-emerald-800" : "text-amber-800"
-              }`}>
+            <div className="rounded-2xl px-5 py-3 text-center shrink-0 bg-[#E8500A]/15 border border-[#E8500A]/30">
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-[#E8500A]">Switch to</p>
+              <p className="font-extrabold text-xl text-white">
                 {betterRegime === "new" ? "New Regime" : "Old Regime"}
               </p>
             </div>
@@ -333,7 +317,7 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
             />
             <div className="flex justify-between text-xs text-[#7A6048] mt-1">
               <span>₹1L</span>
-              <span>₹50L</span>
+              <span>₹1Cr</span>
             </div>
             <p className="text-xs text-[#7A6048] mt-1">Salary / business income before deductions</p>
           </div>
