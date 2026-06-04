@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SIPCalculator } from "@/components/tools/SIPCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
+import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
   title: "SIP Calculator — Calculate Mutual Fund SIP Returns & Goal Planning India",
@@ -96,6 +97,7 @@ export default function SIPCalculatorPage() {
           <span className="text-gray-600">SIP Calculator</span>
         </nav>
 
+        <IndiaBadge note="Optimized for Indian mutual funds — returns in ₹, LTCG tax at 12.5%" />
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
           SIP Calculator — Calculate Mutual Fund Returns &amp; Plan Your Goals
         </h1>

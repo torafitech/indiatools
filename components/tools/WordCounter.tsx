@@ -7,48 +7,21 @@ const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog. This sentence 
 
 Paste your own text above to analyze it. You will see word count, reading time, keyword density, and more metrics update in real time as you type.`;
 
-function StatCard({
-  label,
-  value,
-  sub,
-  highlight,
-}: {
+const MAX_CHARS = 50000;
+
+interface StatCardProps {
   label: string;
   value: string | number;
   sub?: string;
-  highlight?: boolean;
-}) {
+  color: string;
+}
+
+function StatCard({ label, value, sub, color }: StatCardProps) {
   return (
-    <div
-      className={`rounded-xl p-4 ${
-        highlight
-          ? "bg-blue-600 text-white"
-          : "bg-white border border-gray-200"
-      }`}
-    >
-      <p
-        className={`text-xs font-medium mb-1 ${
-          highlight ? "text-blue-200" : "text-gray-500"
-        }`}
-      >
-        {label}
-      </p>
-      <p
-        className={`text-2xl font-bold ${
-          highlight ? "text-white" : "text-gray-900"
-        }`}
-      >
-        {value}
-      </p>
-      {sub && (
-        <p
-          className={`text-xs mt-0.5 ${
-            highlight ? "text-blue-200" : "text-gray-400"
-          }`}
-        >
-          {sub}
-        </p>
-      )}
+    <div className="bg-white rounded-xl border border-[#F0E4D4] p-4 text-center">
+      <p className={`text-2xl font-bold ${color}`}>{value}</p>
+      <p className="text-xs font-semibold text-[#0F2447] mt-1">{label}</p>
+      {sub && <p className="text-[10px] text-[#7A6048] mt-0.5">{sub}</p>}
     </div>
   );
 }
@@ -59,106 +32,162 @@ export function WordCounter() {
 
   const fleschColor =
     result.fleschScore >= 70
-      ? "text-green-600 bg-green-50 border-green-200"
+      ? "text-emerald-700 bg-emerald-50 border-emerald-200"
       : result.fleschScore >= 50
-      ? "text-amber-600 bg-amber-50 border-amber-200"
-      : "text-red-600 bg-red-50 border-red-200";
+      ? "text-amber-700 bg-amber-50 border-amber-200"
+      : "text-red-700 bg-red-50 border-red-200";
+
+  const fleschBarColor =
+    result.fleschScore >= 70
+      ? "bg-emerald-500"
+      : result.fleschScore >= 50
+      ? "bg-amber-500"
+      : "bg-red-500";
 
   return (
-    <div className="space-y-4">
-      {/* Textarea */}
-      <div className="relative">
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Paste or type your text here..."
-          rows={10}
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-300"
-        />
-        {text.length > 0 && (
-          <button
-            onClick={() => setText("")}
-            className="absolute top-3 right-3 text-xs text-gray-400 hover:text-gray-600 bg-white border border-gray-200 px-2 py-1 rounded-lg transition-colors"
-          >
-            Clear
-          </button>
-        )}
-      </div>
+    <div className="space-y-6">
+      {/* Main two-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6 items-start">
+        {/* Left — textarea */}
+        <div className="bg-white rounded-2xl border border-[#F0E4D4] overflow-hidden">
+          {/* Toolbar */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#F0E4D4] bg-[#FFFCF8]">
+            <span className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide">
+              Your Text
+            </span>
+            <div className="flex items-center gap-3">
+              <span
+                className={`text-xs font-medium px-2.5 py-1 rounded-full border ${
+                  text.length > MAX_CHARS * 0.9
+                    ? "text-red-600 bg-red-50 border-red-200"
+                    : "text-[#7A6048] bg-[#FFFCF8] border-[#F0E4D4]"
+                }`}
+              >
+                {text.length.toLocaleString()} / {MAX_CHARS.toLocaleString()}
+              </span>
+              {text.length > 0 && (
+                <button
+                  onClick={() => setText("")}
+                  className="text-xs font-semibold text-red-500 hover:text-red-700 transition-colors"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
 
-      {/* Primary stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <StatCard label="Words" value={result.words.toLocaleString()} highlight />
-        <StatCard label="Characters" value={result.characters.toLocaleString()} sub="with spaces" />
-        <StatCard label="Characters" value={result.charactersNoSpaces.toLocaleString()} sub="no spaces" />
-        <StatCard label="Unique Words" value={result.uniqueWords.toLocaleString()} />
-      </div>
-
-      {/* Secondary stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <StatCard label="Sentences" value={result.sentences} />
-        <StatCard label="Paragraphs" value={result.paragraphs} />
-        <StatCard
-          label="Reading Time"
-          value={`~${result.readingTimeMin} min`}
-          sub="@ 200 wpm"
-        />
-        <StatCard
-          label="Speaking Time"
-          value={`~${result.speakingTimeMin} min`}
-          sub="@ 130 wpm"
-        />
-      </div>
-
-      {/* Flesch score */}
-      <div className={`rounded-xl border p-4 ${fleschColor}`}>
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold">Flesch Reading Ease</span>
-          <span className="text-2xl font-bold">{result.fleschScore}</span>
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value.slice(0, MAX_CHARS))}
+            placeholder="Paste your text or start typing…"
+            className="w-full border-0 p-4 text-sm text-[#0F2447] leading-relaxed resize-none focus:outline-none focus:ring-0 bg-white min-h-[320px] lg:min-h-[400px] placeholder-[#C4B09A]"
+          />
         </div>
-        <div className="w-full bg-white/40 rounded-full h-2 mb-2">
+
+        {/* Right — stats grid */}
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <StatCard
+              label="Words"
+              value={result.words.toLocaleString()}
+              color="text-[#E8500A]"
+            />
+            <StatCard
+              label="Characters"
+              value={result.characters.toLocaleString()}
+              sub="with spaces"
+              color="text-[#0F2447]"
+            />
+            <StatCard
+              label="Sentences"
+              value={result.sentences}
+              color="text-emerald-600"
+            />
+            <StatCard
+              label="Paragraphs"
+              value={result.paragraphs}
+              color="text-violet-600"
+            />
+            <StatCard
+              label="Reading Time"
+              value={`~${result.readingTimeMin} min`}
+              sub="@ 200 wpm"
+              color="text-amber-600"
+            />
+            <StatCard
+              label="No-Space Chars"
+              value={result.charactersNoSpaces.toLocaleString()}
+              sub="no spaces"
+              color="text-blue-600"
+            />
+          </div>
+
+          {/* Unique words chip */}
+          <div className="bg-white rounded-xl border border-[#F0E4D4] px-4 py-3 flex items-center justify-between">
+            <span className="text-sm font-semibold text-[#0F2447]">Unique Words</span>
+            <span className="text-xl font-bold text-[#E8500A]">
+              {result.uniqueWords.toLocaleString()}
+            </span>
+          </div>
+
+          {/* Speaking time chip */}
+          <div className="bg-white rounded-xl border border-[#F0E4D4] px-4 py-3 flex items-center justify-between">
+            <span className="text-sm font-semibold text-[#0F2447]">Speaking Time</span>
+            <span className="text-xl font-bold text-violet-600">
+              ~{result.speakingTimeMin} min
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Flesch Reading Ease */}
+      <div className={`rounded-2xl border p-5 ${fleschColor}`}>
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-bold">Flesch Reading Ease</span>
+          <span className="text-3xl font-extrabold">{result.fleschScore}</span>
+        </div>
+        <div className="w-full bg-white/50 rounded-full h-2 mb-2.5">
           <div
-            className="h-2 rounded-full bg-current opacity-60 transition-all"
+            className={`h-2 rounded-full transition-all ${fleschBarColor}`}
             style={{ width: `${result.fleschScore}%` }}
           />
         </div>
         <div className="flex justify-between text-xs opacity-70">
           <span>Very Difficult (0)</span>
-          <span className="font-semibold">{result.fleschLabel}</span>
+          <span className="font-bold">{result.fleschLabel}</span>
           <span>Very Easy (100)</span>
         </div>
       </div>
 
       {/* Keyword density */}
       {result.topKeywords.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-gray-700 mb-3">
+        <div className="bg-white border border-[#F0E4D4] rounded-2xl p-5">
+          <h3 className="text-sm font-bold text-[#0F2447] mb-4">
             Top Keywords{" "}
-            <span className="text-gray-400 font-normal">(excluding stop words)</span>
+            <span className="text-[#7A6048] font-normal">— stop words excluded</span>
           </h3>
-          <div className="space-y-2">
-            {result.topKeywords.map((kw, i) => (
-              <div key={kw.word} className="flex items-center gap-3">
-                <span className="text-xs text-gray-400 w-4 text-right">{i + 1}</span>
-                <span className="text-sm font-medium text-gray-800 w-28 truncate">
-                  {kw.word}
-                </span>
-                <div className="flex-1 bg-gray-100 rounded-full h-1.5">
-                  <div
-                    className="bg-blue-500 h-1.5 rounded-full"
-                    style={{
-                      width: `${
-                        (kw.count /
-                          (result.topKeywords[0]?.count || 1)) *
-                        100
-                      }%`,
-                    }}
-                  />
+          <div className="flex flex-wrap gap-2">
+            {result.topKeywords.map((kw, i) => {
+              const intensity = Math.max(
+                0.25,
+                kw.count / (result.topKeywords[0]?.count || 1)
+              );
+              return (
+                <div
+                  key={kw.word}
+                  className="flex items-center gap-1.5 bg-[#FFFCF8] border border-[#F0E4D4] rounded-full pl-3 pr-2 py-1"
+                  style={{ opacity: 0.55 + intensity * 0.45 }}
+                >
+                  <span className="text-xs font-semibold text-[#0F2447]">
+                    {kw.word}
+                  </span>
+                  <span className="text-[10px] font-bold bg-[#E8500A] text-white rounded-full px-1.5 py-0.5 leading-none">
+                    {kw.count}
+                  </span>
+                  <span className="text-[10px] text-[#7A6048]">{kw.pct}%</span>
                 </div>
-                <span className="text-xs text-gray-500 w-12 text-right">
-                  {kw.count}× ({kw.pct}%)
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { InvoiceGenerator } from "@/components/tools/InvoiceGenerator";
 import { AdSlot } from "@/components/layout/AdSlot";
+import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
   title: "Free GST Invoice Generator India — Create & Download PDF Invoice Online",
@@ -92,6 +93,7 @@ export default function InvoiceGeneratorPage() {
           <span className="text-gray-600">GST Invoice Generator</span>
         </nav>
 
+        <IndiaBadge note="GST-compliant (CGST/SGST/IGST) — for Indian businesses & freelancers" />
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
           Free GST Invoice Generator — No Signup, Download PDF Instantly
         </h1>

@@ -6,19 +6,19 @@ type QRType = "url" | "text" | "phone" | "email" | "whatsapp" | "wifi";
 type QRSize = 150 | 300 | 500;
 type ECCLevel = "L" | "M" | "Q" | "H";
 
-const QR_TYPES: { id: QRType; label: string }[] = [
-  { id: "url", label: "URL" },
-  { id: "text", label: "Text" },
-  { id: "phone", label: "Phone" },
-  { id: "email", label: "Email" },
-  { id: "whatsapp", label: "WhatsApp" },
-  { id: "wifi", label: "WiFi" },
+const QR_TYPES: { id: QRType; label: string; emoji: string; color: string; activeColor: string }[] = [
+  { id: "url",       label: "URL",       emoji: "🔗", color: "text-blue-600",   activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "text",      label: "Text",      emoji: "📝", color: "text-slate-600",  activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "phone",     label: "Phone",     emoji: "📞", color: "text-emerald-600",activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "whatsapp",  label: "WhatsApp",  emoji: "💬", color: "text-green-600",  activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "email",     label: "Email",     emoji: "✉️", color: "text-violet-600", activeColor: "border-[#E8500A] bg-orange-50" },
+  { id: "wifi",      label: "WiFi",      emoji: "📶", color: "text-amber-600",  activeColor: "border-[#E8500A] bg-orange-50" },
 ];
 
-const SIZE_OPTIONS: { value: QRSize; label: string }[] = [
-  { value: 150, label: "Small (150px)" },
-  { value: 300, label: "Medium (300px)" },
-  { value: 500, label: "Large (500px)" },
+const SIZE_OPTIONS: { value: QRSize; label: string; short: string }[] = [
+  { value: 150, label: "Small",  short: "128px" },
+  { value: 300, label: "Medium", short: "256px" },
+  { value: 500, label: "Large",  short: "512px" },
 ];
 
 const ECC_OPTIONS: { value: ECCLevel; label: string; desc: string }[] = [
@@ -106,68 +106,82 @@ export function QRCodeGenerator() {
     wifi: "",
   };
 
+  const inputLabel: Record<QRType, string> = {
+    url: "Website URL",
+    text: "Your Text",
+    phone: "Phone Number",
+    email: "Email Address",
+    whatsapp: "WhatsApp Number",
+    wifi: "",
+  };
+
+  const inputFieldClass =
+    "w-full border border-[#F0E4D4] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white";
+
+  const labelClass = "block text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-1.5";
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+    <div className="bg-white rounded-2xl border border-[#F0E4D4] shadow-sm overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+
         {/* Left: Inputs */}
-        <div className="p-6 space-y-5 border-r border-gray-100">
-          {/* Type presets */}
+        <div className="p-6 space-y-6 border-b lg:border-b-0 lg:border-r border-[#F0E4D4]">
+
+          {/* QR Type selector — icon grid */}
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-              QR Type
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {QR_TYPES.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => { setQrType(t.id); setInput(""); }}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                    qrType === t.id
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {t.label}
-                </button>
-              ))}
+            <label className={labelClass}>QR Type</label>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              {QR_TYPES.map((t) => {
+                const active = qrType === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => { setQrType(t.id); setInput(""); }}
+                    className={`flex flex-col items-center justify-center gap-1 py-3 px-1 rounded-2xl border-2 transition-all text-center ${
+                      active
+                        ? `${t.activeColor} border-[#E8500A]`
+                        : "bg-[#FFFCF8] border-[#F0E4D4] hover:border-[#E8500A]/40 hover:bg-orange-50/50"
+                    }`}
+                  >
+                    <span className="text-xl leading-none">{t.emoji}</span>
+                    <span className={`text-[10px] font-semibold leading-none ${active ? "text-[#0F2447]" : "text-[#7A6048]"}`}>
+                      {t.label}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Main input — WiFi gets special fields */}
+          {/* Input area — WiFi vs everything else */}
           {qrType === "wifi" ? (
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                  Network Name (SSID)
-                </label>
+                <label className={labelClass}>Network Name (SSID)</label>
                 <input
                   type="text"
                   value={wifiSsid}
                   onChange={(e) => setWifiSsid(e.target.value)}
                   placeholder="MyHomeWiFi"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className={inputFieldClass}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                  Password
-                </label>
+                <label className={labelClass}>Password</label>
                 <input
                   type="text"
                   value={wifiPass}
                   onChange={(e) => setWifiPass(e.target.value)}
                   placeholder="WiFi password"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className={inputFieldClass}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                  Security Type
-                </label>
+                <label className={labelClass}>Security Type</label>
                 <select
                   value={wifiType}
                   onChange={(e) => setWifiType(e.target.value)}
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                  className={inputFieldClass}
                 >
                   <option value="WPA">WPA/WPA2</option>
                   <option value="WEP">WEP</option>
@@ -177,39 +191,38 @@ export function QRCodeGenerator() {
             </div>
           ) : (
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                {qrType === "phone" || qrType === "whatsapp" ? "Phone Number" : qrType === "email" ? "Email Address" : "Content"}
-              </label>
+              <label className={labelClass}>{inputLabel[qrType]}</label>
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={placeholders[qrType]}
                 rows={3}
-                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                className={`${inputFieldClass} resize-none`}
               />
               {(qrType === "phone" || qrType === "whatsapp") && (
-                <p className="text-xs text-gray-400 mt-1">Enter 10-digit number. +91 added automatically.</p>
+                <p className="text-xs text-[#7A6048]/70 mt-1.5">Enter 10-digit number. +91 added automatically.</p>
               )}
             </div>
           )}
 
-          {/* Size */}
+          {/* Size — 3 pill options */}
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-              Size
-            </label>
+            <label className={labelClass}>Size</label>
             <div className="flex gap-2">
               {SIZE_OPTIONS.map((s) => (
                 <button
                   key={s.value}
                   onClick={() => setSize(s.value)}
-                  className={`flex-1 py-2 rounded-lg text-xs font-medium transition-colors ${
+                  className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all border ${
                     size === s.value
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      ? "bg-[#E8500A] text-white border-[#E8500A] shadow-sm"
+                      : "bg-[#FFFCF8] text-[#7A6048] border-[#F0E4D4] hover:border-[#E8500A]/40"
                   }`}
                 >
-                  {s.label}
+                  <span className="block">{s.label}</span>
+                  <span className={`block text-[10px] font-normal mt-0.5 ${size === s.value ? "text-white/80" : "text-[#7A6048]/60"}`}>
+                    {s.short}
+                  </span>
                 </button>
               ))}
             </div>
@@ -218,67 +231,62 @@ export function QRCodeGenerator() {
           {/* Colors */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                QR Color
-              </label>
-              <div className="flex items-center gap-2">
+              <label className={labelClass}>QR Color</label>
+              <div className="flex items-center gap-2.5">
                 <input
                   type="color"
                   value={fgColor}
                   onChange={(e) => setFgColor(e.target.value)}
-                  className="w-10 h-10 rounded-lg border border-gray-300 cursor-pointer p-0.5 bg-white"
+                  className="w-10 h-10 rounded-xl border border-[#F0E4D4] cursor-pointer p-0.5 bg-white"
                 />
-                <span className="text-sm font-mono text-gray-600">{fgColor.toUpperCase()}</span>
+                <span className="text-sm font-mono text-[#7A6048]">{fgColor.toUpperCase()}</span>
               </div>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                Background
-              </label>
-              <div className="flex items-center gap-2">
+              <label className={labelClass}>Background</label>
+              <div className="flex items-center gap-2.5">
                 <input
                   type="color"
                   value={bgColor}
                   onChange={(e) => setBgColor(e.target.value)}
-                  className="w-10 h-10 rounded-lg border border-gray-300 cursor-pointer p-0.5 bg-white"
+                  className="w-10 h-10 rounded-xl border border-[#F0E4D4] cursor-pointer p-0.5 bg-white"
                 />
-                <span className="text-sm font-mono text-gray-600">{bgColor.toUpperCase()}</span>
+                <span className="text-sm font-mono text-[#7A6048]">{bgColor.toUpperCase()}</span>
               </div>
             </div>
           </div>
 
           {/* Error Correction */}
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-              Error Correction
-            </label>
+            <label className={labelClass}>Error Correction</label>
             <div className="flex gap-2">
               {ECC_OPTIONS.map((e) => (
                 <button
                   key={e.value}
                   onClick={() => setEcc(e.value)}
                   title={e.desc}
-                  className={`flex-1 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all border ${
                     ecc === e.value
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      ? "bg-[#E8500A] text-white border-[#E8500A] shadow-sm"
+                      : "bg-[#FFFCF8] text-[#7A6048] border-[#F0E4D4] hover:border-[#E8500A]/40"
                   }`}
                 >
                   {e.label}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-400 mt-1.5">
+            <p className="text-xs text-[#7A6048]/70 mt-1.5">
               Higher = more damage-resistant, larger QR code. L is fine for clean prints; H for logos/stickers.
             </p>
           </div>
         </div>
 
         {/* Right: Preview */}
-        <div className="p-6 flex flex-col items-center justify-center bg-gray-50 min-h-[400px]">
+        <div className="p-6 flex flex-col items-center justify-center bg-[#FFFCF8] min-h-[420px]">
           {qrUrl ? (
-            <>
-              <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 mb-4">
+            <div className="w-full flex flex-col items-center gap-5">
+              {/* QR image card */}
+              <div className="bg-white rounded-2xl p-5 shadow-md border border-[#F0E4D4]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={qrUrl}
@@ -289,29 +297,39 @@ export function QRCodeGenerator() {
                   style={{ width: Math.min(size, 260), height: Math.min(size, 260) }}
                 />
               </div>
-              <p className="text-xs text-gray-400 mb-4 text-center max-w-[240px] break-all">
+
+              {/* Scan label */}
+              <p className="text-xs font-medium text-[#7A6048] tracking-wide">
+                📷 Scan to test
+              </p>
+
+              {/* Data preview */}
+              <p className="text-xs text-[#7A6048]/60 text-center max-w-[260px] break-all leading-relaxed">
                 {data.length > 60 ? data.slice(0, 60) + "…" : data}
               </p>
-              <div className="flex gap-2 flex-wrap justify-center">
+
+              {/* Download — full-width saffron */}
+              <div className="w-full flex flex-col gap-2">
                 <button
                   onClick={handleDownload}
                   disabled={downloading}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-60"
+                  className="w-full bg-[#E8500A] hover:bg-[#D44A09] text-white font-semibold rounded-xl px-5 py-3 text-sm flex items-center justify-center gap-2 transition-colors disabled:opacity-60"
                 >
+                  <span className="text-base leading-none">↓</span>
                   {downloading ? "Downloading…" : "Download PNG"}
                 </button>
                 <button
                   onClick={handleCopyUrl}
-                  className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+                  className="w-full bg-white border border-[#F0E4D4] text-[#7A6048] font-semibold rounded-xl px-5 py-2.5 text-sm hover:bg-[#FFFCF8] hover:border-[#E8500A]/30 transition-colors"
                 >
-                  {copied ? "Copied!" : "Copy Image URL"}
+                  {copied ? "✓ Copied!" : "Copy Image URL"}
                 </button>
               </div>
-            </>
+            </div>
           ) : (
-            <div className="flex flex-col items-center text-center">
-              <div className="w-40 h-40 bg-gray-200 rounded-2xl flex items-center justify-center mb-4">
-                <svg className="w-16 h-16 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <div className="flex flex-col items-center text-center gap-4">
+              <div className="w-44 h-44 bg-[#F0E4D4]/40 rounded-2xl flex items-center justify-center">
+                <svg className="w-16 h-16 text-[#E8500A]/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <rect x="3" y="3" width="7" height="7" rx="1" />
                   <rect x="14" y="3" width="7" height="7" rx="1" />
                   <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -324,10 +342,14 @@ export function QRCodeGenerator() {
                   <rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none" />
                 </svg>
               </div>
-              <p className="text-gray-400 text-sm">Enter content above to generate your QR code</p>
+              <div>
+                <p className="text-[#0F2447] font-semibold text-sm">Your QR code appears here</p>
+                <p className="text-[#7A6048]/70 text-xs mt-1">Enter content above to generate</p>
+              </div>
             </div>
           )}
         </div>
+
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ConstructionCalculator } from "@/components/tools/ConstructionCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
+import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
   title: "Construction Cost Calculator India 2025 — Cost Per Sqft by City",
@@ -118,6 +119,7 @@ export default function ConstructionCostCalculatorPage() {
           <span className="text-gray-600">Construction Cost Calculator</span>
         </nav>
 
+        <IndiaBadge note="City-specific rates for 30+ Indian cities — updated 2025" />
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
           Construction Cost Calculator India 2025 — Cost Per Sqft by City
         </h1>

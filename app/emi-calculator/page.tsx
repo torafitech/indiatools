@@ -3,6 +3,7 @@ import Link from "next/link";
 import { EMICalculator } from "@/components/tools/EMICalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { BANK_RATES, RATES_LAST_REVIEWED } from "@/data/bank-rates";
+import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 const CATEGORY_LABELS: Record<string, string> = {
   PSU: "Public Sector Banks",
@@ -129,6 +130,7 @@ export default function EMICalculatorPage() {
           <span className="text-gray-600">EMI Calculator</span>
         </nav>
 
+        <IndiaBadge note="Uses Indian bank rates, RBI rules & ₹ currency" />
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
           EMI Calculator — Calculate Your Monthly Loan EMI Instantly
         </h1>

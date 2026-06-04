@@ -3,33 +3,19 @@
 import { useState, useMemo } from "react";
 import { calculateTDEEResult, type Gender, type ActivityLevel, type Goal } from "@/lib/calculations/tdee";
 
-const ACTIVITY_OPTIONS: { value: ActivityLevel; label: string; desc: string }[] = [
-  { value: "sedentary", label: "Sedentary",       desc: "Little or no exercise, desk job" },
-  { value: "light",     label: "Lightly Active",  desc: "Light exercise 1–3 days/week" },
-  { value: "moderate",  label: "Moderate",         desc: "Moderate exercise 3–5 days/week" },
-  { value: "active",    label: "Very Active",      desc: "Hard exercise 6–7 days/week" },
-  { value: "extreme",   label: "Extra Active",     desc: "Physical job + daily training" },
+const ACTIVITY_OPTIONS: { value: ActivityLevel; label: string; emoji: string; desc: string }[] = [
+  { value: "sedentary", label: "Sedentary",      emoji: "🪑", desc: "Desk job, little/no exercise" },
+  { value: "light",     label: "Lightly Active", emoji: "🚶", desc: "Light exercise 1–3 days/wk" },
+  { value: "moderate",  label: "Moderate",        emoji: "🏃", desc: "Exercise 3–5 days/wk" },
+  { value: "active",    label: "Very Active",     emoji: "🏋️", desc: "Hard exercise 6–7 days/wk" },
+  { value: "extreme",   label: "Extra Active",    emoji: "⚡", desc: "Physical job + daily training" },
 ];
 
-const GOAL_OPTIONS: { value: Goal; label: string; icon: string; color: string }[] = [
-  { value: "lose",     label: "Lose Weight",   icon: "📉", color: "bg-blue-600" },
-  { value: "maintain", label: "Maintain",      icon: "⚖️", color: "bg-blue-600" },
-  { value: "gain",     label: "Gain Muscle",   icon: "💪", color: "bg-blue-600" },
+const GOAL_OPTIONS: { value: Goal; label: string; icon: string; color: string; textColor: string; borderColor: string; bgColor: string }[] = [
+  { value: "lose",     label: "Cut",     icon: "📉", color: "#DC2626", textColor: "text-red-600",     borderColor: "border-red-500",     bgColor: "bg-red-50"     },
+  { value: "maintain", label: "Maintain", icon: "⚖️",  color: "#059669", textColor: "text-emerald-600", borderColor: "border-emerald-500", bgColor: "bg-emerald-50" },
+  { value: "gain",     label: "Bulk",    icon: "💪", color: "#2563EB", textColor: "text-blue-600",    borderColor: "border-blue-500",    bgColor: "bg-blue-50"    },
 ];
-
-function MacroBar({ label, grams, calories, color }: { label: string; grams: number; calories: number; color: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <span className={`w-2.5 h-2.5 rounded-full ${color} flex-shrink-0`} />
-      <span className="text-sm text-gray-600 w-16">{label}</span>
-      <div className="flex-1 bg-gray-100 rounded-full h-2">
-        <div className={`${color} h-2 rounded-full`} style={{ width: `${Math.min(100, (calories / 800) * 100)}%` }} />
-      </div>
-      <span className="text-sm font-semibold text-gray-800 w-16 text-right">{grams}g</span>
-      <span className="text-xs text-gray-400 w-16 text-right">{calories} kcal</span>
-    </div>
-  );
-}
 
 export function TDEECalculator() {
   const [age, setAge]           = useState(28);
@@ -57,202 +43,195 @@ export function TDEECalculator() {
 
   const bmiColor =
     result.bmi < 18.5 ? "text-blue-600" :
-    result.bmi < 25   ? "text-green-600" :
+    result.bmi < 25   ? "text-emerald-600" :
     result.bmi < 30   ? "text-amber-600" : "text-red-600";
 
+  const activeGoal = GOAL_OPTIONS.find((g) => g.value === goal)!;
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-5">
+    <div className="space-y-5">
 
-        {/* LEFT: Inputs */}
-        <div className="md:col-span-3 p-6 space-y-5 md:border-r border-gray-100">
+      {/* ── Input card ── */}
+      <div className="bg-white rounded-2xl border border-[#F0E4D4] p-5 space-y-6">
 
-          {/* Unit + Gender row */}
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Unit</p>
-              <div className="flex gap-1 bg-gray-100 p-0.5 rounded-lg w-fit">
-                {(["metric", "imperial"] as const).map((u) => (
-                  <button key={u} onClick={() => setUnit(u)}
-                    className={`text-xs px-3 py-1.5 rounded-md font-medium transition-all capitalize ${
-                      unit === u ? "bg-white text-blue-600 shadow-sm" : "text-gray-500"
-                    }`}>
-                    {u}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="flex-1">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Gender</p>
-              <div className="flex gap-1 bg-gray-100 p-0.5 rounded-lg w-fit">
-                {(["male", "female"] as const).map((g) => (
-                  <button key={g} onClick={() => setGender(g)}
-                    className={`text-xs px-3 py-1.5 rounded-md font-medium transition-all capitalize ${
-                      gender === g ? "bg-white text-blue-600 shadow-sm" : "text-gray-500"
-                    }`}>
-                    {g === "male" ? "♂ Male" : "♀ Female"}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Age, Weight, Height */}
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { label: "Age", value: age, set: setAge, unit: "yrs", min: 10, max: 90 },
-              { label: "Weight", value: weight, set: setWeight, unit: unit === "metric" ? "kg" : "lbs", min: unit === "metric" ? 30 : 66, max: unit === "metric" ? 200 : 440 },
-              { label: "Height", value: height, set: setHeight, unit: unit === "metric" ? "cm" : "in", min: unit === "metric" ? 100 : 39, max: unit === "metric" ? 230 : 91 },
-            ].map(({ label, value, set, unit: u, min, max }) => (
-              <div key={label}>
-                <label className="text-sm font-medium text-gray-600 block mb-1.5">{label}</label>
-                <div className="flex items-center gap-1 bg-blue-50 border border-blue-100 focus-within:border-blue-400 rounded-xl px-3 py-2 transition-colors">
-                  <input
-                    type="number"
-                    value={value}
-                    min={min}
-                    max={max}
-                    onChange={(e) => set(Math.min(max, Math.max(min, parseInt(e.target.value) || min)))}
-                    className="flex-1 text-right font-bold text-gray-900 text-base bg-transparent focus:outline-none w-full"
-                  />
-                  <span className="text-gray-400 text-xs">{u}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Activity level */}
-          <div>
-            <p className="text-sm font-medium text-gray-600 mb-2">Activity Level</p>
-            <div className="space-y-1.5">
-              {ACTIVITY_OPTIONS.map((opt) => (
+        {/* Row: Gender cards + Unit toggle */}
+        <div className="flex items-start justify-between gap-4">
+          {/* Gender */}
+          <div className="flex-1">
+            <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-2">Gender</p>
+            <div className="grid grid-cols-2 gap-2">
+              {(["male", "female"] as const).map((g) => (
                 <button
-                  key={opt.value}
-                  onClick={() => setActivity(opt.value)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left border transition-all ${
-                    activity === opt.value
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "border-gray-200 hover:border-blue-200 hover:bg-blue-50"
+                  key={g}
+                  onClick={() => setGender(g)}
+                  className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 font-semibold text-sm transition-all ${
+                    gender === g
+                      ? "bg-[#0F2447] border-[#0F2447] text-white"
+                      : "bg-white border-[#F0E4D4] text-[#7A6048] hover:border-[#E8500A]/40"
                   }`}
                 >
-                  <span className={`text-sm font-semibold ${activity === opt.value ? "text-white" : "text-gray-800"}`}>
-                    {opt.label}
-                  </span>
-                  <span className={`text-xs ${activity === opt.value ? "text-blue-200" : "text-gray-400"}`}>
-                    {opt.desc}
-                  </span>
+                  <span className="text-xl">{g === "male" ? "♂" : "♀"}</span>
+                  <span className="capitalize">{g}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Goal */}
+          {/* Unit toggle */}
           <div>
-            <p className="text-sm font-medium text-gray-600 mb-2">Goal</p>
-            <div className="grid grid-cols-3 gap-2">
-              {GOAL_OPTIONS.map((opt) => (
+            <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-2">Unit</p>
+            <div className="flex bg-[#FDF6EE] border border-[#F0E4D4] rounded-xl p-0.5">
+              {(["metric", "imperial"] as const).map((u) => (
                 <button
-                  key={opt.value}
-                  onClick={() => setGoal(opt.value)}
-                  className={`flex flex-col items-center gap-1 py-3 rounded-xl border font-semibold text-sm transition-all ${
-                    goal === opt.value
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "border-gray-200 text-gray-600 hover:border-blue-200 hover:bg-blue-50"
+                  key={u}
+                  onClick={() => setUnit(u)}
+                  className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all capitalize ${
+                    unit === u
+                      ? "bg-white text-[#E8500A] shadow-sm border border-[#F0E4D4]"
+                      : "text-[#7A6048]"
                   }`}
                 >
-                  <span className="text-xl">{opt.icon}</span>
-                  {opt.label}
+                  {u}
                 </button>
               ))}
             </div>
           </div>
         </div>
 
-        {/* RIGHT: Results */}
-        <div className="md:col-span-2 bg-gradient-to-br from-blue-600 to-blue-700 p-6 flex flex-col">
-          {/* Target calories hero */}
-          <div className="text-center mb-5">
-            <p className="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-2">
-              Daily Target — {goalLabel}
-            </p>
-            <p className="text-5xl font-bold text-white">{result.targetCalories.toLocaleString()}</p>
-            <p className="text-blue-300 text-xs mt-1.5">kcal / day · {deficitLabel}</p>
-          </div>
-
-          <div className="border-t border-blue-500/50 mb-5" />
-
-          {/* BMR + TDEE */}
-          <div className="space-y-2 mb-4">
-            {[
-              { label: "BMR (at rest)", value: result.bmr, sub: "Basal Metabolic Rate" },
-              { label: "TDEE (maintenance)", value: result.tdee, sub: "With your activity level" },
-            ].map((row) => (
-              <div key={row.label} className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-2.5">
-                <div>
-                  <p className="text-white text-sm font-semibold">{row.label}</p>
-                  <p className="text-blue-200 text-xs">{row.sub}</p>
-                </div>
-                <p className="text-white font-bold text-lg">{row.value.toLocaleString()}</p>
+        {/* Age / Weight / Height */}
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { label: "Age",    value: age,    set: setAge,    suffix: "yrs", min: 10, max: 90 },
+            { label: "Weight", value: weight, set: setWeight, suffix: unit === "metric" ? "kg"  : "lbs", min: unit === "metric" ? 30  : 66, max: unit === "metric" ? 200 : 440 },
+            { label: "Height", value: height, set: setHeight, suffix: unit === "metric" ? "cm"  : "in",  min: unit === "metric" ? 100 : 39, max: unit === "metric" ? 230 : 91  },
+          ].map(({ label, value, set, suffix, min, max }) => (
+            <div key={label}>
+              <label className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide block mb-1.5">{label}</label>
+              <div className="flex items-center gap-1 border border-[#F0E4D4] rounded-xl px-3 py-2.5 bg-[#FDF6EE] focus-within:border-[#E8500A] focus-within:ring-2 focus-within:ring-[#E8500A]/20 transition-all">
+                <input
+                  type="number"
+                  value={value}
+                  min={min}
+                  max={max}
+                  onChange={(e) => set(Math.min(max, Math.max(min, parseInt(e.target.value) || min)))}
+                  className="flex-1 text-right font-bold text-[#0F2447] text-base bg-transparent focus:outline-none"
+                />
+                <span className="text-[#7A6048] text-xs">{suffix}</span>
               </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Activity level */}
+        <div>
+          <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-2.5">Activity Level</p>
+          <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+            {ACTIVITY_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setActivity(opt.value)}
+                className={`flex flex-col items-center text-center gap-1 px-2 py-3 rounded-2xl border-2 transition-all ${
+                  activity === opt.value
+                    ? "border-[#E8500A] bg-[#FFF5EF]"
+                    : "border-[#F0E4D4] bg-white hover:border-[#E8500A]/40 hover:bg-[#FFF9F5]"
+                }`}
+              >
+                <span className="text-2xl">{opt.emoji}</span>
+                <span className={`text-xs font-semibold leading-tight ${activity === opt.value ? "text-[#E8500A]" : "text-[#0F2447]"}`}>
+                  {opt.label}
+                </span>
+                <span className="text-[10px] text-[#7A6048] leading-tight">{opt.desc}</span>
+              </button>
             ))}
           </div>
+        </div>
 
-          {/* BMI */}
-          <div className="bg-white/10 rounded-xl px-4 py-2.5 mb-4 flex items-center justify-between">
-            <div>
-              <p className="text-white text-sm font-semibold">BMI</p>
-              <p className="text-blue-200 text-xs">{result.bmiLabel}</p>
-            </div>
-            <p className={`font-bold text-lg bg-white/20 px-3 py-1 rounded-lg text-white`}>
-              {result.bmi}
-            </p>
-          </div>
-
-          {/* Macros */}
-          <div className="bg-white/10 rounded-xl p-4 mt-auto">
-            <p className="text-blue-200 text-xs font-semibold uppercase tracking-wide mb-3">
-              Daily Macros
-            </p>
-            <div className="space-y-2.5">
-              <div className="flex justify-between text-xs text-blue-200 pb-1 border-b border-blue-500/30">
-                <span>Nutrient</span><span>Grams</span><span>Calories</span>
-              </div>
-              {[
-                { label: "Protein", grams: result.protein, cal: result.protein * 4, color: "bg-emerald-400" },
-                { label: "Carbs",   grams: result.carbs,   cal: result.carbs * 4,   color: "bg-amber-400" },
-                { label: "Fat",     grams: result.fat,     cal: result.fat * 9,     color: "bg-orange-400" },
-              ].map((m) => (
-                <div key={m.label} className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${m.color} flex-shrink-0`} />
-                  <span className="text-blue-100 text-xs flex-1">{m.label}</span>
-                  <span className="text-white font-semibold text-sm">{m.grams}g</span>
-                  <span className="text-blue-200 text-xs w-16 text-right">{m.cal} kcal</span>
-                </div>
-              ))}
-            </div>
+        {/* Goal */}
+        <div>
+          <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-2.5">Goal</p>
+          <div className="grid grid-cols-3 gap-2">
+            {GOAL_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setGoal(opt.value)}
+                className={`flex flex-col items-center gap-1.5 py-3 rounded-2xl border-2 font-semibold text-sm transition-all ${
+                  goal === opt.value
+                    ? `${opt.borderColor} ${opt.bgColor} ${opt.textColor}`
+                    : "border-[#F0E4D4] bg-white text-[#7A6048] hover:border-[#F0E4D4]"
+                }`}
+              >
+                <span className="text-xl">{opt.icon}</span>
+                {opt.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Mobile results bar */}
-      <div className="md:hidden bg-blue-600 px-4 pt-4 pb-3 border-t border-gray-100">
-        <div className="text-center mb-3">
-          <p className="text-blue-200 text-xs mb-1">Daily Target ({goalLabel})</p>
-          <p className="text-3xl font-bold text-white">{result.targetCalories.toLocaleString()} kcal</p>
-          <p className="text-blue-300 text-xs mt-1">{deficitLabel}</p>
+      {/* ── Results ── */}
+      <div className="space-y-3">
+
+        {/* TDEE hero card */}
+        <div className="bg-[#0F2447] rounded-2xl p-5 text-white">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <p className="text-[#8BA3CC] text-xs font-semibold uppercase tracking-widest mb-1">
+                Daily Target — {goalLabel}
+              </p>
+              <div className="flex items-end gap-2">
+                <span className="text-5xl font-bold">{result.targetCalories.toLocaleString()}</span>
+                <span className="text-[#8BA3CC] text-sm mb-1.5">kcal / day</span>
+              </div>
+              <p className="text-[#8BA3CC] text-xs mt-1">{deficitLabel}</p>
+            </div>
+
+            <div className="flex sm:flex-col gap-3 sm:gap-2 sm:text-right">
+              <div className="flex-1 sm:flex-none bg-white/10 rounded-xl px-4 py-2.5">
+                <p className="text-[#8BA3CC] text-xs">BMR</p>
+                <p className="font-bold text-lg">{result.bmr.toLocaleString()}</p>
+              </div>
+              <div className="flex-1 sm:flex-none bg-white/10 rounded-xl px-4 py-2.5">
+                <p className="text-[#8BA3CC] text-xs">TDEE</p>
+                <p className="font-bold text-lg">{result.tdee.toLocaleString()}</p>
+              </div>
+              <div className="flex-1 sm:flex-none bg-white/10 rounded-xl px-4 py-2.5">
+                <p className="text-[#8BA3CC] text-xs">BMI</p>
+                <p className={`font-bold text-lg ${bmiColor}`}>{result.bmi}</p>
+                <p className="text-[#8BA3CC] text-[10px]">{result.bmiLabel}</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-3 gap-2 text-center text-white">
-          <div>
-            <p className="text-blue-200 text-xs">BMR</p>
-            <p className="font-bold">{result.bmr.toLocaleString()}</p>
-          </div>
-          <div>
-            <p className="text-blue-200 text-xs">TDEE</p>
-            <p className="font-bold">{result.tdee.toLocaleString()}</p>
-          </div>
-          <div>
-            <p className="text-blue-200 text-xs">BMI</p>
-            <p className="font-bold">{result.bmi}</p>
+
+        {/* Macro breakdown */}
+        <div className="bg-white rounded-2xl border border-[#F0E4D4] p-5">
+          <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-4">Daily Macros</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { label: "Protein", grams: result.protein, cal: result.protein * 4, pillBg: "bg-blue-100",   pillText: "text-blue-700",   barColor: "bg-blue-500"   },
+              { label: "Fat",     grams: result.fat,     cal: result.fat * 9,     pillBg: "bg-amber-100",  pillText: "text-amber-700",  barColor: "bg-amber-500"  },
+              { label: "Carbs",   grams: result.carbs,   cal: result.carbs * 4,   pillBg: "bg-emerald-100",pillText: "text-emerald-700",barColor: "bg-emerald-500"},
+            ].map((m) => {
+              const maxCal = result.targetCalories;
+              const pct = Math.min(100, Math.round((m.cal / maxCal) * 100));
+              return (
+                <div key={m.label} className="bg-[#FDF6EE] rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${m.pillBg} ${m.pillText}`}>
+                      {m.label}
+                    </span>
+                    <span className="text-[#7A6048] text-xs">{pct}%</span>
+                  </div>
+                  <div>
+                    <span className="text-2xl font-bold text-[#0F2447]">{m.grams}g</span>
+                    <span className="text-[#7A6048] text-xs ml-1.5">{m.cal} kcal</span>
+                  </div>
+                  <div className="bg-[#F0E4D4] rounded-full h-1.5">
+                    <div className={`${m.barColor} h-1.5 rounded-full`} style={{ width: `${pct}%` }} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,43 +1,89 @@
 import Link from "next/link";
 
+const FOOTER_LINKS = {
+  Finance: [
+    { href: "/emi-calculator", label: "EMI Calculator" },
+    { href: "/sip-calculator", label: "SIP Calculator" },
+    { href: "/income-tax-calculator", label: "Tax Calculator" },
+    { href: "/salary-calculator", label: "Salary Calculator" },
+    { href: "/construction-cost-calculator", label: "Construction Cost" },
+  ],
+  Tools: [
+    { href: "/word-counter", label: "Word Counter" },
+    { href: "/tdee-calculator", label: "TDEE Calculator" },
+    { href: "/invoice-generator", label: "GST Invoice" },
+    { href: "/qr-code-generator", label: "QR Code Generator" },
+    { href: "/business-name-generator", label: "Business Names (AI)" },
+  ],
+  Company: [
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+    { href: "/privacy-policy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
+  ],
+};
+
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 mt-16">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
-          <div>
-            <p className="font-semibold text-gray-800 mb-2">IndiaTools</p>
-            <p className="text-sm text-gray-500">Free online tools for India. No signup required.</p>
+    <footer className="bg-white border-t border-[#F0E4D4] mt-8">
+      <div className="max-w-6xl mx-auto px-4 py-10 sm:py-14">
+        {/* Top row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
+          {/* Brand */}
+          <div className="col-span-2 sm:col-span-1">
+            <Link href="/" className="inline-block mb-3">
+              <span className="font-extrabold text-lg tracking-tight">
+                <span className="text-gradient-saffron">India</span>
+                <span className="text-[#0F2447]">Tools</span>
+              </span>
+            </Link>
+            <p className="text-sm text-[#7A6048] leading-relaxed max-w-[200px]">
+              Free online tools for India. No signup. No clutter. Just the tool.
+            </p>
+            <div className="flex gap-3 mt-4">
+              <span className="text-[11px] bg-[#FFF8F2] text-[#E8500A] border border-[#FFDCBA] px-2.5 py-1 rounded-full font-semibold">
+                100% Free
+              </span>
+              <span className="text-[11px] bg-[#EEF3FA] text-[#1A3A5C] border border-[#D8E5F5] px-2.5 py-1 rounded-full font-semibold">
+                No Signup
+              </span>
+            </div>
           </div>
-          <div>
-            <p className="font-semibold text-gray-700 mb-2 text-sm">Finance</p>
-            <ul className="space-y-1 text-sm text-gray-500">
-              <li><Link href="/emi-calculator" className="hover:text-blue-600">EMI Calculator</Link></li>
-              <li><Link href="/sip-calculator" className="hover:text-blue-600">SIP Calculator</Link></li>
-              <li><Link href="/income-tax-calculator" className="hover:text-blue-600">Tax Calculator</Link></li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-gray-700 mb-2 text-sm">Other Tools</p>
-            <ul className="space-y-1 text-sm text-gray-500">
-              <li><Link href="/word-counter" className="hover:text-blue-600">Word Counter</Link></li>
-              <li><Link href="/tdee-calculator" className="hover:text-blue-600">TDEE Calculator</Link></li>
-              <li><Link href="/invoice-generator" className="hover:text-blue-600">Invoice Generator</Link></li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-semibold text-gray-700 mb-2 text-sm">Company</p>
-            <ul className="space-y-1 text-sm text-gray-500">
-              <li><Link href="/about" className="hover:text-blue-600">About</Link></li>
-              <li><Link href="/contact" className="hover:text-blue-600">Contact</Link></li>
-              <li><Link href="/privacy-policy" className="hover:text-blue-600">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-blue-600">Terms of Service</Link></li>
-            </ul>
-          </div>
+
+          {/* Links */}
+          {Object.entries(FOOTER_LINKS).map(([section, links]) => (
+            <div key={section}>
+              <p className="font-bold text-[#1C1209] text-sm mb-3">{section}</p>
+              <ul className="space-y-2">
+                {links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-[#7A6048] hover:text-[#E8500A] transition-colors duration-150"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <div className="border-t border-gray-200 pt-4 text-center text-xs text-gray-400">
-          © {currentYear} IndiaTools.in — Free tools for everyone. No ads shown until AdSense approval.
+
+        {/* Bottom bar */}
+        <div className="border-t border-[#F0E4D4] pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#7A6048]">
+          <p>
+            © {year}{" "}
+            <Link href="/" className="font-semibold hover:text-[#E8500A] transition-colors">
+              IndiaTools.in
+            </Link>{" "}
+            — Free tools for everyone.
+          </p>
+          <p className="flex items-center gap-1">
+            Made with{" "}
+            <span className="text-[#E8500A]">♥</span> in India
+          </p>
         </div>
       </div>
     </footer>

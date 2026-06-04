@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { IncomeTaxCalculator } from "@/components/tools/IncomeTaxCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
+import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
   title: "Income Tax Calculator FY 2025-26 — New vs Old Regime Comparison India",
@@ -99,6 +100,7 @@ export default function IncomeTaxCalculatorPage() {
           <span className="text-gray-600">Income Tax Calculator</span>
         </nav>
 
+        <IndiaBadge note="Uses Indian IT Act slabs, FY 2025-26 — not applicable outside India" />
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
           Income Tax Calculator FY 2025-26 — New vs Old Regime
         </h1>

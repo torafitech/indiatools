@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SalaryCalculator } from "@/components/tools/SalaryCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
+import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
   title: "CTC to In-Hand Salary Calculator India 2025 — Take Home Pay Calculator",
@@ -118,6 +119,7 @@ export default function SalaryCalculatorPage() {
           <span className="text-gray-600">Salary Calculator</span>
         </nav>
 
+        <IndiaBadge note="Uses Indian PF rules, professional tax & CTC structure" />
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
           CTC to In-Hand Salary Calculator — India 2025
         </h1>

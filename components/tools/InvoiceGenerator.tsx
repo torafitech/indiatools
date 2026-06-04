@@ -56,11 +56,22 @@ function dueIn30(): string {
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
-function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
+function SectionCard({
+  title,
+  children,
+  accentColor = "border-[#E8500A]",
+}: {
+  title: string;
+  children: React.ReactNode;
+  accentColor?: string;
+}) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5">
-      <h3 className="text-sm font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">{title}</h3>
-      {children}
+    <div className={`bg-white rounded-2xl border border-[#F0E4D4] overflow-hidden`}>
+      <div className={`flex items-center gap-3 px-5 pt-5 pb-4 border-b border-[#F0E4D4]`}>
+        <div className={`w-1 h-5 rounded-full ${accentColor} bg-current`} />
+        <h3 className="text-xs font-bold uppercase tracking-widest text-[#7A6048]">{title}</h3>
+      </div>
+      <div className="p-5">{children}</div>
     </div>
   );
 }
@@ -77,15 +88,15 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-500 mb-1">
-        {label}{required && <span className="text-red-400 ml-0.5">*</span>}
+      <label className="block text-xs font-medium text-[#7A6048] mb-1.5">
+        {label}{required && <span className="text-[#E8500A] ml-0.5">*</span>}
       </label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-colors"
+        className="w-full border border-[#F0E4D4] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white text-[#0F2447] placeholder:text-[#C4A882] transition-colors"
       />
     </div>
   );
@@ -101,13 +112,159 @@ function TextAreaField({
 }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-500 mb-1">{label}</label>
+      <label className="block text-xs font-medium text-[#7A6048] mb-1.5">{label}</label>
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={rows}
-        className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-colors resize-none"
+        className="w-full border border-[#F0E4D4] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white text-[#0F2447] placeholder:text-[#C4A882] transition-colors resize-none"
       />
+    </div>
+  );
+}
+
+// ─── Invoice Preview Panel ────────────────────────────────────────────────────
+
+function InvoicePreview({
+  sellerName, sellerGSTIN, sellerAddress, sellerEmail, sellerPhone,
+  buyerName, buyerGSTIN, buyerAddress,
+  invoiceNumber, invoiceDate, dueDate, placeOfSupply, isInterState,
+  items, bankName, accountNumber, ifsc, notes, calc,
+}: InvoiceData & { calc: ReturnType<typeof calculateInvoice> }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#F0E4D4] overflow-hidden">
+      {/* Invoice header bar */}
+      <div className="bg-[#0F2447] px-6 py-5 flex items-start justify-between">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A9CC6] mb-1">Tax Invoice</p>
+          <p className="text-xl font-bold text-white">{invoiceNumber || "INV-XXXX"}</p>
+        </div>
+        <div className="text-right">
+          <div className="w-10 h-10 rounded-xl bg-[#E8500A] flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 space-y-5">
+        {/* Dates */}
+        <div className="flex gap-6">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-0.5">Date</p>
+            <p className="text-sm font-semibold text-[#0F2447]">{invoiceDate || "—"}</p>
+          </div>
+          {dueDate && (
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-0.5">Due Date</p>
+              <p className="text-sm font-semibold text-[#0F2447]">{dueDate}</p>
+            </div>
+          )}
+          {placeOfSupply && (
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-0.5">Supply</p>
+              <p className="text-sm font-semibold text-[#0F2447]">{placeOfSupply}</p>
+            </div>
+          )}
+        </div>
+
+        {/* From / To */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-[#FFFCF8] rounded-xl border border-[#F0E4D4] p-3">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-1.5">From</p>
+            <p className="text-sm font-bold text-[#0F2447]">{sellerName || <span className="text-[#C4A882]">Your Name</span>}</p>
+            {sellerGSTIN && <p className="text-xs text-[#7A6048] mt-0.5">GSTIN: {sellerGSTIN}</p>}
+            {sellerAddress && <p className="text-xs text-[#7A6048] mt-0.5 whitespace-pre-line">{sellerAddress}</p>}
+          </div>
+          <div className="bg-[#FFFCF8] rounded-xl border border-[#F0E4D4] p-3">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-1.5">Bill To</p>
+            <p className="text-sm font-bold text-[#0F2447]">{buyerName || <span className="text-[#C4A882]">Client Name</span>}</p>
+            {buyerGSTIN && <p className="text-xs text-[#7A6048] mt-0.5">GSTIN: {buyerGSTIN}</p>}
+            {buyerAddress && <p className="text-xs text-[#7A6048] mt-0.5 whitespace-pre-line">{buyerAddress}</p>}
+          </div>
+        </div>
+
+        {/* Items table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-[#FFFCF8] border border-[#F0E4D4] rounded-xl">
+                <th className="text-left px-3 py-2 font-bold uppercase tracking-wider text-[#7A6048] rounded-l-xl">Item</th>
+                <th className="text-right px-3 py-2 font-bold uppercase tracking-wider text-[#7A6048]">Qty</th>
+                <th className="text-right px-3 py-2 font-bold uppercase tracking-wider text-[#7A6048]">Rate</th>
+                <th className="text-right px-3 py-2 font-bold uppercase tracking-wider text-[#7A6048] rounded-r-xl">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, i) => (
+                <tr key={i} className="border-b border-[#F0E4D4]">
+                  <td className="px-3 py-2.5">
+                    <p className="font-medium text-[#0F2447]">{item.description || <span className="text-[#C4A882]">—</span>}</p>
+                    {item.hsn && <p className="text-[#7A6048] mt-0.5">HSN: {item.hsn}</p>}
+                  </td>
+                  <td className="px-3 py-2.5 text-right text-[#0F2447] tabular-nums">{item.qty}</td>
+                  <td className="px-3 py-2.5 text-right text-[#0F2447] tabular-nums">
+                    {item.rate.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                  </td>
+                  <td className="px-3 py-2.5 text-right font-semibold text-[#0F2447] tabular-nums">
+                    {(item.qty * item.rate).toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Totals */}
+        <div className="space-y-2">
+          <div className="flex justify-between text-xs text-[#7A6048]">
+            <span>Subtotal</span>
+            <span className="tabular-nums font-medium text-[#0F2447]">{formatINR(calc.subtotal)}</span>
+          </div>
+          {!isInterState ? (
+            <>
+              <div className="flex justify-between text-xs text-[#7A6048]">
+                <span>CGST</span>
+                <span className="tabular-nums">{formatINR(calc.totalCGST)}</span>
+              </div>
+              <div className="flex justify-between text-xs text-[#7A6048]">
+                <span>SGST</span>
+                <span className="tabular-nums">{formatINR(calc.totalSGST)}</span>
+              </div>
+            </>
+          ) : (
+            <div className="flex justify-between text-xs text-[#7A6048]">
+              <span>IGST</span>
+              <span className="tabular-nums">{formatINR(calc.totalIGST)}</span>
+            </div>
+          )}
+          <div className="flex justify-between items-center bg-[#0F2447] rounded-xl px-4 py-3">
+            <span className="text-sm font-bold text-white">Grand Total</span>
+            <span className="text-xl font-bold text-white tabular-nums">{formatINR(calc.grandTotal)}</span>
+          </div>
+        </div>
+
+        {/* Bank details */}
+        {(bankName || accountNumber || ifsc) && (
+          <div className="bg-[#FFFCF8] rounded-xl border border-[#F0E4D4] p-3">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-2">Payment Details</p>
+            <div className="space-y-0.5 text-xs text-[#0F2447]">
+              {bankName && <p><span className="text-[#7A6048]">Bank:</span> {bankName}</p>}
+              {accountNumber && <p><span className="text-[#7A6048]">Account:</span> {accountNumber}</p>}
+              {ifsc && <p><span className="text-[#7A6048]">IFSC:</span> {ifsc}</p>}
+            </div>
+          </div>
+        )}
+
+        {notes && (
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#7A6048] mb-1">Notes</p>
+            <p className="text-xs text-[#7A6048] whitespace-pre-line">{notes}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -210,246 +367,218 @@ export function InvoiceGenerator() {
   }, [invoiceData, calc]);
 
   return (
-    <div className="space-y-5">
-      {/* ── Seller ─────────────────────────────────────────────────────────── */}
-      <SectionCard title="Seller / Your Details">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Business / Name" value={sellerName} onChange={setSellerName} placeholder="Acme Pvt Ltd" required />
-          <Field label="GSTIN" value={sellerGSTIN} onChange={setSellerGSTIN} placeholder="22AAAAA0000A1Z5" />
-          <div className="sm:col-span-2">
-            <TextAreaField label="Address" value={sellerAddress} onChange={setSellerAddress} rows={2} />
-          </div>
-          <Field label="Email" value={sellerEmail} onChange={setSellerEmail} placeholder="you@company.com" type="email" />
-          <Field label="Phone" value={sellerPhone} onChange={setSellerPhone} placeholder="+91 98765 43210" />
-        </div>
-      </SectionCard>
+    <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start space-y-6 lg:space-y-0">
 
-      {/* ── Buyer ──────────────────────────────────────────────────────────── */}
-      <SectionCard title="Buyer / Client Details">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Client Name" value={buyerName} onChange={setBuyerName} placeholder="Client Pvt Ltd" required />
-          <Field label="GSTIN (optional)" value={buyerGSTIN} onChange={setBuyerGSTIN} placeholder="22AAAAA0000A1Z5" />
-          <div className="sm:col-span-2">
-            <TextAreaField label="Address" value={buyerAddress} onChange={setBuyerAddress} rows={2} />
-          </div>
-        </div>
-      </SectionCard>
+      {/* ── LEFT: Form ─────────────────────────────────────────────────────── */}
+      <div className="space-y-5">
 
-      {/* ── Invoice details ────────────────────────────────────────────────── */}
-      <SectionCard title="Invoice Details">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Field label="Invoice Number" value={invoiceNumber} onChange={setInvoiceNumber} placeholder="INV-2025-001" required />
-          <Field label="Invoice Date" value={invoiceDate} onChange={setInvoiceDate} type="date" required />
-          <Field label="Due Date" value={dueDate} onChange={setDueDate} type="date" />
-          <div className="sm:col-span-2 lg:col-span-2">
-            <label className="block text-xs font-medium text-gray-500 mb-1">
-              Place of Supply<span className="text-red-400 ml-0.5">*</span>
-            </label>
-            <select
-              value={placeOfSupply}
-              onChange={(e) => setPlaceOfSupply(e.target.value)}
-              className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-colors bg-white"
-            >
-              <option value="">Select state…</option>
-              {INDIAN_STATES.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
+        {/* Seller */}
+        <SectionCard title="Seller / Your Details" accentColor="bg-[#0F2447]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Field label="Business / Name" value={sellerName} onChange={setSellerName} placeholder="Acme Pvt Ltd" required />
+            <Field label="GSTIN" value={sellerGSTIN} onChange={setSellerGSTIN} placeholder="22AAAAA0000A1Z5" />
+            <div className="sm:col-span-2">
+              <TextAreaField label="Address" value={sellerAddress} onChange={setSellerAddress} rows={2} />
+            </div>
+            <Field label="Email" value={sellerEmail} onChange={setSellerEmail} placeholder="you@company.com" type="email" />
+            <Field label="Phone" value={sellerPhone} onChange={setSellerPhone} placeholder="+91 98765 43210" />
           </div>
-          <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Supply Type</label>
-            <div className="flex gap-2 mt-1">
-              {[
-                { label: "Intra-State", value: false, sub: "CGST + SGST" },
-                { label: "Inter-State", value: true, sub: "IGST" },
-              ].map((opt) => (
-                <button
-                  key={opt.label}
-                  onClick={() => setIsInterState(opt.value)}
-                  className={`flex-1 text-left px-3 py-2 rounded-lg border text-xs font-medium transition-all ${
-                    isInterState === opt.value
-                      ? "bg-blue-50 border-blue-400 text-blue-700"
-                      : "border-gray-200 text-gray-500 hover:border-gray-300"
-                  }`}
-                >
-                  <div className="font-semibold">{opt.label}</div>
-                  <div className="text-gray-400 font-normal">{opt.sub}</div>
-                </button>
-              ))}
+        </SectionCard>
+
+        {/* Buyer */}
+        <SectionCard title="Buyer / Client Details" accentColor="bg-blue-500">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Field label="Client Name" value={buyerName} onChange={setBuyerName} placeholder="Client Pvt Ltd" required />
+            <Field label="GSTIN (optional)" value={buyerGSTIN} onChange={setBuyerGSTIN} placeholder="22AAAAA0000A1Z5" />
+            <div className="sm:col-span-2">
+              <TextAreaField label="Address" value={buyerAddress} onChange={setBuyerAddress} rows={2} />
             </div>
           </div>
-        </div>
-      </SectionCard>
+        </SectionCard>
 
-      {/* ── Line Items ─────────────────────────────────────────────────────── */}
-      <SectionCard title="Line Items">
-        <div className="overflow-x-auto -mx-1">
-          <table className="w-full min-w-[640px] text-sm">
-            <thead>
-              <tr className="text-xs text-gray-400 font-medium border-b border-gray-100">
-                <th className="pb-2 text-left pl-1 w-[35%]">Description</th>
-                <th className="pb-2 text-left w-[12%]">HSN/SAC</th>
-                <th className="pb-2 text-right w-[8%]">Qty</th>
-                <th className="pb-2 text-right w-[14%]">Rate (₹)</th>
-                <th className="pb-2 text-right w-[11%]">GST%</th>
-                <th className="pb-2 text-right w-[14%]">Amount (₹)</th>
-                <th className="pb-2 w-[6%]" />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {items.map((item, idx) => (
-                <tr key={idx}>
-                  <td className="py-2 pr-2 pl-1">
-                    <input
-                      type="text"
-                      value={item.description}
-                      onChange={(e) => updateItem(idx, "description", e.target.value)}
-                      placeholder="Service / product name"
-                      className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 transition-colors"
-                    />
-                  </td>
-                  <td className="py-2 pr-2">
-                    <input
-                      type="text"
-                      value={item.hsn}
-                      onChange={(e) => updateItem(idx, "hsn", e.target.value)}
-                      placeholder="9983"
-                      className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 transition-colors"
-                    />
-                  </td>
-                  <td className="py-2 pr-2">
-                    <input
-                      type="number"
-                      min={1}
-                      value={item.qty}
-                      onChange={(e) => updateItem(idx, "qty", parseFloat(e.target.value) || 1)}
-                      className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 transition-colors text-right"
-                    />
-                  </td>
-                  <td className="py-2 pr-2">
-                    <input
-                      type="number"
-                      min={0}
-                      step="0.01"
-                      value={item.rate || ""}
-                      onChange={(e) => updateItem(idx, "rate", parseFloat(e.target.value) || 0)}
-                      placeholder="0.00"
-                      className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 transition-colors text-right"
-                    />
-                  </td>
-                  <td className="py-2 pr-2">
-                    <select
-                      value={item.gstRate}
-                      onChange={(e) => updateItem(idx, "gstRate", parseInt(e.target.value) as GSTRate)}
-                      className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 transition-colors bg-white"
-                    >
-                      {GST_RATES.map((r) => (
-                        <option key={r} value={r}>{r}%</option>
-                      ))}
-                    </select>
-                  </td>
-                  <td className="py-2 pr-2 text-right font-medium text-gray-900 text-xs tabular-nums">
-                    {(item.qty * item.rate).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </td>
-                  <td className="py-2">
-                    <button
-                      onClick={() => removeItem(idx)}
-                      disabled={items.length === 1}
-                      className="p-1.5 text-gray-300 hover:text-red-400 disabled:opacity-30 transition-colors rounded"
-                      title="Remove row"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </td>
+        {/* Invoice Details */}
+        <SectionCard title="Invoice Details" accentColor="bg-amber-500">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Field label="Invoice Number" value={invoiceNumber} onChange={setInvoiceNumber} placeholder="INV-2025-001" required />
+            <Field label="Invoice Date" value={invoiceDate} onChange={setInvoiceDate} type="date" required />
+            <Field label="Due Date" value={dueDate} onChange={setDueDate} type="date" />
+            <div className="sm:col-span-2 lg:col-span-2">
+              <label className="block text-xs font-medium text-[#7A6048] mb-1.5">
+                Place of Supply<span className="text-[#E8500A] ml-0.5">*</span>
+              </label>
+              <select
+                value={placeOfSupply}
+                onChange={(e) => setPlaceOfSupply(e.target.value)}
+                className="w-full border border-[#F0E4D4] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white text-[#0F2447] transition-colors"
+              >
+                <option value="">Select state…</option>
+                {INDIAN_STATES.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#7A6048] mb-1.5">Supply Type</label>
+              <div className="flex gap-2 mt-1">
+                {[
+                  { label: "Intra-State", value: false, sub: "CGST + SGST" },
+                  { label: "Inter-State", value: true, sub: "IGST" },
+                ].map((opt) => (
+                  <button
+                    key={opt.label}
+                    onClick={() => setIsInterState(opt.value)}
+                    className={`flex-1 text-left px-3 py-2 rounded-xl border text-xs font-medium transition-all ${
+                      isInterState === opt.value
+                        ? "bg-[#FFF5F0] border-[#E8500A] text-[#E8500A]"
+                        : "border-[#F0E4D4] text-[#7A6048] hover:border-[#E8500A]/40 hover:text-[#E8500A]"
+                    }`}
+                  >
+                    <div className="font-semibold">{opt.label}</div>
+                    <div className="opacity-60 font-normal">{opt.sub}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </SectionCard>
+
+        {/* Line Items */}
+        <SectionCard title="Line Items" accentColor="bg-amber-400">
+          <div className="overflow-x-auto -mx-1">
+            <table className="w-full min-w-[580px] text-sm">
+              <thead>
+                <tr className="border-b border-[#F0E4D4]">
+                  <th className="pb-2.5 text-left pl-1 text-xs font-bold uppercase tracking-widest text-[#7A6048] w-[34%]">Description</th>
+                  <th className="pb-2.5 text-left text-xs font-bold uppercase tracking-widest text-[#7A6048] w-[12%]">HSN/SAC</th>
+                  <th className="pb-2.5 text-right text-xs font-bold uppercase tracking-widest text-[#7A6048] w-[8%]">Qty</th>
+                  <th className="pb-2.5 text-right text-xs font-bold uppercase tracking-widest text-[#7A6048] w-[14%]">Rate (₹)</th>
+                  <th className="pb-2.5 text-right text-xs font-bold uppercase tracking-widest text-[#7A6048] w-[11%]">GST%</th>
+                  <th className="pb-2.5 text-right text-xs font-bold uppercase tracking-widest text-[#7A6048] w-[14%]">Amount (₹)</th>
+                  <th className="pb-2.5 w-[7%]" />
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <button
-          onClick={addItem}
-          className="mt-3 flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Add Line Item
-        </button>
-      </SectionCard>
-
-      {/* ── Bank Details ───────────────────────────────────────────────────── */}
-      <SectionCard title="Bank Details (for payment)">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Field label="Bank Name" value={bankName} onChange={setBankName} placeholder="HDFC Bank" />
-          <Field label="Account Number" value={accountNumber} onChange={setAccountNumber} placeholder="XXXX XXXX XXXX" />
-          <Field label="IFSC Code" value={ifsc} onChange={setIfsc} placeholder="HDFC0001234" />
-        </div>
-      </SectionCard>
-
-      {/* ── Notes ──────────────────────────────────────────────────────────── */}
-      <SectionCard title="Notes (optional)">
-        <TextAreaField
-          label="Terms, thank-you note, or any instructions"
-          value={notes}
-          onChange={setNotes}
-          rows={3}
-        />
-      </SectionCard>
-
-      {/* ── Live Preview ───────────────────────────────────────────────────── */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-5 text-white">
-        <h3 className="text-sm font-semibold text-blue-200 mb-4">Invoice Summary</h3>
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="text-blue-200">Subtotal</span>
-            <span className="font-medium">{formatINR(calc.subtotal)}</span>
+              </thead>
+              <tbody className="divide-y divide-[#F0E4D4]">
+                {items.map((item, idx) => (
+                  <tr key={idx}>
+                    <td className="py-2.5 pr-2 pl-1">
+                      <input
+                        type="text"
+                        value={item.description}
+                        onChange={(e) => updateItem(idx, "description", e.target.value)}
+                        placeholder="Service / product"
+                        className="w-full text-sm border border-[#F0E4D4] rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white placeholder:text-[#C4A882] transition-colors"
+                      />
+                    </td>
+                    <td className="py-2.5 pr-2">
+                      <input
+                        type="text"
+                        value={item.hsn}
+                        onChange={(e) => updateItem(idx, "hsn", e.target.value)}
+                        placeholder="9983"
+                        className="w-full text-sm border border-[#F0E4D4] rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white placeholder:text-[#C4A882] transition-colors"
+                      />
+                    </td>
+                    <td className="py-2.5 pr-2">
+                      <input
+                        type="number"
+                        min={1}
+                        value={item.qty}
+                        onChange={(e) => updateItem(idx, "qty", parseFloat(e.target.value) || 1)}
+                        className="w-full text-sm border border-[#F0E4D4] rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white text-right transition-colors"
+                      />
+                    </td>
+                    <td className="py-2.5 pr-2">
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.01"
+                        value={item.rate || ""}
+                        onChange={(e) => updateItem(idx, "rate", parseFloat(e.target.value) || 0)}
+                        placeholder="0.00"
+                        className="w-full text-sm border border-[#F0E4D4] rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white text-right placeholder:text-[#C4A882] transition-colors"
+                      />
+                    </td>
+                    <td className="py-2.5 pr-2">
+                      <select
+                        value={item.gstRate}
+                        onChange={(e) => updateItem(idx, "gstRate", parseInt(e.target.value) as GSTRate)}
+                        className="w-full text-sm border border-[#F0E4D4] rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A] bg-white transition-colors"
+                      >
+                        {GST_RATES.map((r) => (
+                          <option key={r} value={r}>{r}%</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="py-2.5 pr-2 text-right font-semibold text-[#0F2447] text-xs tabular-nums">
+                      {(item.qty * item.rate).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2.5">
+                      <button
+                        onClick={() => removeItem(idx)}
+                        disabled={items.length === 1}
+                        className="p-1.5 text-[#C4A882] hover:text-[#E8500A] disabled:opacity-30 transition-colors rounded-lg"
+                        title="Remove row"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          {!isInterState ? (
-            <>
-              <div className="flex justify-between text-sm">
-                <span className="text-blue-200">CGST</span>
-                <span>{formatINR(calc.totalCGST)}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-blue-200">SGST</span>
-                <span>{formatINR(calc.totalSGST)}</span>
-              </div>
-            </>
-          ) : (
-            <div className="flex justify-between text-sm">
-              <span className="text-blue-200">IGST</span>
-              <span>{formatINR(calc.totalIGST)}</span>
-            </div>
-          )}
-          <div className="flex justify-between text-sm">
-            <span className="text-blue-200">Total GST</span>
-            <span>{formatINR(calc.totalGST)}</span>
+
+          <button
+            onClick={addItem}
+            className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#E8500A] hover:text-[#D44A09] transition-colors"
+          >
+            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#E8500A] text-white">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+              </svg>
+            </span>
+            Add Line Item
+          </button>
+        </SectionCard>
+
+        {/* Bank Details */}
+        <SectionCard title="Bank Details (for payment)" accentColor="bg-emerald-500">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Field label="Bank Name" value={bankName} onChange={setBankName} placeholder="HDFC Bank" />
+            <Field label="Account Number" value={accountNumber} onChange={setAccountNumber} placeholder="XXXX XXXX XXXX" />
+            <Field label="IFSC Code" value={ifsc} onChange={setIfsc} placeholder="HDFC0001234" />
           </div>
-          <div className="border-t border-blue-500/50 pt-2 flex justify-between">
-            <span className="font-bold">Grand Total</span>
-            <span className="text-2xl font-bold">{formatINR(calc.grandTotal)}</span>
-          </div>
-        </div>
+        </SectionCard>
+
+        {/* Notes */}
+        <SectionCard title="Notes (optional)" accentColor="bg-[#7A6048]">
+          <TextAreaField
+            label="Terms, thank-you note, or any instructions"
+            value={notes}
+            onChange={setNotes}
+            rows={3}
+          />
+        </SectionCard>
 
         {/* Errors */}
         {errors.length > 0 && (
-          <div className="mt-4 bg-red-500/20 border border-red-400/30 rounded-lg p-3">
-            <p className="text-xs font-semibold text-red-200 mb-1">Please fix before downloading:</p>
+          <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-red-600 mb-2">Fix before downloading:</p>
             <ul className="list-disc list-inside space-y-0.5">
               {errors.map((e) => (
-                <li key={e} className="text-xs text-red-200">{e}</li>
+                <li key={e} className="text-xs text-red-600">{e}</li>
               ))}
             </ul>
           </div>
         )}
 
+        {/* Download button */}
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="mt-4 w-full py-3 bg-white text-blue-700 font-bold rounded-xl hover:bg-blue-50 transition-colors disabled:opacity-70 flex items-center justify-center gap-2 text-sm"
+          className="w-full py-3.5 bg-[#E8500A] hover:bg-[#D44A09] text-white font-bold rounded-2xl transition-colors disabled:opacity-70 flex items-center justify-center gap-2.5 text-sm shadow-lg shadow-[#E8500A]/20"
         >
           {downloading ? (
             <>
@@ -470,6 +599,33 @@ export function InvoiceGenerator() {
           )}
         </button>
       </div>
+
+      {/* ── RIGHT: Invoice Preview (sticky on desktop) ──────────────────────── */}
+      <div className="lg:sticky lg:top-6">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#7A6048] mb-3">Live Preview</p>
+        <InvoicePreview
+          sellerName={sellerName}
+          sellerGSTIN={sellerGSTIN}
+          sellerAddress={sellerAddress}
+          sellerEmail={sellerEmail}
+          sellerPhone={sellerPhone}
+          buyerName={buyerName}
+          buyerGSTIN={buyerGSTIN}
+          buyerAddress={buyerAddress}
+          invoiceNumber={invoiceNumber}
+          invoiceDate={invoiceDate}
+          dueDate={dueDate}
+          placeOfSupply={placeOfSupply}
+          isInterState={isInterState}
+          items={items}
+          bankName={bankName}
+          accountNumber={accountNumber}
+          ifsc={ifsc}
+          notes={notes}
+          calc={calc}
+        />
+      </div>
+
     </div>
   );
 }

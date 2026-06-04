@@ -44,9 +44,9 @@ function SliderField({
   }
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-gray-600 flex-1">{label}</span>
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-sm font-medium text-[#7A6048]">{label}</span>
         <input
           type="text"
           value={focused ? raw : display}
@@ -54,15 +54,29 @@ function SliderField({
           onChange={(e) => setRaw(e.target.value)}
           onBlur={() => { commit(raw); setFocused(false); }}
           onKeyDown={(e) => { if (e.key === "Enter") { commit(raw); (e.target as HTMLInputElement).blur(); } }}
-          className="font-bold text-gray-900 text-sm bg-blue-50 border border-blue-100 focus:border-blue-500 focus:bg-white px-3 py-1.5 rounded-lg text-right w-32 transition-colors focus:outline-none"
+          className="font-bold text-[#0F2447] text-sm bg-[#FFF8F2] border border-[#FFDCBA] focus:border-[#E8500A] focus:bg-white px-3 py-1.5 rounded-xl text-right w-32 transition-colors focus:outline-none"
         />
       </div>
-      <input
-        type="range" min={min} max={max} step={step} value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full h-1.5 rounded-full appearance-none cursor-pointer focus:outline-none"
-        style={{ background: `linear-gradient(to right, #2563eb ${pct}%, #e2e8f0 ${pct}%)` }}
-      />
+      {/* Slider track with floating chip */}
+      <div className="relative pt-1">
+        {/* Floating value chip */}
+        <div
+          className="absolute -top-0.5 pointer-events-none"
+          style={{ left: `calc(${pct}% - 1.5rem)` }}
+        >
+          <span className="bg-[#E8500A] text-white text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+            {display}
+          </span>
+        </div>
+        <div className="mt-5">
+          <input
+            type="range" min={min} max={max} step={step} value={value}
+            onChange={(e) => onChange(parseFloat(e.target.value))}
+            className="w-full h-1.5 rounded-full appearance-none cursor-pointer focus:outline-none"
+            style={{ background: `linear-gradient(to right, #E8500A ${pct}%, #F0E4D4 ${pct}%)` }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -98,15 +112,17 @@ export function SIPCalculator() {
   const gainsPctOfCorpus = 100 - investedPct;
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#F0E4D4] shadow-sm overflow-hidden">
       {/* Mode tabs */}
-      <div className="flex gap-1.5 p-3 bg-gray-50 border-b border-gray-100">
+      <div className="flex gap-1.5 p-3 bg-[#FFFCF8] border-b border-[#F0E4D4]">
         {MODES.map((m) => (
           <button
             key={m.value}
             onClick={() => setMode(m.value)}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              mode === m.value ? "bg-blue-600 text-white shadow-sm" : "text-gray-500 hover:bg-white hover:text-gray-800"
+              mode === m.value
+                ? "bg-[#0F2447] text-white shadow-sm"
+                : "bg-white text-[#7A6048] border border-[#F0E4D4] hover:border-[#E8500A] hover:text-[#E8500A]"
             }`}
           >
             <span>{m.icon}</span>
@@ -117,7 +133,7 @@ export function SIPCalculator() {
 
       <div className="grid grid-cols-1 md:grid-cols-5">
         {/* LEFT: Inputs */}
-        <div className="md:col-span-3 p-6 space-y-6 md:border-r border-gray-100">
+        <div className="md:col-span-3 p-6 space-y-7 md:border-r border-[#F0E4D4]">
 
           {mode === "sip" && (
             <SliderField label="Monthly SIP" value={monthly} min={500} max={200000} step={500}
@@ -139,7 +155,7 @@ export function SIPCalculator() {
             display={`${years} yr${years !== 1 ? "s" : ""}`} onChange={setYears} />
 
           {/* Affiliate CTA */}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-sm">
+          <div className="bg-[#F6FFF8] border border-emerald-200 rounded-2xl p-4 text-sm">
             <p className="text-emerald-800 font-medium mb-1">Start SIP on Groww or Zerodha</p>
             <p className="text-emerald-600 text-xs mb-2">Zero commission, direct mutual funds, instant KYC.</p>
             <a href="/go/groww" rel="nofollow noopener sponsored"
@@ -149,34 +165,45 @@ export function SIPCalculator() {
           </div>
         </div>
 
-        {/* RIGHT: Results */}
-        <div className="hidden md:flex md:col-span-2 flex-col bg-gradient-to-br from-blue-600 to-blue-700 p-6">
-          <div className="text-center mb-5">
+        {/* RIGHT: Results — desktop */}
+        <div className="hidden md:flex md:col-span-2 flex-col bg-[#0F2447] p-6 gap-5">
+          {/* Primary result */}
+          <div className="text-center">
             {mode === "goal" ? (
               <>
-                <p className="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-2">Monthly SIP Needed</p>
-                <p className="text-5xl font-bold text-white">{formatINR(requiredSIP)}</p>
-                <p className="text-blue-300 text-xs mt-1.5">to reach {formatINRShort(target)} in {years} yrs</p>
+                <p className="text-[#8BA4C8] text-[11px] font-semibold uppercase tracking-widest mb-2">Monthly SIP Needed</p>
+                <p className="text-5xl font-bold text-white leading-none">{formatINR(requiredSIP)}</p>
+                <p className="text-[#8BA4C8] text-xs mt-2">to reach {formatINRShort(target)} in {years} yrs</p>
               </>
             ) : (
               <>
-                <p className="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-2">
+                <p className="text-[#8BA4C8] text-[11px] font-semibold uppercase tracking-widest mb-2">
                   {mode === "lumpsum" ? "Future Value" : "Corpus at Maturity"}
                 </p>
-                <p className="text-5xl font-bold text-white">{formatINRShort(displayCorpus)}</p>
-                <p className="text-blue-300 text-xs mt-1.5">in {years} year{years !== 1 ? "s" : ""}</p>
+                <p className="text-5xl font-bold text-white leading-none">{formatINRShort(displayCorpus)}</p>
+                <p className="text-[#8BA4C8] text-xs mt-2">in {years} year{years !== 1 ? "s" : ""}</p>
               </>
             )}
           </div>
 
-          <div className="border-t border-blue-500/50 mb-5" />
+          {/* Two stats */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white/10 rounded-2xl p-4 text-center">
+              <p className="text-[#8BA4C8] text-[10px] font-semibold uppercase tracking-wider mb-1">Invested</p>
+              <p className="text-white font-bold text-lg leading-tight">{formatINRShort(displayInvested)}</p>
+            </div>
+            <div className="bg-white/10 rounded-2xl p-4 text-center">
+              <p className="text-[#8BA4C8] text-[10px] font-semibold uppercase tracking-wider mb-1">Est. Gains</p>
+              <p className="text-emerald-400 font-bold text-lg leading-tight">{formatINRShort(displayGains)}</p>
+            </div>
+          </div>
 
-          {/* Donut */}
-          <div className="flex items-center gap-4 mb-5">
+          {/* Donut + legend */}
+          <div className="flex items-center gap-4">
             <div className="relative w-24 h-24 flex-shrink-0">
               <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="4" />
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round"
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="4" />
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.75)" strokeWidth="4" strokeLinecap="round"
                   strokeDasharray={`${investedPct} ${100 - investedPct}`} />
                 <circle cx="18" cy="18" r="15.9" fill="none" stroke="#34d399" strokeWidth="4" strokeLinecap="round"
                   strokeDasharray={`${gainsPctOfCorpus} ${100 - gainsPctOfCorpus}`}
@@ -184,17 +211,17 @@ export function SIPCalculator() {
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                 <span className="text-white font-bold text-sm">{gainsPctOfCorpus}%</span>
-                <span className="text-blue-200 text-xs">gains</span>
+                <span className="text-[#8BA4C8] text-[10px]">gains</span>
               </div>
             </div>
             <div className="flex-1 space-y-2.5">
               {[
-                { label: "Invested",  value: formatINRShort(displayInvested), pct: investedPct, dot: "bg-white" },
-                { label: "Est. Returns", value: formatINRShort(displayGains), pct: gainsPctOfCorpus, dot: "bg-emerald-400" },
+                { label: "Invested",     value: formatINRShort(displayInvested), pct: investedPct,       dot: "bg-white/75" },
+                { label: "Est. Returns", value: formatINRShort(displayGains),    pct: gainsPctOfCorpus, dot: "bg-emerald-400" },
               ].map((row) => (
                 <div key={row.label}>
-                  <div className="flex justify-between items-center mb-0.5">
-                    <span className="flex items-center gap-1.5 text-xs text-blue-200">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="flex items-center gap-1.5 text-xs text-[#8BA4C8]">
                       <span className={`w-2 h-2 rounded-full ${row.dot} inline-block`} />
                       {row.label}
                     </span>
@@ -205,14 +232,15 @@ export function SIPCalculator() {
                   </div>
                 </div>
               ))}
-              <div className="border-t border-blue-500/40 pt-2 flex justify-between">
-                <span className="text-blue-200 text-xs">Return on Investment</span>
-                <span className="text-emerald-300 font-bold text-sm">+{gainsPct}%</span>
+              <div className="border-t border-white/10 pt-2 flex justify-between">
+                <span className="text-[#8BA4C8] text-xs">Return on Investment</span>
+                <span className="text-emerald-400 font-bold text-sm">+{gainsPct}%</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/10 rounded-xl p-3 mt-auto text-xs text-blue-100 leading-relaxed text-center">
+          {/* Disclaimer */}
+          <div className="bg-white/8 rounded-2xl p-3 mt-auto text-xs text-[#8BA4C8] leading-relaxed text-center">
             Assumes <span className="text-white font-semibold">{rate}% p.a.</span> returns,
             compounded monthly. Actual returns vary.
           </div>
@@ -220,30 +248,46 @@ export function SIPCalculator() {
       </div>
 
       {/* Mobile stats */}
-      <div className="md:hidden bg-blue-600 px-4 pt-4 pb-3 border-t border-gray-100">
-        <div className="grid grid-cols-3 gap-2 text-white text-center">
+      <div className="md:hidden bg-[#0F2447] px-4 pt-4 pb-3 border-t border-[#F0E4D4]">
+        {/* Primary mobile result */}
+        <div className="text-center mb-3">
           {mode === "goal" ? (
             <>
-              <div><p className="text-blue-200 text-xs">Monthly SIP</p><p className="font-bold">{formatINRShort(requiredSIP)}</p></div>
-              <div><p className="text-blue-200 text-xs">Invested</p><p className="font-bold">{formatINRShort(displayInvested)}</p></div>
-              <div><p className="text-blue-200 text-xs">Target</p><p className="font-bold">{formatINRShort(target)}</p></div>
+              <p className="text-[#8BA4C8] text-[10px] font-semibold uppercase tracking-widest mb-1">Monthly SIP Needed</p>
+              <p className="text-3xl font-bold text-white">{formatINR(requiredSIP)}</p>
             </>
           ) : (
             <>
-              <div><p className="text-blue-200 text-xs">Corpus</p><p className="font-bold">{formatINRShort(displayCorpus)}</p></div>
-              <div><p className="text-blue-200 text-xs">Invested</p><p className="font-bold">{formatINRShort(displayInvested)}</p></div>
-              <div><p className="text-blue-200 text-xs">Gains</p><p className="font-bold text-emerald-300">{formatINRShort(displayGains)}</p></div>
+              <p className="text-[#8BA4C8] text-[10px] font-semibold uppercase tracking-widest mb-1">
+                {mode === "lumpsum" ? "Future Value" : "Corpus at Maturity"}
+              </p>
+              <p className="text-3xl font-bold text-white">{formatINRShort(displayCorpus)}</p>
+            </>
+          )}
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {mode === "goal" ? (
+            <>
+              <div className="bg-white/10 rounded-xl p-2.5 text-center"><p className="text-[#8BA4C8] text-[10px] mb-0.5">Monthly SIP</p><p className="text-white font-bold text-sm">{formatINRShort(requiredSIP)}</p></div>
+              <div className="bg-white/10 rounded-xl p-2.5 text-center"><p className="text-[#8BA4C8] text-[10px] mb-0.5">Invested</p><p className="text-white font-bold text-sm">{formatINRShort(displayInvested)}</p></div>
+              <div className="bg-white/10 rounded-xl p-2.5 text-center"><p className="text-[#8BA4C8] text-[10px] mb-0.5">Target</p><p className="text-white font-bold text-sm">{formatINRShort(target)}</p></div>
+            </>
+          ) : (
+            <>
+              <div className="bg-white/10 rounded-xl p-2.5 text-center"><p className="text-[#8BA4C8] text-[10px] mb-0.5">Corpus</p><p className="text-white font-bold text-sm">{formatINRShort(displayCorpus)}</p></div>
+              <div className="bg-white/10 rounded-xl p-2.5 text-center"><p className="text-[#8BA4C8] text-[10px] mb-0.5">Invested</p><p className="text-white font-bold text-sm">{formatINRShort(displayInvested)}</p></div>
+              <div className="bg-white/10 rounded-xl p-2.5 text-center"><p className="text-[#8BA4C8] text-[10px] mb-0.5">Gains</p><p className="text-emerald-400 font-bold text-sm">{formatINRShort(displayGains)}</p></div>
             </>
           )}
         </div>
       </div>
 
-      {/* Yearly table */}
+      {/* Yearly growth table */}
       {mode !== "lumpsum" && (
-        <div className="border-t border-gray-100">
+        <div className="border-t border-[#F0E4D4]">
           <button
             onClick={() => setShowTable(!showTable)}
-            className="w-full py-3 text-sm font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 text-sm font-medium text-[#7A6048] hover:text-[#E8500A] hover:bg-[#FFFCF8] transition-colors flex items-center justify-center gap-2"
           >
             <svg className={`w-4 h-4 transition-transform ${showTable ? "rotate-180" : ""}`}
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -255,19 +299,19 @@ export function SIPCalculator() {
             <div className="overflow-x-auto px-4 pb-5">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b-2 border-gray-200">
+                  <tr className="border-b-2 border-[#F0E4D4]">
                     {["Year", "Invested", "Est. Returns", "Total Value"].map((h, i) => (
-                      <th key={h} className={`py-2 px-3 text-gray-500 font-semibold text-xs uppercase ${i === 0 ? "text-left" : "text-right"}`}>{h}</th>
+                      <th key={h} className={`py-2.5 px-3 text-[#7A6048] font-semibold text-xs uppercase tracking-wide ${i === 0 ? "text-left" : "text-right"}`}>{h}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {yearlyData.map((row) => (
-                    <tr key={row.year} className="hover:bg-gray-50">
-                      <td className="py-2 px-3 font-medium text-gray-700">Year {row.year}</td>
-                      <td className="py-2 px-3 text-right text-gray-600">{formatINRShort(row.invested)}</td>
-                      <td className="py-2 px-3 text-right text-emerald-600 font-medium">{formatINRShort(row.gains)}</td>
-                      <td className="py-2 px-3 text-right font-bold text-gray-900">{formatINRShort(row.corpus)}</td>
+                <tbody>
+                  {yearlyData.map((row, idx) => (
+                    <tr key={row.year} className={idx % 2 === 0 ? "bg-[#FFFCF8]" : "bg-white"}>
+                      <td className="py-2.5 px-3 font-semibold text-[#0F2447]">Year {row.year}</td>
+                      <td className="py-2.5 px-3 text-right text-[#7A6048]">{formatINRShort(row.invested)}</td>
+                      <td className="py-2.5 px-3 text-right text-emerald-600 font-medium">{formatINRShort(row.gains)}</td>
+                      <td className="py-2.5 px-3 text-right font-bold text-[#0F2447]">{formatINRShort(row.corpus)}</td>
                     </tr>
                   ))}
                 </tbody>
