@@ -1,10 +1,10 @@
-# CLAUDE.md — Agent Instructions for IndiaTools Project
+# CLAUDE.md — Agent Instructions for UtilSpot Project
 
 ## What You Are Building
 A multi-tool utility website targeting Indian users (and global where relevant), monetized via Google AdSense and affiliate marketing. The goal is passive income — not a SaaS, not a startup. Simple, fast, useful tools that rank on Google and get cited by AI search engines (Perplexity, ChatGPT, Google AI Overviews).
 
 ## Domain Concept
-`indiatools.in` (or similar — confirm with owner before hardcoding)
+`utilspot.app` (or similar — confirm with owner before hardcoding)
 
 ## Tech Stack
 - **Framework:** Next.js 14+ (App Router)
@@ -88,11 +88,11 @@ export function calculateEMI(principal: number, annualRate: number, tenureMonths
 Every tool page MUST have:
 ```tsx
 export const metadata: Metadata = {
-  title: "[Tool Name] — Free Online [Tool Type] | IndiaTools",
+  title: "[Tool Name] — Free Online [Tool Type] | UtilSpot",
   description: "[Specific description with primary keyword naturally included. 150-160 chars.]",
   keywords: ["keyword1", "keyword2", ...],
-  openGraph: { title, description, url, siteName: "IndiaTools" },
-  alternates: { canonical: "https://indiatools.in/[tool-slug]" }
+  openGraph: { title, description, url, siteName: "UtilSpot" },
+  alternates: { canonical: "https://utilspot.app/[tool-slug]" }
 }
 ```
 
@@ -103,7 +103,7 @@ Every tool page MUST have JSON-LD structured data:
   "@type": "WebApplication",
   "name": "Tool Name",
   "description": "...",
-  "url": "https://indiatools.in/tool-slug",
+  "url": "https://utilspot.app/tool-slug",
   "applicationCategory": "FinanceApplication",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
 })}</script>

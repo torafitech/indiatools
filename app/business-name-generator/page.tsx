@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     title: "AI Business Name Generator — Free Business Name Ideas with Claude AI",
     description:
       "Generate unique business names instantly using AI. Get 10 creative name ideas with taglines for your startup, shop, or brand. Free, powered by Claude AI.",
-    url: "https://indiatools.in/business-name-generator",
-    siteName: "IndiaTools",
+    url: "https://utilspot.app/business-name-generator",
+    siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://indiatools.in/business-name-generator" },
+  alternates: { canonical: "https://utilspot.app/business-name-generator" },
 };
 
 const webAppSchema = {
@@ -33,7 +33,7 @@ const webAppSchema = {
   name: "AI Business Name Generator",
   description:
     "Generate unique, creative business names instantly using Claude AI. Get 10 name ideas with taglines for your startup, brand, or shop.",
-  url: "https://indiatools.in/business-name-generator",
+  url: "https://utilspot.app/business-name-generator",
   applicationCategory: "BusinessApplication",
   operatingSystem: "All",
   offers: {

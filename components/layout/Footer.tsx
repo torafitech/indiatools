@@ -34,8 +34,8 @@ export function Footer() {
           <div className="col-span-2 sm:col-span-1">
             <Link href="/" className="inline-block mb-3">
               <span className="font-extrabold text-lg tracking-tight">
-                <span className="text-gradient-saffron">India</span>
-                <span className="text-[#0F2447]">Tools</span>
+                <span className="text-gradient-saffron">Util</span>
+                <span className="text-[#0F2447]">Spot</span>
               </span>
             </Link>
             <p className="text-sm text-[#7A6048] leading-relaxed max-w-[200px]">
@@ -76,7 +76,7 @@ export function Footer() {
           <p>
             © {year}{" "}
             <Link href="/" className="font-semibold hover:text-[#E8500A] transition-colors">
-              IndiaTools.in
+              UtilSpot.app
             </Link>{" "}
             — Free tools for everyone.
           </p>

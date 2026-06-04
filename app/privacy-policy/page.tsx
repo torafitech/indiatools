@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — IndiaTools",
-  description: "Privacy policy for IndiaTools.in — how we handle (or don't handle) your data.",
-  alternates: { canonical: "https://indiatools.in/privacy-policy" },
+  title: "Privacy Policy — UtilSpot",
+  description: "Privacy policy for UtilSpot.app — how we handle (or don't handle) your data.",
+  alternates: { canonical: "https://utilspot.app/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {
@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Overview</h2>
           <p className="text-gray-600 leading-relaxed">
-            IndiaTools.in (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is committed to protecting your privacy. This policy explains what data we
+            UtilSpot.app (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is committed to protecting your privacy. This policy explains what data we
             collect, how we use it, and your rights. The short version: we collect very little, and we don&apos;t sell anything.
           </p>
         </section>
@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-xl font-semibold text-gray-800 mb-2">What We Collect</h2>
           <div className="space-y-3 text-gray-600 leading-relaxed">
             <p>
-              <strong>Tool inputs:</strong> All calculations on IndiaTools happen entirely in your browser. We do not
+              <strong>Tool inputs:</strong> All calculations on UtilSpot happen entirely in your browser. We do not
               transmit, store, or log any numbers you enter into our calculators.
             </p>
             <p>
@@ -78,8 +78,8 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Contact</h2>
           <p className="text-gray-600 leading-relaxed">
             Questions about this policy? Email us at{" "}
-            <a href="mailto:hello@indiatools.in" className="text-blue-600 hover:underline">
-              hello@indiatools.in
+            <a href="mailto:hello@utilspot.app" className="text-blue-600 hover:underline">
+              hello@utilspot.app
             </a>
           </p>
         </section>

@@ -13,14 +13,14 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "IndiaTools — Free Online Calculators & Utility Tools for India",
-    template: "%s | IndiaTools",
+    default: "UtilSpot — Free Online Calculators & Utility Tools",
+    template: "%s | UtilSpot",
   },
   description:
-    "Free online tools for India: EMI calculator, income tax calculator, SIP calculator, word counter, TDEE calculator, and more. No signup required.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://indiatools.in"),
+    "Free online tools: EMI calculator, income tax calculator, SIP calculator, TDEE calculator, word counter, QR generator, and more. No signup required.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://utilspot.app"),
   openGraph: {
-    siteName: "IndiaTools",
+    siteName: "UtilSpot",
     type: "website",
   },
   robots: {

@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Word Counter — Count Words, Characters & Reading Time Instantly",
     description: "Free word counter with reading time, keyword density, and Flesch readability score.",
-    url: "https://indiatools.in/word-counter",
-    siteName: "IndiaTools",
+    url: "https://utilspot.app/word-counter",
+    siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://indiatools.in/word-counter" },
+  alternates: { canonical: "https://utilspot.app/word-counter" },
 };
 
 const webAppSchema = {
@@ -25,7 +25,7 @@ const webAppSchema = {
   "@type": "WebApplication",
   name: "Word Counter",
   description: "Free online word counter with character count, reading time, keyword density, and Flesch readability score.",
-  url: "https://indiatools.in/word-counter",
+  url: "https://utilspot.app/word-counter",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

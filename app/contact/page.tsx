@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact IndiaTools",
-  description: "Contact the IndiaTools team — report bugs, suggest features, or ask questions.",
-  alternates: { canonical: "https://indiatools.in/contact" },
+  title: "Contact UtilSpot",
+  description: "Contact the UtilSpot team — report bugs, suggest features, or ask questions.",
+  alternates: { canonical: "https://utilspot.app/contact" },
 };
 
 export default function ContactPage() {
@@ -74,15 +74,15 @@ export default function ContactPage() {
 
         <p className="text-xs text-gray-400 text-center">
           Or email directly:{" "}
-          <a href="mailto:hello@indiatools.in" className="text-blue-600 hover:underline">
-            hello@indiatools.in
+          <a href="mailto:hello@utilspot.app" className="text-blue-600 hover:underline">
+            hello@utilspot.app
           </a>
         </p>
       </div>
 
       <div className="mt-6 bg-amber-50 border border-amber-100 rounded-xl p-4 text-sm text-amber-800">
         <strong>Note:</strong> This is a static contact form — backend not yet connected. Please email us directly at{" "}
-        <a href="mailto:hello@indiatools.in" className="underline">hello@indiatools.in</a> for now.
+        <a href="mailto:hello@utilspot.app" className="underline">hello@utilspot.app</a> for now.
       </div>
     </main>
   );

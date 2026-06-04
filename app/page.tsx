@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { ToolGrid } from "@/components/ui/ToolGrid";
 
 export const metadata: Metadata = {
-  title: "IndiaTools — Free Online Calculators & Utility Tools for India",
+  title: "UtilSpot — Free Online Calculators & Utility Tools",
   description:
-    "Free online tools for India: EMI calculator, income tax calculator, SIP calculator, word counter, TDEE calculator, GST invoice generator. No signup, instant results.",
-  alternates: { canonical: "https://indiatools.in" },
+    "Free online tools: EMI calculator, income tax calculator, SIP calculator, TDEE calculator, word counter, QR code generator, GST invoice. No signup, instant results.",
+  alternates: { canonical: "https://utilspot.app" },
 };
 
 const tools = [
@@ -157,16 +157,16 @@ export default function HomePage() {
           {/* Heading */}
           <h1 className="text-center font-extrabold tracking-tight leading-[1.1] mb-5">
             <span className="block text-4xl sm:text-6xl text-gradient-saffron">
-              India&apos;s toolkit
+              The right tool
             </span>
             <span className="block text-3xl sm:text-5xl text-[#0F2447] mt-1">
-              for everyday decisions.
+              for every decision.
             </span>
           </h1>
 
           <p className="text-center text-[#7A6048] text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
             EMI calculators, tax tools, health calculators, invoice generators — all free,
-            no clutter, no signup. Built for India.
+            no clutter, no signup.
           </p>
 
           {/* Stats strip */}
@@ -205,7 +205,7 @@ export default function HomePage() {
       <section className="bg-white border-y border-[#F0E4D4]">
         <div className="max-w-6xl mx-auto px-4 py-10 sm:py-14">
           <h2 className="text-xl sm:text-2xl font-bold text-[#1C1209] mb-8 text-center">
-            Why IndiaTools?
+            Why UtilSpot?
           </h2>
           <div className="grid sm:grid-cols-3 gap-5">
             {features.map((f) => (

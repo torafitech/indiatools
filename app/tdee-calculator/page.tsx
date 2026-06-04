@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TDEE Calculator — Find Your Daily Calorie & Macro Targets",
     description: "Free TDEE calculator. Get your BMR, TDEE, and daily protein/carbs/fat targets based on your goal.",
-    url: "https://indiatools.in/tdee-calculator",
-    siteName: "IndiaTools",
+    url: "https://utilspot.app/tdee-calculator",
+    siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://indiatools.in/tdee-calculator" },
+  alternates: { canonical: "https://utilspot.app/tdee-calculator" },
 };
 
 const webAppSchema = {
@@ -22,7 +22,7 @@ const webAppSchema = {
   "@type": "WebApplication",
   name: "TDEE Calculator",
   description: "Free TDEE and BMR calculator with macro targets for weight loss, maintenance, and muscle gain.",
-  url: "https://indiatools.in/tdee-calculator",
+  url: "https://utilspot.app/tdee-calculator",
   applicationCategory: "HealthApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

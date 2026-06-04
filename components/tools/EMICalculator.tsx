@@ -226,7 +226,7 @@ export function EMICalculator({
       `Total Payment:   ${formatINRShort(result.totalAmount)}`,
       processingFee > 0 ? `Processing Fee:  ${formatINR(Math.round(effectivePrincipal * processingFee / 100))} (${processingFee}%)` : "",
       ``,
-      `Calculated on IndiaTools.in/emi-calculator`,
+      `Calculated on UtilSpot.app/emi-calculator`,
     ].filter(Boolean);
     navigator.clipboard.writeText(lines.join("\n")).then(() => {
       setCopied(true);

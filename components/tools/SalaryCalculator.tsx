@@ -131,7 +131,7 @@ export function SalaryCalculator({
       `Annual In-Hand:  ${formatINRShort(result.inHandAnnual)}`,
       `Take-Home:       ${result.takeHomePercent}% of CTC`,
       "",
-      "Calculated on IndiaTools.in/salary-calculator",
+      "Calculated on UtilSpot.app/salary-calculator",
     ].filter((l) => l !== undefined && l !== null);
 
     navigator.clipboard.writeText(lines.join("\n")).then(() => {

@@ -4,7 +4,7 @@ import { salaryVariants } from "@/lib/programmatic/salary-variants";
 import { constructionVariants } from "@/lib/programmatic/construction-variants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://indiatools.in";
+  const baseUrl = "https://utilspot.app";
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [

@@ -18,13 +18,13 @@ export function Header() {
     <header className="bg-white/90 backdrop-blur-md border-b border-[#F0E4D4] sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 h-15 flex items-center justify-between" style={{ height: "60px" }}>
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-1 group" aria-label="IndiaTools home">
+        <Link href="/" className="flex items-center gap-1 group" aria-label="UtilSpot home">
           <span className="font-extrabold text-xl tracking-tight">
-            <span className="text-gradient-saffron">India</span>
-            <span className="text-[#0F2447]">Tools</span>
+            <span className="text-gradient-saffron">Util</span>
+            <span className="text-[#0F2447]">Spot</span>
           </span>
           <span className="hidden sm:inline-block text-[10px] font-semibold text-white bg-[#E8500A] px-1.5 py-0.5 rounded ml-1 leading-none">
-            .in
+            .app
           </span>
         </Link>
 

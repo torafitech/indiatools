@@ -4,7 +4,7 @@ import { QRCodeGenerator } from "@/components/tools/QRCodeGenerator";
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
-  title: "Free QR Code Generator — Create QR Code Online, No Signup | IndiaTools",
+  title: "Free QR Code Generator — Create QR Code Online, No Signup | UtilSpot",
   description:
     "Generate QR codes for URL, text, phone, email, WhatsApp, and WiFi instantly. Free online QR code generator. Download as PNG. No signup required.",
   keywords: [
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     title: "Free QR Code Generator — Create Custom QR Codes Instantly",
     description:
       "Generate QR codes for URL, text, phone, email, WhatsApp, and WiFi instantly. Free. No signup. Download as PNG.",
-    url: "https://indiatools.in/qr-code-generator",
-    siteName: "IndiaTools",
+    url: "https://utilspot.app/qr-code-generator",
+    siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://indiatools.in/qr-code-generator" },
+  alternates: { canonical: "https://utilspot.app/qr-code-generator" },
 };
 
 const webAppSchema = {
@@ -34,7 +34,7 @@ const webAppSchema = {
   name: "Free QR Code Generator",
   description:
     "Generate QR codes for URL, text, phone, email, WhatsApp, and WiFi. Free online tool. Download as PNG. No signup required.",
-  url: "https://indiatools.in/qr-code-generator",
+  url: "https://utilspot.app/qr-code-generator",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     title: "EMI Calculator — Free Home, Car & Personal Loan EMI Calculator India",
     description:
       "Calculate your monthly EMI for home loan, car loan, and personal loan. Get full amortization schedule instantly.",
-    url: "https://indiatools.in/emi-calculator",
-    siteName: "IndiaTools",
+    url: "https://utilspot.app/emi-calculator",
+    siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://indiatools.in/emi-calculator" },
+  alternates: { canonical: "https://utilspot.app/emi-calculator" },
 };
 
 const webAppSchema = {
@@ -45,7 +45,7 @@ const webAppSchema = {
   name: "EMI Calculator",
   description:
     "Free online EMI calculator for home loan, car loan, and personal loan with amortization schedule.",
-  url: "https://indiatools.in/emi-calculator",
+  url: "https://utilspot.app/emi-calculator",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
   offers: {

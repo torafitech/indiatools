@@ -2,24 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About IndiaTools — Free Tools Built for India",
-  description: "IndiaTools.in builds free, fast, no-signup online tools for Indian users — EMI calculators, tax tools, and more.",
-  alternates: { canonical: "https://indiatools.in/about" },
+  title: "About UtilSpot — Free Online Tools, No Signup",
+  description: "UtilSpot.app builds free, fast, no-signup online calculators and utility tools — EMI, tax, TDEE, QR codes, invoices, and more.",
+  alternates: { canonical: "https://utilspot.app/about" },
 };
 
 export default function AboutPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">About IndiaTools</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-4">About UtilSpot</h1>
 
       <div className="space-y-6 text-gray-600 leading-relaxed">
         <p className="text-lg text-gray-700">
-          IndiaTools.in is a collection of free online calculators and utility tools built specifically for India.
+          UtilSpot.app is a collection of free online calculators and utility tools — built to be fast, accurate, and clutter-free.
         </p>
 
         <p>
           Most existing tool sites are either too slow, full of ads, require you to sign up, or haven&apos;t been updated
-          since the last budget. We built IndiaTools to fix that — clean, fast, accurate tools that anyone can use
+          since the last budget. We built UtilSpot to fix that — clean, fast, accurate tools that anyone can use
           without creating an account.
         </p>
 
@@ -46,7 +46,7 @@ export default function AboutPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">How We Stay Free</h2>
           <p>
-            IndiaTools is free to use and will remain free. We earn revenue through Google AdSense display ads and
+            UtilSpot is free to use and will remain free. We earn revenue through Google AdSense display ads and
             affiliate commissions on links to financial services like BankBazaar and investment platforms. We clearly
             label all affiliate links and they do not affect our tool accuracy.
           </p>

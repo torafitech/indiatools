@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — IndiaTools",
-  description: "Terms of service for IndiaTools.in — free online tools for India.",
-  alternates: { canonical: "https://indiatools.in/terms" },
+  title: "Terms of Service — UtilSpot",
+  description: "Terms of service for UtilSpot.app — free online tools for India.",
+  alternates: { canonical: "https://utilspot.app/terms" },
 };
 
 export default function TermsPage() {
@@ -16,7 +16,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">1. Acceptance of Terms</h2>
           <p>
-            By using IndiaTools.in, you agree to these Terms of Service. If you do not agree, please stop using the
+            By using UtilSpot.app, you agree to these Terms of Service. If you do not agree, please stop using the
             site. We reserve the right to update these terms at any time.
           </p>
         </section>
@@ -24,7 +24,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">2. Use of Tools</h2>
           <p>
-            All tools on IndiaTools.in are provided for informational and educational purposes only. The results are
+            All tools on UtilSpot.app are provided for informational and educational purposes only. The results are
             estimates and approximations — they do not constitute financial, legal, tax, or medical advice. Always
             verify important calculations with a qualified professional before making financial decisions.
           </p>
@@ -50,7 +50,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">5. Intellectual Property</h2>
           <p>
-            All content, design, and code on IndiaTools.in is owned by us unless otherwise stated. You may not
+            All content, design, and code on UtilSpot.app is owned by us unless otherwise stated. You may not
             reproduce, copy, or scrape our content without permission.
           </p>
         </section>
@@ -58,7 +58,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">6. Limitation of Liability</h2>
           <p>
-            IndiaTools.in shall not be liable for any financial losses, damages, or decisions made based on tool
+            UtilSpot.app shall not be liable for any financial losses, damages, or decisions made based on tool
             results. Use all tools at your own risk.
           </p>
         </section>
@@ -67,8 +67,8 @@ export default function TermsPage() {
           <h2 className="text-xl font-semibold text-gray-800 mb-2">7. Contact</h2>
           <p>
             For any questions about these terms, email{" "}
-            <a href="mailto:hello@indiatools.in" className="text-blue-600 hover:underline">
-              hello@indiatools.in
+            <a href="mailto:hello@utilspot.app" className="text-blue-600 hover:underline">
+              hello@utilspot.app
             </a>
           </p>
         </section>
