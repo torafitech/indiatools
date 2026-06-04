@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/_next/"],
     },
-    sitemap: "https://utilspot.app/sitemap.xml",
+    sitemap: "https://www.utilspot.app/sitemap.xml",
   };
 }

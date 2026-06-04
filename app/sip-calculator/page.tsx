@@ -12,10 +12,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SIP Calculator — Mutual Fund Returns & Goal Planning",
     description: "Calculate SIP returns, plan for a financial goal, or compute lump sum investment growth.",
-    url: "https://utilspot.app/sip-calculator",
+    url: "https://www.utilspot.app/sip-calculator",
     siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://utilspot.app/sip-calculator" },
+  alternates: { canonical: "https://www.utilspot.app/sip-calculator" },
 };
 
 const webAppSchema = {
@@ -23,7 +23,7 @@ const webAppSchema = {
   "@type": "WebApplication",
   name: "SIP Calculator",
   description: "Free SIP calculator for mutual fund returns with goal planning and lump sum modes.",
-  url: "https://utilspot.app/sip-calculator",
+  url: "https://www.utilspot.app/sip-calculator",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

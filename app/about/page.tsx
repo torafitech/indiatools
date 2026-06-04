@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About UtilSpot — Free Online Tools, No Signup",
   description: "UtilSpot.app builds free, fast, no-signup online calculators and utility tools — EMI, tax, TDEE, QR codes, invoices, and more.",
-  alternates: { canonical: "https://utilspot.app/about" },
+  alternates: { canonical: "https://www.utilspot.app/about" },
 };
 
 export default function AboutPage() {

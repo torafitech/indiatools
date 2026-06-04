@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact UtilSpot",
   description: "Contact the UtilSpot team — report bugs, suggest features, or ask questions.",
-  alternates: { canonical: "https://utilspot.app/contact" },
+  alternates: { canonical: "https://www.utilspot.app/contact" },
 };
 
 export default function ContactPage() {

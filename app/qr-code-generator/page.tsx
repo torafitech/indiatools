@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     title: "Free QR Code Generator — Create Custom QR Codes Instantly",
     description:
       "Generate QR codes for URL, text, phone, email, WhatsApp, and WiFi instantly. Free. No signup. Download as PNG.",
-    url: "https://utilspot.app/qr-code-generator",
+    url: "https://www.utilspot.app/qr-code-generator",
     siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://utilspot.app/qr-code-generator" },
+  alternates: { canonical: "https://www.utilspot.app/qr-code-generator" },
 };
 
 const webAppSchema = {
@@ -34,7 +34,7 @@ const webAppSchema = {
   name: "Free QR Code Generator",
   description:
     "Generate QR codes for URL, text, phone, email, WhatsApp, and WiFi. Free online tool. Download as PNG. No signup required.",
-  url: "https://utilspot.app/qr-code-generator",
+  url: "https://www.utilspot.app/qr-code-generator",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

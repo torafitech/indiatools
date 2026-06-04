@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     title: "Construction Cost Calculator India 2025 — Cost Per Sqft by City",
     description:
       "City-specific construction cost estimator for India. Basic, standard, and premium rates for 30+ cities. Updated 2025 data.",
-    url: "https://utilspot.app/construction-cost-calculator",
+    url: "https://www.utilspot.app/construction-cost-calculator",
     siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://utilspot.app/construction-cost-calculator" },
+  alternates: { canonical: "https://www.utilspot.app/construction-cost-calculator" },
 };
 
 const webAppSchema = {
@@ -34,7 +34,7 @@ const webAppSchema = {
   name: "Construction Cost Calculator India",
   description:
     "Free online construction cost estimator for India. Calculate home building cost per sqft for 30+ cities — basic, standard, and premium construction.",
-  url: "https://utilspot.app/construction-cost-calculator",
+  url: "https://www.utilspot.app/construction-cost-calculator",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
   offers: {

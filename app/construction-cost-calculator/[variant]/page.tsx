@@ -27,12 +27,12 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `https://utilspot.app/construction-cost-calculator/${slug}`,
+      canonical: `https://www.utilspot.app/construction-cost-calculator/${slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://utilspot.app/construction-cost-calculator/${slug}`,
+      url: `https://www.utilspot.app/construction-cost-calculator/${slug}`,
       siteName: "UtilSpot",
     },
   };
@@ -57,7 +57,7 @@ export default async function ConstructionVariantPage({
     "@type": "WebApplication",
     name: `Construction Cost Calculator — ${v.cityName}`,
     description: `Home construction cost estimator for ${v.cityName}, ${v.state}. Rates as of 2025.`,
-    url: `https://utilspot.app/construction-cost-calculator/${slug}`,
+    url: `https://www.utilspot.app/construction-cost-calculator/${slug}`,
     applicationCategory: "FinanceApplication",
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
   };

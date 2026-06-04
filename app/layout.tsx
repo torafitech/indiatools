@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   description:
     "Free online tools: EMI calculator, income tax calculator, SIP calculator, TDEE calculator, word counter, QR generator, and more. No signup required.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://utilspot.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.utilspot.app"),
   openGraph: {
     siteName: "UtilSpot",
     type: "website",

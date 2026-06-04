@@ -34,12 +34,12 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `https://utilspot.app/emi-calculator/${variant.slug}`,
+      canonical: `https://www.utilspot.app/emi-calculator/${variant.slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://utilspot.app/emi-calculator/${variant.slug}`,
+      url: `https://www.utilspot.app/emi-calculator/${variant.slug}`,
       siteName: "UtilSpot",
     },
   };
@@ -69,7 +69,7 @@ export default async function VariantPage({
     "@type": "WebApplication",
     name: heading,
     description: variant.description,
-    url: `https://utilspot.app/emi-calculator/${variant.slug}`,
+    url: `https://www.utilspot.app/emi-calculator/${variant.slug}`,
     applicationCategory: "FinanceApplication",
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
   };

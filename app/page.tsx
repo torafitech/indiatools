@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "UtilSpot — Free Online Calculators & Utility Tools",
   description:
     "Free online tools: EMI calculator, income tax calculator, SIP calculator, TDEE calculator, word counter, QR code generator, GST invoice. No signup, instant results.",
-  alternates: { canonical: "https://utilspot.app" },
+  alternates: { canonical: "https://www.utilspot.app" },
 };
 
 const tools = [

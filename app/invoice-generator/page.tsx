@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free GST Invoice Generator — No Signup, Download PDF Instantly",
     description: "Create professional GST invoices and download as PDF. Free, no signup, works in browser.",
-    url: "https://utilspot.app/invoice-generator",
+    url: "https://www.utilspot.app/invoice-generator",
     siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://utilspot.app/invoice-generator" },
+  alternates: { canonical: "https://www.utilspot.app/invoice-generator" },
 };
 
 const webAppSchema = {
@@ -27,7 +27,7 @@ const webAppSchema = {
   "@type": "WebApplication",
   name: "Free GST Invoice Generator",
   description: "Free GST-compliant invoice generator with PDF download for Indian freelancers and businesses.",
-  url: "https://utilspot.app/invoice-generator",
+  url: "https://www.utilspot.app/invoice-generator",
   applicationCategory: "BusinessApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

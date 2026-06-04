@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Income Tax Calculator FY 2025-26 — New vs Old Regime India",
     description: "Compare new and old tax regime instantly. Enter your salary and deductions to see which saves more tax.",
-    url: "https://utilspot.app/income-tax-calculator",
+    url: "https://www.utilspot.app/income-tax-calculator",
     siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://utilspot.app/income-tax-calculator" },
+  alternates: { canonical: "https://www.utilspot.app/income-tax-calculator" },
 };
 
 const webAppSchema = {
@@ -26,7 +26,7 @@ const webAppSchema = {
   "@type": "WebApplication",
   name: "Income Tax Calculator India FY 2025-26",
   description: "Free income tax calculator for FY 2025-26. Compare new vs old tax regime with full deduction breakup.",
-  url: "https://utilspot.app/income-tax-calculator",
+  url: "https://www.utilspot.app/income-tax-calculator",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },

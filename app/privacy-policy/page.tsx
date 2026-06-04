@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy — UtilSpot",
   description: "Privacy policy for UtilSpot.app — how we handle (or don't handle) your data.",
-  alternates: { canonical: "https://utilspot.app/privacy-policy" },
+  alternates: { canonical: "https://www.utilspot.app/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

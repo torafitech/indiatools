@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service — UtilSpot",
   description: "Terms of service for UtilSpot.app — free online tools for India.",
-  alternates: { canonical: "https://utilspot.app/terms" },
+  alternates: { canonical: "https://www.utilspot.app/terms" },
 };
 
 export default function TermsPage() {

@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     title: "CTC to In-Hand Salary Calculator India 2025",
     description:
       "Calculate your monthly in-hand salary from CTC. Includes PF, professional tax, income tax under new regime.",
-    url: "https://utilspot.app/salary-calculator",
+    url: "https://www.utilspot.app/salary-calculator",
     siteName: "UtilSpot",
   },
-  alternates: { canonical: "https://utilspot.app/salary-calculator" },
+  alternates: { canonical: "https://www.utilspot.app/salary-calculator" },
 };
 
 const webAppSchema = {
@@ -34,7 +34,7 @@ const webAppSchema = {
   name: "CTC to In-Hand Salary Calculator",
   description:
     "Free online salary calculator for India. Convert CTC to monthly in-hand salary with full breakdown of PF, HRA, professional tax, and income tax.",
-  url: "https://utilspot.app/salary-calculator",
+  url: "https://www.utilspot.app/salary-calculator",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
   offers: {
