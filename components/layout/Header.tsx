@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { href: "/emi-calculator", label: "EMI" },
+  { href: "/emi-calculator",        label: "EMI" },
   { href: "/income-tax-calculator", label: "Tax" },
-  { href: "/sip-calculator", label: "SIP" },
-  { href: "/invoice-generator", label: "Invoice" },
-  { href: "/about", label: "About" },
+  { href: "/sip-calculator",        label: "SIP" },
+  { href: "/invoice-generator",     label: "Invoice" },
+  { href: "/#tools",                label: "All Tools" },
 ];
 
 export function Header() {
@@ -16,7 +16,7 @@ export function Header() {
 
   return (
     <header className="bg-white/90 backdrop-blur-md border-b border-[#F0E4D4] sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 h-15 flex items-center justify-between" style={{ height: "60px" }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between" style={{ height: "60px" }}>
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1 group" aria-label="UtilSpot home">
           <span className="font-extrabold text-xl tracking-tight">
@@ -48,15 +48,9 @@ export function Header() {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
         >
-          <span
-            className={`block w-5 h-0.5 bg-[#0F2447] transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-[#0F2447] transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-[#0F2447] transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`}
-          />
+          <span className={`block w-5 h-0.5 bg-[#0F2447] transition-all duration-200 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-[#0F2447] transition-all duration-200 ${mobileOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-[#0F2447] transition-all duration-200 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
         </button>
       </div>
 

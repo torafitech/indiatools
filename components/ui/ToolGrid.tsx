@@ -13,70 +13,100 @@ type Tool = {
   status: string;
 };
 
-type CategoryConfig = {
-  iconBg: string;
-  iconText: string;
-  badge: string;
-  hoverBorder: string;
-  dot: string;
+/* ── Category palette ───────────────────────────────────────────────── */
+const CAT: Record<string, {
+  iconBg: string; iconText: string; badge: string; dot: string; borderL: string;
+}> = {
+  Finance:   { iconBg: "bg-blue-50",   iconText: "text-blue-600",   badge: "bg-blue-50 text-blue-700 ring-blue-100",     dot: "bg-blue-500",    borderL: "border-l-blue-500"   },
+  Health:    { iconBg: "bg-emerald-50", iconText: "text-emerald-600",badge: "bg-emerald-50 text-emerald-700 ring-emerald-100", dot: "bg-emerald-500", borderL: "border-l-emerald-500"},
+  Writing:   { iconBg: "bg-violet-50", iconText: "text-violet-600", badge: "bg-violet-50 text-violet-700 ring-violet-100",   dot: "bg-violet-500",  borderL: "border-l-violet-500" },
+  Business:  { iconBg: "bg-orange-50", iconText: "text-orange-600", badge: "bg-orange-50 text-orange-700 ring-orange-100",   dot: "bg-orange-500",  borderL: "border-l-orange-500" },
+  Developer: { iconBg: "bg-purple-50", iconText: "text-purple-600", badge: "bg-purple-50 text-purple-700 ring-purple-100",   dot: "bg-purple-500",  borderL: "border-l-purple-500" },
 };
 
-const CATEGORY: Record<string, CategoryConfig> = {
-  Finance: {
-    iconBg: "bg-blue-50",
-    iconText: "text-blue-600",
-    badge: "bg-blue-50 text-blue-700 ring-blue-100",
-    hoverBorder: "hover:border-blue-200",
-    dot: "bg-blue-500",
-  },
-  Health: {
-    iconBg: "bg-emerald-50",
-    iconText: "text-emerald-600",
-    badge: "bg-emerald-50 text-emerald-700 ring-emerald-100",
-    hoverBorder: "hover:border-emerald-200",
-    dot: "bg-emerald-500",
-  },
-  Writing: {
-    iconBg: "bg-violet-50",
-    iconText: "text-violet-600",
-    badge: "bg-violet-50 text-violet-700 ring-violet-100",
-    hoverBorder: "hover:border-violet-200",
-    dot: "bg-violet-500",
-  },
-  Business: {
-    iconBg: "bg-amber-50",
-    iconText: "text-amber-600",
-    badge: "bg-amber-50 text-amber-700 ring-amber-100",
-    hoverBorder: "hover:border-amber-200",
-    dot: "bg-amber-500",
-  },
-  Developer: {
-    iconBg: "bg-slate-50",
-    iconText: "text-slate-600",
-    badge: "bg-slate-50 text-slate-700 ring-slate-100",
-    hoverBorder: "hover:border-slate-200",
-    dot: "bg-slate-500",
-  },
-};
+/* ── Lucide-style inline SVG icons per tool ─────────────────────────── */
+function ToolIcon({ slug, className }: { slug: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    "/emi-calculator": <>
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </>,
+    "/income-tax-calculator": <>
+      <line x1="18" y1="20" x2="18" y2="10"/>
+      <line x1="12" y1="20" x2="12" y2="4"/>
+      <line x1="6"  y1="20" x2="6"  y2="14"/>
+    </>,
+    "/sip-calculator": <>
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+      <polyline points="17 6 23 6 23 12"/>
+    </>,
+    "/salary-calculator": <>
+      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+      <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+    </>,
+    "/invoice-generator": <>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="16" y1="13" x2="8" y2="13"/>
+      <line x1="16" y1="17" x2="8" y2="17"/>
+    </>,
+    "/construction-cost-calculator": <>
+      <path d="M1 22h22"/>
+      <path d="M7 22V11l5-4 5 4v11"/>
+      <path d="M11 22v-5h2v5"/>
+    </>,
+    "/tdee-calculator": <>
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </>,
+    "/word-counter": <>
+      <polyline points="4 7 4 4 20 4 20 7"/>
+      <line x1="9" y1="20" x2="15" y2="20"/>
+      <line x1="12" y1="4" x2="12" y2="20"/>
+    </>,
+    "/qr-code-generator": <>
+      <rect x="3"  y="3"  width="7" height="7"/>
+      <rect x="14" y="3"  width="7" height="7"/>
+      <rect x="3"  y="14" width="7" height="7"/>
+      <rect x="14" y="14" width="3" height="3"/>
+    </>,
+    "/business-name-generator": <>
+      <path d="M9 18h6"/>
+      <path d="M10 22h4"/>
+      <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14"/>
+    </>,
+  };
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className ?? "w-5 h-5"}
+    >
+      {icons[slug] ?? <circle cx="12" cy="12" r="10"/>}
+    </svg>
+  );
+}
 
 const FILTER_LABELS = ["All", "Finance", "Health", "Writing", "Business", "Developer"];
 
 const STAGGER = [
-  "stagger-1", "stagger-2", "stagger-3", "stagger-4", "stagger-5",
-  "stagger-6", "stagger-7", "stagger-8", "stagger-9", "stagger-10",
+  "stagger-1","stagger-2","stagger-3","stagger-4","stagger-5",
+  "stagger-6","stagger-7","stagger-8","stagger-9","stagger-10",
 ];
 
 export function ToolGrid({ tools }: { tools: Tool[] }) {
   const [active, setActive] = useState("All");
-
   const filtered = active === "All" ? tools : tools.filter((t) => t.category === active);
 
   return (
     <div>
-      {/* Category filter */}
-      <div className="flex gap-2 overflow-x-auto pb-1 mb-6 scrollbar-hide">
+      {/* Category filter pills */}
+      <div className="flex gap-2 overflow-x-auto pb-1 mb-6">
         {FILTER_LABELS.map((label) => {
-          const cfg = CATEGORY[label];
+          const cfg = CAT[label];
           const isActive = active === label;
           return (
             <button
@@ -97,15 +127,15 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
         })}
       </div>
 
-      {/* Tool cards grid */}
+      {/* Tool cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((tool, i) => {
-          const cfg = CATEGORY[tool.category] ?? CATEGORY.Developer;
+          const cfg = CAT[tool.category] ?? CAT.Developer;
           return (
             <Link
               key={tool.slug}
               href={tool.slug}
-              className={`group relative bg-white rounded-2xl border border-[#F0E4D4] p-5 card-hover animate-fade-up opacity-0 ${STAGGER[i] ?? ""} ${cfg.hoverBorder}`}
+              className={`group relative bg-white rounded-2xl border border-[#F0E4D4] border-l-[3px] ${cfg.borderL} p-5 animate-fade-up opacity-0 ${STAGGER[i] ?? ""} transition-all duration-200 hover:border-[#E8500A] hover:-translate-y-0.5 hover:shadow-card-hover`}
               style={{ animationFillMode: "forwards" }}
             >
               {/* Popular badge */}
@@ -115,9 +145,9 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                 </span>
               )}
 
-              {/* Icon */}
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${cfg.iconBg} mb-4 text-2xl`}>
-                {tool.icon}
+              {/* Icon container */}
+              <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${cfg.iconBg} ${cfg.iconText} mb-4`}>
+                <ToolIcon slug={tool.slug} className="w-5 h-5" />
               </div>
 
               {/* Content */}
@@ -133,7 +163,7 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
                 <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ring-1 ${cfg.badge}`}>
                   {tool.category}
                 </span>
-                <span className="text-[#E8500A] opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-sm font-semibold">
+                <span className="text-[#E8500A] text-sm font-semibold group-hover:translate-x-0.5 transition-transform duration-150">
                   Open →
                 </span>
               </div>
