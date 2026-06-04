@@ -111,6 +111,9 @@ function RegimeCard({
           { label: "Total Deductions", value: result.totalDeductions, muted: true, negative: true },
           { label: "Taxable Income", value: result.taxableIncome, bold: true },
           { label: "Income Tax", value: result.taxBeforeCess, muted: true },
+          ...(result.surcharge > 0
+            ? [{ label: "Surcharge", value: result.surcharge, muted: true }]
+            : []),
           ...(result.rebate87A > 0
             ? [{ label: "Rebate u/s 87A", value: result.rebate87A, muted: true, negative: true }]
             : []),
@@ -177,8 +180,8 @@ function RegimeCard({
   );
 }
 
-export function IncomeTaxCalculator() {
-  const [grossIncome, setGrossIncome]           = useState(1000000);
+export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number }) {
+  const [grossIncome, setGrossIncome]           = useState(defaultIncome ?? 1000000);
   const [age, setAge]                           = useState(30);
   const [hra, setHra]                           = useState(0);
   const [rentPaid, setRentPaid]                 = useState(0);
@@ -186,6 +189,7 @@ export function IncomeTaxCalculator() {
   const [investments80C, setInvestments80C]     = useState(150000);
   const [healthIns80D, setHealthIns80D]         = useState(25000);
   const [parentsIns80D, setParentsIns80D]       = useState(0);
+  const [parentsAreSenior, setParentsAreSenior] = useState(false);
   const [nps, setNps]                           = useState(0);
   const [homeLoanInt, setHomeLoanInt]           = useState(0);
   const [showOldInputs, setShowOldInputs]       = useState(false);
@@ -194,13 +198,14 @@ export function IncomeTaxCalculator() {
     grossIncome, age, hra, rentPaid, isMetro,
     investments80C, healthInsurance80D: healthIns80D,
     parentsInsurance80D: parentsIns80D,
+    parentsAreSenior,
     npsContribution: nps, homeLoanInterest: homeLoanInt,
   };
 
   const comparison = useMemo(
     () => compareRegimes(input),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [grossIncome, age, hra, rentPaid, isMetro, investments80C, healthIns80D, parentsIns80D, nps, homeLoanInt]
+    [grossIncome, age, hra, rentPaid, isMetro, investments80C, healthIns80D, parentsIns80D, parentsAreSenior, nps, homeLoanInt]
   );
 
   const { newRegime, oldRegime, betterRegime, savings } = comparison;
@@ -287,7 +292,32 @@ export function IncomeTaxCalculator() {
 
                 <InputRow label="80C Investments" value={investments80C} onChange={setInvestments80C} max={150000} note="PPF, ELSS, LIC, PF (max ₹1.5L)" />
                 <InputRow label="80D Health Insurance" value={healthIns80D} onChange={setHealthIns80D} max={25000} note="Self & family (max ₹25K)" />
-                <InputRow label="80D Parents Insurance" value={parentsIns80D} onChange={setParentsIns80D} max={25000} note="Senior parents (max ₹25K)" />
+                <InputRow
+                  label="80D Parents Insurance"
+                  value={parentsIns80D}
+                  onChange={setParentsIns80D}
+                  max={parentsAreSenior ? 50000 : 25000}
+                  note={parentsAreSenior ? "Senior parents (max ₹50K)" : "Parents under 60 (max ₹25K)"}
+                />
+                {/* Parents age toggle */}
+                <div className="flex items-center gap-3">
+                  <label className="text-sm font-medium text-[#0F2447] flex-1">Parents Age</label>
+                  <div className="flex gap-1 bg-white border border-[#F0E4D4] p-0.5 rounded-xl">
+                    {([["Under 60", false], ["Senior 60+", true]] as [string, boolean][]).map(([lbl, val]) => (
+                      <button
+                        key={lbl}
+                        onClick={() => setParentsAreSenior(val)}
+                        className={`text-xs px-3 py-1 rounded-lg font-medium transition-all ${
+                          parentsAreSenior === val
+                            ? "bg-[#0F2447] text-white"
+                            : "text-[#7A6048] hover:text-[#0F2447]"
+                        }`}
+                      >
+                        {lbl}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <InputRow label="80CCD NPS Contribution" value={nps} onChange={setNps} max={50000} note="Additional NPS (max ₹50K)" />
                 <InputRow label="Home Loan Interest (24b)" value={homeLoanInt} onChange={setHomeLoanInt} max={200000} note="Self-occupied (max ₹2L)" />
               </div>
@@ -341,6 +371,23 @@ export function IncomeTaxCalculator() {
               isNew={false}
               savings={betterRegime === "old" ? savings : 0}
             />
+          </div>
+
+          {/* Monthly In-Hand comparison */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: "New Regime", value: newRegime.monthlyTakeHome, isNew: true },
+              { label: "Old Regime", value: oldRegime.monthlyTakeHome, isNew: false },
+            ].map((r) => (
+              <div key={r.label} className={`rounded-2xl p-3 text-center border ${r.isNew ? "bg-emerald-50 border-emerald-200" : "bg-amber-50 border-amber-200"}`}>
+                <p className={`text-xs font-medium mb-0.5 ${r.isNew ? "text-emerald-600" : "text-amber-600"}`}>
+                  {r.label} — Monthly In-Hand
+                </p>
+                <p className={`text-lg font-bold tabular-nums ${r.isNew ? "text-emerald-700" : "text-amber-700"}`}>
+                  {formatINR(r.value)}<span className="text-xs font-normal ml-0.5">/mo</span>
+                </p>
+              </div>
+            ))}
           </div>
 
           {/* Visual bar comparison */}

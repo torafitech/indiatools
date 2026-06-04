@@ -73,6 +73,7 @@ export function calculateInHandSalary(
     investments80C:       0,
     healthInsurance80D:   0,
     parentsInsurance80D:  0,
+    parentsAreSenior:     false,
     npsContribution:      0,
     homeLoanInterest:     0,
   };

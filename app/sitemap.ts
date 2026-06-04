@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { emiVariants } from "@/lib/programmatic/emi-variants";
 import { salaryVariants } from "@/lib/programmatic/salary-variants";
 import { constructionVariants } from "@/lib/programmatic/construction-variants";
+import { incomeTaxVariants } from "@/lib/programmatic/incometax-variants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.utilspot.app";
@@ -37,6 +38,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...constructionVariants.map((v) => ({
       url: `${baseUrl}/construction-cost-calculator/${v.slug}`,
       lastModified: now, changeFrequency: "monthly" as const, priority: 0.6,
+    })),
+    ...incomeTaxVariants.map((v) => ({
+      url: `${baseUrl}/income-tax-calculator/${v.slug}`,
+      lastModified: now, changeFrequency: "monthly" as const, priority: 0.7,
     })),
   ];
 
