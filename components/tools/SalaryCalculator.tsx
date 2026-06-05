@@ -144,7 +144,7 @@ export function SalaryCalculator({
     { label: "Gross Monthly", sub: "Before deductions", value: formatINR(result.grossMonthly), deduction: false },
     ...(pfOptIn ? [{ label: "Employee PF", sub: "12% of basic", value: `−${formatINR(result.employeePF)}`, deduction: true }] : []),
     ...(result.professionalTax > 0 ? [{ label: "Professional Tax", sub: state, value: `−${formatINR(result.professionalTax)}`, deduction: true }] : []),
-    { label: "Income Tax (TDS)", sub: "New regime, FY 2025-26", value: `−${formatINR(result.incomeTaxMonthly)}`, deduction: true },
+    { label: "Income Tax (TDS)", sub: result.incomeTaxMonthly === 0 ? "₹0 — 87A rebate applies (new regime)" : "New regime, FY 2025-26", value: `−${formatINR(result.incomeTaxMonthly)}`, deduction: true },
   ];
 
   return (

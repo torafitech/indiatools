@@ -159,9 +159,16 @@ export function FullFinalSettlementCalculator() {
             <div className="space-y-1.5">
               <p className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-2">Breakdown</p>
               {result.breakdown.map((row) => (
-                <div key={row.label} className={`flex justify-between items-center px-3 py-2 rounded-xl ${row.type === "credit" ? "bg-white/5" : "bg-[#E8500A]/10 border border-[#E8500A]/20"}`}>
-                  <span className="text-xs text-white/70">{row.label}</span>
-                  <span className={`text-sm font-semibold tabular-nums ${row.type === "debit" ? "text-[#FFDCBA]" : "text-white"}`}>
+                <div key={row.label} className={`flex justify-between items-center px-3 py-2 rounded-xl ${
+                  row.type === "debit"
+                    ? "bg-red-500/15 border border-red-400/30"
+                    : "bg-white/5"
+                }`}>
+                  <div className="flex items-center gap-1.5">
+                    {row.type === "debit" && <span className="text-red-400 text-xs font-bold">▼</span>}
+                    <span className={`text-xs ${row.type === "debit" ? "text-red-300 font-semibold" : "text-white/70"}`}>{row.label}</span>
+                  </div>
+                  <span className={`text-sm font-bold tabular-nums ${row.type === "debit" ? "text-red-400" : "text-white"}`}>
                     {row.type === "debit" ? "−" : "+"}{formatINR(row.amount)}
                   </span>
                 </div>

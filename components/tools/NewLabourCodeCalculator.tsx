@@ -117,10 +117,10 @@ export function NewLabourCodeCalculator({ defaultCTC = 1200000, defaultBasicPct 
               onChange={(e) => setBasicPct(parseInt(e.target.value))}
               className="w-full h-1.5 rounded-full appearance-none cursor-pointer focus:outline-none"
               style={{ background: `linear-gradient(to right, #E8500A ${basicPctPct}%, #F0E4D4 ${basicPctPct}%)` }} />
-            <div className="flex justify-between text-xs text-[#7A6048]">
-              <span>10%</span>
-              <span className="font-semibold text-[#059669]">50% ← minimum (new rule)</span>
-              <span>70%</span>
+            <div className="flex justify-between text-xs">
+              <span className="text-[#7A6048]">10%</span>
+              <span className="font-bold text-[#059669] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">⬆ 50% minimum under new rule</span>
+              <span className="text-[#7A6048]">70%</span>
             </div>
           </div>
 

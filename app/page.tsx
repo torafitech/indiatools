@@ -143,7 +143,7 @@ export default function HomePage() {
       </section>
 
       {/* ── TOOLS GRID ────────────────────────────────────────────── */}
-      <section id="tools" className="max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
+      <section id="tools" className="max-w-6xl mx-auto px-4 sm:px-8 pt-8 pb-12 sm:pb-16">
         <div className="flex items-end justify-between mb-6">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-[#0F2447]">All Tools</h2>

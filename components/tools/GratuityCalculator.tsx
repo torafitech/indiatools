@@ -88,7 +88,7 @@ export function GratuityCalculator() {
             <div className="grid grid-cols-2 gap-2">
               {([
                 { v: "permanent" as const, label: "Permanent", sub: "Eligible after 5 years" },
-                { v: "fixed-term" as const, label: "Fixed-Term Contract", sub: "Eligible after 1 year (new rule)" },
+                { v: "fixed-term" as const, label: "Fixed-Term Contract", sub: "✓ Eligible after just 1 year (New Labour Code 2025)" },
               ]).map((opt) => (
                 <button key={opt.v} onClick={() => setEmpType(opt.v)}
                   className={`flex flex-col items-start gap-0.5 px-4 py-3 rounded-xl border-2 text-left transition-all ${empType === opt.v ? "bg-[#E8500A] text-white border-[#E8500A]" : "bg-white text-[#7A6048] border-[#F0E4D4] hover:border-[#E8500A]/40"}`}>
