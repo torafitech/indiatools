@@ -156,7 +156,7 @@ export default async function VariantPage({
               ))}
             <Link
               href="/emi-calculator"
-              className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full hover:bg-[#1A3A5C] transition-colors"
+              className="text-xs px-3 py-1.5 bg-[#0F2447] text-white rounded-full hover:bg-[#1A3A5C] transition-colors"
             >
               Main EMI Calculator
             </Link>

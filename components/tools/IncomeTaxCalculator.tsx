@@ -342,10 +342,10 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
           <div>
             <button
               onClick={() => setShowOldInputs(!showOldInputs)}
-              className="w-full flex items-center justify-between text-sm font-semibold text-[#0F2447] bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 hover:bg-[#FFF8F2] transition-colors"
+              className="w-full flex items-center justify-between text-sm font-semibold text-[#0F2447] bg-[#FFF8F2] border border-[rgba(232,80,10,0.2)] rounded-2xl px-4 py-3 hover:bg-[#FFF0E8] transition-colors"
             >
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
+                <span className="w-2 h-2 rounded-full bg-[#E8500A]/50 inline-block" />
                 Old Regime Deductions
               </span>
               <svg
@@ -357,7 +357,7 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
             </button>
 
             {showOldInputs && (
-              <div className="mt-2 space-y-3.5 p-4 bg-[#FFF8F2]/60 rounded-2xl border border-amber-200">
+              <div className="mt-2 space-y-3.5 p-4 bg-[#FFF8F2]/60 rounded-2xl border border-[rgba(232,80,10,0.2)]">
                 <InputRow label="HRA Received" value={hra} onChange={setHra} note="From salary slip" />
                 <InputRow label="Rent Paid (annual)" value={rentPaid} onChange={setRentPaid} />
 
@@ -479,7 +479,7 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
             <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-widest mb-4">Tax Comparison</p>
             {[
               { label: "New Regime", value: newRegime.totalTax, bar: "bg-emerald-400", isBetter: betterRegime === "new" },
-              { label: "Old Regime",  value: oldRegime.totalTax,  bar: "bg-amber-400",   isBetter: betterRegime === "old"  },
+              { label: "Old Regime",  value: oldRegime.totalTax,  bar: "bg-[#E8500A]/60",   isBetter: betterRegime === "old"  },
             ].map((row) => (
               <div key={row.label} className="mb-3 last:mb-0">
                 <div className="flex justify-between text-xs mb-1.5">
@@ -509,13 +509,13 @@ export function IncomeTaxCalculator({ defaultIncome }: { defaultIncome?: number 
                   className={`rounded-xl p-3 text-center ${
                     r.isNew
                       ? "bg-emerald-50 border border-emerald-200"
-                      : "bg-amber-50 border border-amber-200"
+                      : "bg-[#FFF8F2] border border-[rgba(232,80,10,0.2)]"
                   }`}
                 >
                   <p className={`text-xs font-medium mb-0.5 ${r.isNew ? "text-emerald-600" : "text-[#E8500A]"}`}>
                     {r.label}
                   </p>
-                  <p className={`text-2xl font-bold tabular-nums ${r.isNew ? "text-emerald-700" : "text-amber-700"}`}>
+                  <p className={`text-2xl font-bold tabular-nums ${r.isNew ? "text-emerald-700" : "text-[#E8500A]"}`}>
                     {r.rate}%
                   </p>
                 </div>

@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     siteName: "UtilSpot",
   },
   alternates: { canonical: "https://www.utilspot.app/readme-generator" },
+  robots: { index: false, follow: false },
 };
 
 const webAppSchema = {

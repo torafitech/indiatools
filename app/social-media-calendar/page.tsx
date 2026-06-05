@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     siteName: "UtilSpot",
   },
   alternates: { canonical: "https://www.utilspot.app/social-media-calendar" },
+  robots: { index: false, follow: false },
 };
 
 const webAppSchema = {

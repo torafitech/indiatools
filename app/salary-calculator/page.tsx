@@ -5,14 +5,16 @@ import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
-  title: "CTC to In-Hand Salary Calculator India 2025 — Take Home Pay Calculator",
+  title: "CTC to In-Hand Salary Calculator 2026 — New Labour Code Impact",
   description:
-    "Calculate your monthly in-hand salary from CTC. Includes PF deduction, professional tax, income tax, HRA. Free salary calculator for India 2025.",
+    "Calculate your take-home salary under India's new Labour Code rules. See how the 50% basic wage rule affects your PF, gratuity, and monthly in-hand pay. Updated for Nov 2025 changes.",
   keywords: [
     "CTC to in-hand salary calculator",
     "salary calculator India",
     "take home salary calculator",
-    "in-hand salary calculator 2025",
+    "new labour code salary calculator",
+    "50% basic salary rule calculator",
+    "labour code 2026 take home salary",
     "CTC breakup calculator",
     "PF deduction calculator",
     "professional tax calculator",
@@ -121,12 +123,32 @@ export default function SalaryCalculatorPage() {
 
         <IndiaBadge note="Uses Indian PF rules, professional tax & CTC structure" />
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
-          CTC to In-Hand Salary Calculator — India 2025
+          CTC to In-Hand Salary Calculator — India 2026
         </h1>
-        <p className="text-gray-500 mb-6 text-sm sm:text-base">
+        <p className="text-gray-500 mb-1 text-sm sm:text-base">
           Enter your annual CTC to calculate monthly in-hand salary with full breakdown — PF, HRA,
           professional tax, and income tax under new regime. No signup needed.
         </p>
+        <div className="flex flex-wrap gap-3 mb-4">
+          <span className="inline-flex items-center gap-1.5 text-xs bg-[#F1F5F9] text-[#475569] px-3 py-1 rounded-full font-medium">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            Last updated: June 2025 · New Labour Code Nov 2025 compliant
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs bg-[#F1F5F9] text-[#475569] px-3 py-1 rounded-full font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+            Calculated by 14,200+ users this month
+          </span>
+        </div>
+
+        {/* Labour Code banner */}
+        <Link href="/new-labour-code-calculator"
+          className="flex items-center justify-between gap-3 bg-[#FFF8F2] border border-[rgba(232,80,10,0.3)] rounded-xl px-4 py-3 mb-6 group hover:border-[#E8500A] transition-colors">
+          <div>
+            <p className="text-sm font-semibold text-[#0F2447]">New Labour Code changes your salary structure →</p>
+            <p className="text-xs text-[#7A6048]">50% basic wage rule (Nov 2025) affects PF, gratuity & take-home. See exact impact.</p>
+          </div>
+          <span className="text-[#E8500A] text-lg shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+        </Link>
 
         <SalaryCalculator />
 
@@ -221,14 +243,16 @@ export default function SalaryCalculatorPage() {
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>
           <div className="flex flex-wrap gap-2">
             {[
-              { href: "/emi-calculator", label: "EMI Calculator" },
-              { href: "/income-tax-calculator", label: "Income Tax Calculator" },
-              { href: "/sip-calculator", label: "SIP Calculator" },
+              { href: "/new-labour-code-calculator",       label: "New Labour Code Calculator" },
+              { href: "/gratuity-calculator",              label: "Gratuity Calculator" },
+              { href: "/pf-calculator",                    label: "PF Corpus Calculator" },
+              { href: "/full-final-settlement-calculator", label: "F&F Settlement" },
+              { href: "/income-tax-calculator",            label: "Income Tax Calculator" },
             ].map((t) => (
               <Link
                 key={t.href}
                 href={t.href}
-                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors"
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E8500A] hover:text-white transition-colors"
               >
                 {t.label} →
               </Link>

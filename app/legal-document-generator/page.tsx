@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     siteName: "UtilSpot",
   },
   alternates: { canonical: "https://www.utilspot.app/legal-document-generator" },
+  robots: { index: false, follow: false },
 };
 
 const webAppSchema = {

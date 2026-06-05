@@ -369,7 +369,7 @@ export function EquityCalculator() {
                     <span
                       className="text-xs px-2 py-0.5 rounded-full font-semibold"
                       style={{
-                        background: si === 0 ? "#EFF6FF" : "#FFF5F0",
+                        background: si === 0 ? "#F0F4FF" : "#FFF5F0",
                         color: si === 0 ? "#0F2447" : "#E8500A",
                       }}
                     >

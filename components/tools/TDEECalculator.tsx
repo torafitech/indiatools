@@ -208,8 +208,8 @@ export function TDEECalculator() {
           <p className="text-xs font-semibold text-[#7A6048] uppercase tracking-wide mb-4">Daily Macros</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Protein", grams: result.protein, cal: result.protein * 4, pillBg: "bg-blue-100",   pillText: "text-[#0F2447]",   barColor: "bg-[#F0F4FF]0"   },
-              { label: "Fat",     grams: result.fat,     cal: result.fat * 9,     pillBg: "bg-amber-100",  pillText: "text-amber-700",  barColor: "bg-[#E8500A]"  },
+              { label: "Protein", grams: result.protein, cal: result.protein * 4, pillBg: "bg-[#F0F4FF]",   pillText: "text-[#0F2447]",   barColor: "bg-[#0F2447]"   },
+              { label: "Fat",     grams: result.fat,     cal: result.fat * 9,     pillBg: "bg-[#FFF8F2]",  pillText: "text-[#E8500A]",  barColor: "bg-[#E8500A]"  },
               { label: "Carbs",   grams: result.carbs,   cal: result.carbs * 4,   pillBg: "bg-emerald-100",pillText: "text-emerald-700",barColor: "bg-emerald-500"},
             ].map((m) => {
               const maxCal = result.targetCalories;

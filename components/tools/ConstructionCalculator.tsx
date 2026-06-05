@@ -44,8 +44,8 @@ const TYPE_OPTIONS: {
     description: "Italian marble, smart home wiring, premium sanitary, designer interiors",
     icon: "🏰",
     priceHint: "Top quality",
-    activeColor: "text-amber-700",
-    activeBg: "bg-amber-50",
+    activeColor: "text-[#E8500A]",
+    activeBg: "bg-[#FFF8F2]",
     activeBorder: "border-[#E8500A]",
   },
 ];
@@ -54,16 +54,16 @@ const BREAKDOWN_ITEMS = [
   {
     key: "materialCost" as const,
     label: "Material & Structure",
-    color: "bg-[#F0F4FF]0",
+    color: "bg-[#F0F4FF]",
     textColor: "text-[#E8500A]",
-    trackBg: "bg-blue-100",
+    trackBg: "bg-[#E8F0FF]",
   },
   {
     key: "labourCost" as const,
     label: "Labour",
     color: "bg-[#E8500A]",
     textColor: "text-[#E8500A]",
-    trackBg: "bg-amber-100",
+    trackBg: "bg-[#FFF0E8]",
   },
   {
     key: "finishingCost" as const,
@@ -358,16 +358,16 @@ export function ConstructionCalculator({
             <div className="space-y-1.5 border-t border-white/10 pt-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-[#E8500A]/60 flex-shrink-0" />
                   <span className="text-white/70 text-xs">Contingency (10%)</span>
                 </div>
-                <span className="text-amber-300 font-semibold text-sm">
+                <span className="text-[#FFDCBA] font-semibold text-sm">
                   {formatINRShort(result.contingency)}
                 </span>
               </div>
               <div className="w-full bg-white/10 rounded-full h-2">
                 <div
-                  className="bg-amber-400 h-2 rounded-full transition-all duration-500"
+                  className="bg-[#E8500A]/60 h-2 rounded-full transition-all duration-500"
                   style={{
                     width: `${Math.round((result.contingency / result.constructionCost) * 100)}%`,
                   }}
@@ -442,7 +442,7 @@ export function ConstructionCalculator({
         <div className="grid grid-cols-2 gap-2">
           <div className="bg-white/10 rounded-xl px-3 py-3 border border-white/10">
             <p className="text-white/50 text-[10px]">Contingency</p>
-            <p className="text-amber-300 font-bold text-sm">{formatINRShort(result.contingency)}</p>
+            <p className="text-[#FFDCBA] font-bold text-sm">{formatINRShort(result.contingency)}</p>
           </div>
           <div className="bg-white/10 rounded-xl px-3 py-3 border border-white/10">
             <p className="text-white/50 text-[10px]">Timeline</p>

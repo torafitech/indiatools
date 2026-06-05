@@ -36,7 +36,7 @@ const CONTENT_TYPE_STYLES: Record<string, string> = {
   story: "bg-fuchsia-50 text-fuchsia-700",
   reel: "bg-rose-50 text-rose-700",
   carousel: "bg-sky-50 text-sky-700",
-  poll: "bg-amber-50 text-amber-700",
+  poll: "bg-[#FFF8F2] text-[#E8500A]",
   quote: "bg-teal-50 text-teal-700",
 };
 

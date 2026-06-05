@@ -67,7 +67,7 @@ export default function ContactPage() {
 
         <button
           type="button"
-          className="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-[#1A3A5C] transition-colors text-sm"
+          className="w-full bg-[#E8500A] text-white font-semibold py-2.5 rounded-lg hover:bg-[#D44A09] transition-colors text-sm"
         >
           Send Message
         </button>

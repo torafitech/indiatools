@@ -202,7 +202,7 @@ export function PasswordGenerator() {
             {testResult.feedback.length > 0 && (
               <ul className="space-y-1">
                 {testResult.feedback.map((f, i) => (
-                  <li key={i} className="text-xs text-amber-700 bg-amber-50 rounded px-2 py-1">
+                  <li key={i} className="text-xs text-[#E8500A] bg-[#FFF8F2] rounded px-2 py-1">
                     ⚠ {f}
                   </li>
                 ))}
