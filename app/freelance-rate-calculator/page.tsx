@@ -4,7 +4,7 @@ import { FreelanceRateCalculator } from "@/components/tools/FreelanceRateCalcula
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
-  title: "Freelance Rate Calculator 2025 — Hourly Rate by Skill, Country & Experience | UtilSpot",
+  title: "Freelance Rate Calculator 2026 — Hourly Rate by Skill, Country & Experience",
   description:
     "Find your freelance hourly rate based on skill, country, and experience. Compare Developer, Designer, Writer, Consultant & Marketer rates across India, US, UK, Canada, Australia & Germany.",
   keywords: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "freelance rate calculator USD INR",
   ],
   openGraph: {
-    title: "Freelance Rate Calculator 2025 — Hourly Rate by Skill, Country & Experience",
+    title: "Freelance Rate Calculator 2026 — Hourly Rate by Skill, Country & Experience",
     description:
       "Calculate your freelance hourly rate by skill, country, and experience level. See monthly and annual income projections instantly.",
     url: "https://www.utilspot.app/freelance-rate-calculator",

@@ -100,7 +100,7 @@ export function FullFinalSettlementCalculator() {
                 className="w-full border border-[#F0E4D4] rounded-xl px-3 py-2.5 text-sm text-[#0F2447] focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A]" />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-semibold text-[#0F2447] block">Pending Salary Days</label>
+              <label className="text-sm font-semibold text-[#0F2447] block">Days Worked in Final Month</label>
               <input type="number" value={pendingSalaryDays} min={0} max={31}
                 onChange={(e) => setPendingDays(Math.max(0, Math.min(31, parseInt(e.target.value) || 0)))}
                 className="w-full border border-[#F0E4D4] rounded-xl px-3 py-2.5 text-sm text-[#0F2447] focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A]" />

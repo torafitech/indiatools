@@ -4,7 +4,7 @@ import { AccessibilityChecker } from "@/components/tools/AccessibilityChecker";
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
-  title: "Free Accessibility Checker — WCAG 2.1 HTML Audit Tool | UtilSpot",
+  title: "Free Accessibility Checker — WCAG 2.1 HTML Audit Tool",
   description:
     "Free WCAG 2.1 accessibility checker. Paste HTML and instantly find violations: missing alt text, unlabelled inputs, empty links, heading hierarchy issues, and more.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "accessibility validator online",
   ],
   openGraph: {
-    title: "Free Accessibility Checker — WCAG 2.1 HTML Audit Tool | UtilSpot",
+    title: "Free Accessibility Checker — WCAG 2.1 HTML Audit Tool",
     description:
       "Paste HTML to instantly find WCAG 2.1 violations: missing alt text, unlabelled inputs, empty links, heading jumps, and more. Free, no signup.",
     url: "https://www.utilspot.app/accessibility-checker",

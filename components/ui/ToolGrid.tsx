@@ -17,11 +17,14 @@ type Tool = {
 const CAT: Record<string, {
   iconBg: string; iconText: string; badge: string; dot: string; borderL: string;
 }> = {
-  Finance:   { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
-  Health:    { iconBg: "bg-teal-50",    iconText: "text-teal-600",   badge: "bg-teal-50 text-teal-700 ring-teal-100",         dot: "bg-teal-500",    borderL: "border-l-teal-500"    },
-  Writing:   { iconBg: "bg-violet-50", iconText: "text-violet-600", badge: "bg-violet-50 text-violet-700 ring-violet-100",   dot: "bg-violet-500",  borderL: "border-l-violet-500" },
-  Business:  { iconBg: "bg-orange-50", iconText: "text-orange-600", badge: "bg-orange-50 text-orange-700 ring-orange-100",   dot: "bg-orange-500",  borderL: "border-l-orange-500" },
-  Developer: { iconBg: "bg-purple-50", iconText: "text-purple-600", badge: "bg-purple-50 text-purple-700 ring-purple-100",   dot: "bg-purple-500",  borderL: "border-l-purple-500" },
+  Finance:      { iconBg: "bg-[#FFF8F2]",  iconText: "text-[#E8500A]",  badge: "bg-[#FFF8F2] text-[#E8500A] ring-[#FFDCBA]",   dot: "bg-[#E8500A]",   borderL: "border-l-[#E8500A]"   },
+  Health:       { iconBg: "bg-emerald-50", iconText: "text-emerald-600", badge: "bg-emerald-50 text-emerald-700 ring-emerald-100", dot: "bg-emerald-500", borderL: "border-l-[#059669]"   },
+  Writing:      { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  Business:     { iconBg: "bg-[#FFF8F2]",  iconText: "text-[#E8500A]",  badge: "bg-[#FFF8F2] text-[#E8500A] ring-[#FFDCBA]",   dot: "bg-[#E8500A]",   borderL: "border-l-[#E8500A]"   },
+  Developer:    { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  "Labour & HR":{ iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  Career:       { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  Security:     { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
 };
 
 /* ── Lucide-style inline SVG icons per tool ─────────────────────────── */
@@ -74,6 +77,56 @@ function ToolIcon({ slug, className }: { slug: string; className?: string }) {
       <path d="M10 22h4"/>
       <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14"/>
     </>,
+    "/new-labour-code-calculator": <>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </>,
+    "/gratuity-calculator": <>
+      <rect x="2" y="5" width="20" height="14" rx="2"/>
+      <line x1="2" y1="10" x2="22" y2="10"/>
+    </>,
+    "/pf-calculator": <>
+      <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2m-2 0H3"/>
+      <path d="M12 12v4m-2-2h4"/>
+    </>,
+    "/full-final-settlement-calculator": <>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <polyline points="9 15 11 17 15 13"/>
+    </>,
+    "/freelance-rate-calculator": <>
+      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+      <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+    </>,
+    "/seo-analyzer": <>
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      <line x1="11" y1="8" x2="11" y2="14"/>
+      <line x1="8" y1="11" x2="14" y2="11"/>
+    </>,
+    "/accessibility-checker": <>
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M19 12H5"/>
+      <path d="M12 6v4"/>
+      <path d="M8.5 22l3.5-6 3.5 6"/>
+      <path d="M8.5 16l-2-4"/>
+      <path d="M15.5 16l2-4"/>
+    </>,
+    "/equity-calculator": <>
+      <path d="M21.21 15.89A10 10 0 118 2.83"/>
+      <path d="M22 12A10 10 0 0012 2v10z"/>
+    </>,
+    "/nutrition-label-calculator": <>
+      <path d="M2 2a26.6 26.6 0 0110.5 20c.9-6.82 1.91-9.72 5-14"/>
+      <path d="M16 8c4 0 6-2 6-6-4 0-6 2-6 6z"/>
+    </>,
+    "/cron-builder": <>
+      <circle cx="12" cy="12" r="10"/>
+      <polyline points="12 6 12 12 16 14"/>
+    </>,
+    "/password-generator": <>
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0110 0v4"/>
+    </>,
   };
   return (
     <svg
@@ -90,7 +143,7 @@ function ToolIcon({ slug, className }: { slug: string; className?: string }) {
   );
 }
 
-const FILTER_LABELS = ["All", "Finance", "Health", "Writing", "Business", "Developer"];
+const FILTER_LABELS = ["All", "Finance", "Labour & HR", "Health", "Developer", "Business", "Writing", "Career", "Security"];
 
 const STAGGER = [
   "stagger-1","stagger-2","stagger-3","stagger-4","stagger-5",

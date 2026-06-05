@@ -161,13 +161,13 @@ export function SalaryCalculator({
               label=""
               value={ctc}
               min={200000}
-              max={5000000}
+              max={10000000}
               step={50000}
               display={formatINRShort(ctc)}
               parseInput={parseCurrency}
               onChange={setCTC}
               minLabel="₹2 L"
-              maxLabel="₹50 L"
+              maxLabel="₹1 Cr"
             />
           </div>
 

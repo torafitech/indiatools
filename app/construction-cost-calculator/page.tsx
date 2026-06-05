@@ -5,7 +5,7 @@ import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
-  title: "Construction Cost Calculator India 2025 — Cost Per Sqft by City",
+  title: "Construction Cost Calculator India 2026 — Cost Per Sqft by City",
   description:
     "Calculate home construction cost in India. City-specific rates per sqft for basic, standard, and premium construction. Updated 2025 rates for 30+ cities.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "construction cost estimator India",
   ],
   openGraph: {
-    title: "Construction Cost Calculator India 2025 — Cost Per Sqft by City",
+    title: "Construction Cost Calculator India 2026 — Cost Per Sqft by City",
     description:
       "City-specific construction cost estimator for India. Basic, standard, and premium rates for 30+ cities. Updated 2025 data.",
     url: "https://www.utilspot.app/construction-cost-calculator",
@@ -121,7 +121,7 @@ export default function ConstructionCostCalculatorPage() {
 
         <IndiaBadge note="City-specific rates for 30+ Indian cities — updated 2025" />
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
-          Construction Cost Calculator India 2025 — Cost Per Sqft by City
+          Construction Cost Calculator India 2026 — Cost Per Sqft by City
         </h1>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
           Estimate your home construction cost with city-specific rates for 30+ Indian cities.

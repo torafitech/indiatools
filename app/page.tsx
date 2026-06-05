@@ -76,7 +76,7 @@ export default function HomePage() {
               The Right Tool
             </span>
             <span className="block text-4xl sm:text-5xl lg:text-6xl mt-1">
-              for Every Financial
+              for Every
             </span>
             <span className="block text-4xl sm:text-5xl lg:text-6xl mt-1">
               Decision.
@@ -147,7 +147,7 @@ export default function HomePage() {
         <div className="flex items-end justify-between mb-6">
           <div>
             <h2 className="text-xl sm:text-2xl font-bold text-[#0F2447]">All Tools</h2>
-            <p className="text-sm text-[#7A6048] mt-0.5">{tools.length} tools · growing monthly</p>
+            <p className="text-sm text-[#7A6048] mt-0.5">20+ tools · growing monthly</p>
           </div>
         </div>
         <ToolGrid tools={tools} />
@@ -163,7 +163,7 @@ export default function HomePage() {
             Start with any tool.
           </p>
           <p className="text-[#8BAFD4] text-base mb-7 max-w-md mx-auto">
-            No account. No tracking. No ads (yet). Just the tool, doing its job.
+            No account. No tracking. No ads. Just the tool, doing its job.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {[

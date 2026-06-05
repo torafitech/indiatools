@@ -4,7 +4,7 @@ import { PasswordGenerator } from "@/components/tools/PasswordGenerator";
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
-  title: "Free Password Generator & Strength Tester — Secure Random Passwords | UtilSpot",
+  title: "Free Password Generator & Strength Tester — Secure Random Passwords",
   description:
     "Generate strong random passwords and test existing ones. 100% client-side — passwords never leave your browser. Uses Web Crypto API for true randomness. Free.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "safe password generator",
   ],
   openGraph: {
-    title: "Free Password Generator & Strength Tester — Secure Random Passwords | UtilSpot",
+    title: "Free Password Generator & Strength Tester — Secure Random Passwords",
     description:
       "Generate strong secure passwords and test existing ones. 100% client-side, Web Crypto API. Nothing sent to any server.",
     url: "https://www.utilspot.app/password-generator",
