@@ -75,33 +75,46 @@ export function NutritionLabelCalculator() {
     if (!code) return;
     setLookupStatus("loading");
     setBarcodeData(null);
+
+    const FIELDS = "fields=product_name,ingredients_text,nutriments,brands";
+    const ENDPOINTS = [
+      `https://in.openfoodfacts.org/api/v2/product/${code}.json?${FIELDS}`,
+      `https://world.openfoodfacts.org/api/v2/product/${code}.json?${FIELDS}`,
+    ];
+
     try {
-      const res = await fetch(
-        `https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=product_name,ingredients_text,nutriments,brands`,
-        { signal: AbortSignal.timeout(8000) }
-      );
-      if (!res.ok) throw new Error("network");
-      const json = await res.json();
-      if (json.status === 0 || !json.product) {
+      let product: Record<string, unknown> | null = null;
+
+      for (const url of ENDPOINTS) {
+        const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+        if (!res.ok) continue;
+        const json = await res.json();
+        if (json.status !== 0 && json.product) {
+          product = json.product as Record<string, unknown>;
+          break;
+        }
+      }
+
+      if (!product) {
         setLookupStatus("not-found");
         return;
       }
-      const p = json.product;
-      const nm = p.nutriments ?? {};
+
+      const nm = (product.nutriments as Record<string, number>) ?? {};
       const data: BarcodeNutrition = {
-        cal:            nm["energy-kcal_100g"]     ?? (nm["energy_100g"] ? nm["energy_100g"] / 4.184 : 0),
-        protein:        nm["proteins_100g"]         ?? 0,
-        carbs:          nm["carbohydrates_100g"]    ?? 0,
-        fat:            nm["fat_100g"]              ?? 0,
-        satFat:         nm["saturated-fat_100g"]    ?? 0,
-        sugars:         nm["sugars_100g"]           ?? 0,
-        fiber:          nm["fiber_100g"]            ?? nm["fibers_100g"] ?? 0,
-        sodium:         (nm["sodium_100g"]          ?? 0) * 1000,
-        brand:          p.brands                    ?? "",
-        ingredientsText: p.ingredients_text         ?? "",
+        cal:             nm["energy-kcal_100g"]  ?? (nm["energy_100g"] ? nm["energy_100g"] / 4.184 : 0),
+        protein:         nm["proteins_100g"]      ?? 0,
+        carbs:           nm["carbohydrates_100g"] ?? 0,
+        fat:             nm["fat_100g"]           ?? 0,
+        satFat:          nm["saturated-fat_100g"] ?? 0,
+        sugars:          nm["sugars_100g"]        ?? 0,
+        fiber:           nm["fiber_100g"]         ?? nm["fibers_100g"] ?? 0,
+        sodium:          (nm["sodium_100g"]       ?? 0) * 1000,
+        brand:           (product.brands as string)           ?? "",
+        ingredientsText: (product.ingredients_text as string) ?? "",
       };
       setBarcodeData(data);
-      if (p.product_name) setProductName(p.product_name);
+      if (product.product_name) setProductName(product.product_name as string);
       setLookupStatus("found");
     } catch {
       setLookupStatus("error");
@@ -191,7 +204,7 @@ export function NutritionLabelCalculator() {
             value={barcode}
             onChange={(e) => setBarcode(e.target.value.replace(/\D/g, "").slice(0, 14))}
             onKeyDown={(e) => { if (e.key === "Enter") handleLookup(); }}
-            placeholder="e.g. 8901030852091"
+            placeholder="e.g. 3017624010701 (Nutella)"
             className="flex-1 border border-[#F0E4D4] rounded-lg px-3 py-2 text-sm text-[#0F2447] focus:outline-none focus:ring-2 focus:ring-[#E8500A]/30 font-mono"
           />
           <button
@@ -207,7 +220,7 @@ export function NutritionLabelCalculator() {
         {lookupStatus === "not-found" && (
           <div className="mt-3 flex items-start gap-2 bg-[#FFF8F2] border border-[rgba(232,80,10,0.2)] rounded-lg px-3 py-2.5">
             <span className="text-[#E8500A] text-sm shrink-0">✗</span>
-            <p className="text-xs text-[#E8500A]">Product not found in database. Enter ingredients manually below.</p>
+            <p className="text-xs text-[#E8500A]">Product not found in database. This is common for Indian-manufactured products — coverage is best for international brands. Enter ingredients manually below.</p>
           </div>
         )}
         {lookupStatus === "error" && (

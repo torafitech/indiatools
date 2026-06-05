@@ -4,7 +4,7 @@ import { NutritionLabelCalculator } from "@/components/tools/NutritionLabelCalcu
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
-  title: "FSSAI Nutrition Label Calculator — Free Indian Food Label Generator | UtilSpot",
+  title: "FSSAI Nutrition Label Calculator — Free Indian Food Label Generator",
   description:
     "Create FSSAI-compliant nutrition labels for Indian food products. Add ingredients from our database, set serving size, and generate a printable nutrition fact panel.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "FSSAI food label free",
   ],
   openGraph: {
-    title: "FSSAI Nutrition Label Calculator — Free Indian Food Label Generator | UtilSpot",
+    title: "FSSAI Nutrition Label Calculator — Free Indian Food Label Generator",
     description:
       "Build FSSAI-compliant nutrition labels for Indian food products. 40+ Indian ingredients. Set serving size. Print-ready label.",
     url: "https://www.utilspot.app/nutrition-label-calculator",
