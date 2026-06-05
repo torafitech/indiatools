@@ -29,18 +29,22 @@ function SliderField({
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center gap-3 flex-wrap">
-        <span className="text-sm font-semibold text-[#0F2447] flex-1 min-w-[120px]">{label}</span>
-        <div className="relative">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-sm font-semibold text-[#0F2447] truncate">{label}</span>
+        <div className="relative shrink-0">
           <input type="text"
             value={focused ? raw : display}
             onFocus={() => { setRaw(String(value)); setFocused(true); }}
             onChange={(e) => setRaw(e.target.value)}
             onBlur={() => { commit(raw); setFocused(false); }}
             onKeyDown={(e) => { if (e.key === "Enter") { commit(raw); (e.target as HTMLInputElement).blur(); } }}
-            className="font-bold text-[#0F2447] text-sm bg-[#FFF8F2] border border-[#FFDCBA] focus:border-[#E8500A] focus:ring-2 focus:ring-[#E8500A]/20 focus:bg-white px-3 py-2 rounded-xl text-right w-32 transition-colors focus:outline-none"
+            className={`font-bold text-[#0F2447] text-sm bg-[#FFF8F2] border border-[#FFDCBA] focus:border-[#E8500A] focus:ring-2 focus:ring-[#E8500A]/20 focus:bg-white pl-3 py-2 rounded-xl text-right w-28 transition-colors focus:outline-none ${suffix ? "pr-8" : "pr-3"}`}
           />
-          {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7A6048] text-sm pointer-events-none">{suffix}</span>}
+          {suffix && (
+            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7A6048] text-xs pointer-events-none select-none">
+              {suffix}
+            </span>
+          )}
         </div>
       </div>
       <input type="range" min={min} max={max} step={step} value={value}
@@ -116,8 +120,8 @@ export function PFCalculator() {
                 <p className="text-xs text-[#7A6048] mt-0.5">Increases basic by ~25% if below 50% of CTC</p>
               </div>
               <button onClick={() => setNewCode(!applyNewCode)}
-                className={`relative w-12 h-6 rounded-full transition-colors ${applyNewCode ? "bg-[#E8500A]" : "bg-gray-200"}`}>
-                <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${applyNewCode ? "translate-x-7" : "translate-x-1"}`} />
+                className={`relative shrink-0 w-11 h-6 rounded-full transition-colors ${applyNewCode ? "bg-[#E8500A]" : "bg-gray-200"}`}>
+                <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${applyNewCode ? "translate-x-6" : "translate-x-1"}`} />
               </button>
             </div>
           </div>
