@@ -15,19 +15,29 @@ function AmountInput({
   onChange: (v: number) => void;
   max?: number;
 }) {
+  const [focused, setFocused] = useState(false);
+  const [raw, setRaw] = useState("");
+
+  function commit(s: string) {
+    const n = parseFloat(s.replace(/,/g, "")) || 0;
+    onChange(Math.min(max ?? Infinity, Math.max(0, n)));
+  }
+
+  const display = focused ? raw : (value === 0 ? "" : value.toLocaleString("en-IN"));
+
   return (
-    <div className="flex items-center gap-1 bg-[#FFF8F2] border border-[#FFDCBA] focus-within:border-[#E8500A] focus-within:ring-2 focus-within:ring-[#E8500A]/10 rounded-xl px-3 py-1.5 w-36 shrink-0 transition-all">
-      <span className="text-[#7A6048] text-xs">₹</span>
+    <div className="flex items-center gap-1 bg-[#FFF8F2] border border-[#FFDCBA] focus-within:border-[#E8500A] focus-within:ring-2 focus-within:ring-[#E8500A]/10 rounded-xl px-3 py-1.5 w-40 shrink-0 transition-all">
+      <span className="text-[#7A6048] text-xs shrink-0">₹</span>
       <input
-        type="number"
-        value={value || ""}
+        type="text"
+        inputMode="numeric"
+        value={display}
         placeholder="0"
-        min={0}
-        max={max}
-        onChange={(e) =>
-          onChange(Math.min(max ?? Infinity, Math.max(0, parseFloat(e.target.value) || 0)))
-        }
-        className="flex-1 text-right text-sm font-bold text-[#E8500A] bg-transparent focus:outline-none"
+        onFocus={() => { setRaw(value === 0 ? "" : String(value)); setFocused(true); }}
+        onChange={(e) => setRaw(e.target.value)}
+        onBlur={() => { commit(raw); setFocused(false); }}
+        onKeyDown={(e) => { if (e.key === "Enter") { commit(raw); (e.target as HTMLInputElement).blur(); } }}
+        className="flex-1 min-w-0 text-right text-sm font-bold text-[#E8500A] bg-transparent focus:outline-none truncate"
       />
     </div>
   );
