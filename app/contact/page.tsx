@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Contact UtilSpot",
+  title: "Contact Us",
   description: "Contact the UtilSpot team — report bugs, suggest features, or ask questions.",
   alternates: { canonical: "https://www.utilspot.app/contact" },
 };
@@ -9,6 +10,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-10">
+      <nav className="text-xs text-gray-400 mb-4">
+        <Link href="/" className="hover:text-[#E8500A]">Home</Link>
+        <span className="mx-2">›</span>
+        <span className="text-gray-600">Contact</span>
+      </nav>
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Contact Us</h1>
       <p className="text-gray-500 mb-8">Reach out for bug reports, tool suggestions, or any questions.</p>
 

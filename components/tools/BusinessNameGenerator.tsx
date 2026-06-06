@@ -200,6 +200,9 @@ export function BusinessNameGenerator() {
             "Generate 10 Names →"
           )}
         </button>
+        {!description.trim() && !loading && (
+          <p className="text-xs text-[#7A6048] mt-1.5 text-center">Describe your business above to enable</p>
+        )}
       </div>
 
       {/* Error */}

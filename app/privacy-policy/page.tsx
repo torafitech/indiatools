@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — UtilSpot",
+  title: "Privacy Policy",
   description: "Privacy policy for UtilSpot.app — how we handle (or don't handle) your data.",
   alternates: { canonical: "https://www.utilspot.app/privacy-policy" },
 };
@@ -9,6 +10,11 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
+      <nav className="text-xs text-gray-400 mb-4">
+        <Link href="/" className="hover:text-[#E8500A]">Home</Link>
+        <span className="mx-2">›</span>
+        <span className="text-gray-600">Privacy Policy</span>
+      </nav>
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
       <p className="text-gray-500 mb-8 text-sm">Last updated: June 2025</p>
 

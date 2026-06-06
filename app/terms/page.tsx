@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — UtilSpot",
+  title: "Terms of Service",
   description: "Terms of service for UtilSpot.app — free online tools for India.",
   alternates: { canonical: "https://www.utilspot.app/terms" },
 };
@@ -9,6 +10,11 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
+      <nav className="text-xs text-gray-400 mb-4">
+        <Link href="/" className="hover:text-[#E8500A]">Home</Link>
+        <span className="mx-2">›</span>
+        <span className="text-gray-600">Terms of Service</span>
+      </nav>
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Service</h1>
       <p className="text-gray-500 mb-8 text-sm">Last updated: June 2025</p>
 
