@@ -158,7 +158,7 @@ export function CronBuilder() {
   return (
     <div className="space-y-5">
       <div className="bg-white rounded-xl border border-[#F0E4D4] p-5">
-        <h3 className="text-sm font-bold text-[#0F2447] mb-3">Quick Patterns</h3>
+        <h2 className="text-sm font-bold text-[#0F2447] mb-3">Quick Patterns</h2>
         <div className="flex flex-wrap gap-2">
           {QUICK_PATTERNS.map((p) => (
             <button
@@ -175,7 +175,7 @@ export function CronBuilder() {
       </div>
 
       <div className="bg-white rounded-xl border border-[#F0E4D4] p-5">
-        <h3 className="text-sm font-bold text-[#0F2447] mb-4">Visual Builder</h3>
+        <h2 className="text-sm font-bold text-[#0F2447] mb-4">Visual Builder</h2>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
             { label: "Minute", value: minVal, set: setMinVal, options: ["*","*/5","*/10","*/15","*/30",...MINS.slice(0,15)] },
@@ -202,7 +202,7 @@ export function CronBuilder() {
 
       <div className="bg-white rounded-xl border border-[#F0E4D4] p-5">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-bold text-[#0F2447]">Cron Expression</h3>
+          <h2 className="text-sm font-bold text-[#0F2447]">Cron Expression</h2>
           <button
             onClick={copy}
             className="text-xs font-semibold text-[#E8500A] hover:text-[#C94008]"
@@ -220,7 +220,7 @@ export function CronBuilder() {
 
       {nextRuns.length > 0 && (
         <div className="bg-white rounded-xl border border-[#F0E4D4] p-5">
-          <h3 className="text-sm font-bold text-[#0F2447] mb-3">Next 5 Run Times</h3>
+          <h2 className="text-sm font-bold text-[#0F2447] mb-3">Next 5 Run Times</h2>
           <ol className="space-y-2">
             {nextRuns.map((run, i) => (
               <li key={i} className="flex items-center gap-3 text-sm text-[#0F2447]">

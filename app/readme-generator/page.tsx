@@ -4,7 +4,7 @@ import { ReadmeGenerator } from "@/components/tools/ReadmeGenerator";
 import { AdSlot } from "@/components/layout/AdSlot";
 
 export const metadata: Metadata = {
-  title: "GitHub README Generator — AI-Generated README.md in Seconds | UtilSpot",
+  title: "GitHub README Generator — AI-Generated README.md in Seconds",
   description:
     "Generate a professional GitHub README.md instantly with AI. Paste your project details and get a complete README with badges, ToC, installation steps, usage examples, and more.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "UtilSpot",
   },
   alternates: { canonical: "https://www.utilspot.app/readme-generator" },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 const webAppSchema = {

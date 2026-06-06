@@ -30,6 +30,7 @@ const tools = [
   { slug: "/nutrition-label-calculator",        name: "FSSAI Nutrition Label",        description: "Create FSSAI-compliant nutrition labels for Indian food products. 40+ ingredients included.", category: "Health",    popular: false, icon: "🥗", status: "live" },
   { slug: "/cron-builder",                      name: "Cron Expression Builder",      description: "Visual cron job builder. Get plain English description and next 5 run times instantly.",     category: "Developer",  popular: false, icon: "⏰", status: "live" },
   { slug: "/password-generator",                name: "Password Generator",           description: "Generate secure random passwords and test strength. 100% client-side, Web Crypto API.",     category: "Security",   popular: false, icon: "🔐", status: "live" },
+  { slug: "/readme-generator",                  name: "GitHub README Generator",      description: "Generate a professional GitHub README.md with AI. Badges, ToC, installation steps, and usage examples in seconds.", category: "Developer", popular: false, icon: "📝", status: "live" },
 ];
 
 const stats = [
