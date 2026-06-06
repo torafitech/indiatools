@@ -88,11 +88,21 @@ const faqSchema = {
   ],
 };
 
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.utilspot.app" },
+    { "@type": "ListItem", position: 2, name: "FSSAI Nutrition Label Calculator", item: "https://www.utilspot.app/nutrition-label-calculator" },
+  ],
+};
 export default function NutritionLabelCalculatorPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         <nav className="text-xs text-gray-400 mb-4">
@@ -108,7 +118,7 @@ export default function NutritionLabelCalculatorPage() {
         <div className="flex flex-wrap gap-3 mb-2">
           <span className="inline-flex items-center gap-1.5 text-xs bg-[#F1F5F9] text-[#475569] px-3 py-1 rounded-full font-medium">
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            Last updated: June 2025 · FSSAI 2020 Labelling Regulations compliant
+            Last updated: June 2026 · FSSAI 2020 Labelling Regulations compliant
           </span>
           <span className="inline-flex items-center gap-1.5 text-xs bg-[#F1F5F9] text-[#475569] px-3 py-1 rounded-full font-medium">
             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />

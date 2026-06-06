@@ -88,6 +88,15 @@ const faqSchema = {
   ],
 };
 
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.utilspot.app" },
+    { "@type": "ListItem", position: 2, name: "Accessibility Checker", item: "https://www.utilspot.app/accessibility-checker" },
+  ],
+};
 export default function AccessibilityCheckerPage() {
   return (
     <>
@@ -98,6 +107,10 @@ export default function AccessibilityCheckerPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <main className="max-w-5xl mx-auto px-4 py-8">

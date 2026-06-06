@@ -90,6 +90,15 @@ const faqSchema = {
   ],
 };
 
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.utilspot.app" },
+    { "@type": "ListItem", position: 2, name: "Freelance Rate Calculator", item: "https://www.utilspot.app/freelance-rate-calculator" },
+  ],
+};
 export default function FreelanceRateCalculatorPage() {
   return (
     <>
@@ -100,6 +109,10 @@ export default function FreelanceRateCalculatorPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <main className="max-w-4xl mx-auto px-4 py-8">

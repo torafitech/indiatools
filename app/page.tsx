@@ -46,9 +46,20 @@ const trust = [
   { icon: "🇮🇳", title: "India-First",    desc: "Built for Indian tax, salary and finance rules. EMI, GST, IT Act." },
 ];
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "UtilSpot",
+  url: "https://www.utilspot.app",
+  description: "Free online calculators and utility tools. No signup, no clutter.",
+  foundingLocation: "India",
+  areaServed: "Worldwide",
+};
+
 export default function HomePage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       {/* ── HERO ──────────────────────────────────────────────────── */}
       <section className="relative bg-white overflow-hidden">
         {/* Subtle dot-grid background */}

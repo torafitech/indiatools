@@ -83,11 +83,21 @@ const faqSchema = {
   ],
 };
 
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.utilspot.app" },
+    { "@type": "ListItem", position: 2, name: "TDEE Calculator", item: "https://www.utilspot.app/tdee-calculator" },
+  ],
+};
 export default function TDEECalculatorPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         <nav className="text-xs text-gray-400 mb-4">
