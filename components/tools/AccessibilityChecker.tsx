@@ -271,6 +271,9 @@ export function AccessibilityChecker() {
       >
         Check Accessibility
       </button>
+      {!html.trim() && (
+        <p className="text-xs text-[#7A6048] mt-1.5">Paste HTML above to run the check</p>
+      )}
 
       {/* Results */}
       {results && (
