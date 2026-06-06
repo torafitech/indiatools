@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "UtilSpot",
   },
   alternates: { canonical: "https://www.utilspot.app/business-name-generator" },
-  robots: { index: false, follow: false },
+  robots: "noindex, nofollow",
 };
 
 const webAppSchema = {
