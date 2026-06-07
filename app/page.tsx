@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ToolGrid } from "@/components/ui/ToolGrid";
+import { ToolGridLazy } from "@/components/ui/ToolGridLazy";
 
 export const metadata: Metadata = {
   title: "UtilSpot — Free Online Calculators & Utility Tools",
@@ -162,7 +162,7 @@ export default function HomePage() {
             <p className="text-sm text-[#7A6048] mt-0.5">20+ tools · growing monthly</p>
           </div>
         </div>
-        <ToolGrid tools={tools} />
+        <ToolGridLazy tools={tools} />
       </section>
 
       {/* ── CTA BANNER ────────────────────────────────────────────── */}
