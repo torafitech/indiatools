@@ -5,6 +5,8 @@ import { NewLabourCodeCalculator } from "@/components/tools/NewLabourCodeCalcula
 import { AdSlot } from "@/components/layout/AdSlot";
 import { labourCodeVariants } from "@/lib/programmatic/labour-code-variants";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
+import { salaryLPAContent } from "@/lib/content/salary-lpa-content";
+import { formatINR } from "@/lib/utils/format";
 
 interface Props {
   params: Promise<{ salary: string }>;
@@ -53,6 +55,65 @@ export default async function LabourCodeVariantPage({ params }: Props) {
       <NewLabourCodeCalculator defaultCTC={variant.ctc} defaultBasicPct={40} />
 
       <AdSlot slot="LABOUR_CODE_VARIANT_RESULT" className="my-6" />
+
+      {/* Content section */}
+      {(() => {
+        const monthlyCtc = variant.ctc / 12;
+        const basicAt50 = Math.round(monthlyCtc * 0.50);
+        const newPF = Math.round(basicAt50 * 0.12);
+        const currentPF = Math.round(monthlyCtc * 0.40 * 0.12);
+        const pfDiff = newPF - currentPF;
+        const d = salaryLPAContent[salary];
+        return (
+          <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
+              New Labour Code Impact at {variant.label} — 2025
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Under the New Labour Code, basic salary must be at least 50% of CTC. At{" "}
+              {variant.label}, this means a minimum basic of{" "}
+              <strong className="text-gray-800">{formatINR(basicAt50)}/month</strong>. If your
+              current basic is below this threshold, your employer must restructure your salary
+              components — typically by reducing allowances like HRA, conveyance, or special
+              allowance to accommodate the higher basic.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">How This Changes Your PF</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Higher basic means higher EPF contribution. At 50% basic on {variant.label}, your
+              employee PF contribution rises to{" "}
+              <strong className="text-gray-800">{formatINR(newPF)}/month</strong> vs the current{" "}
+              {formatINR(currentPF)}/month (typical 40% basic structure) — a difference of{" "}
+              <strong className="text-gray-800">{formatINR(pfDiff)}/month</strong> in take-home.
+              Annually, that is ₹{(pfDiff * 12).toLocaleString("en-IN")} less in hand but more in
+              your EPF corpus, which earns 8.25% tax-free interest.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Gratuity Impact</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Gratuity is calculated on basic + DA. With higher basic under the new code, your
+              gratuity entitlement after 5 years increases proportionally. At {formatINR(basicAt50)}/month
+              basic, the gratuity after 5 years is approximately{" "}
+              {formatINR(Math.round(basicAt50 * 15 / 26 * 5))} (formula: 15 days × years / 26).
+              The new code also extends gratuity eligibility to fixed-term contract employees after
+              just 1 year of service.
+            </p>
+
+            {d && (
+              <>
+                <h3 className="text-base font-semibold text-gray-800 mb-2">
+                  Tax Context at {variant.label}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {d.taxTip} With higher PF deductions reducing take-home, optimising your tax
+                  regime becomes more important — every rupee saved in tax offsets the reduced
+                  in-hand from the higher PF contribution.
+                </p>
+              </>
+            )}
+          </section>
+        );
+      })()}
 
       <section className="mt-4 mb-4">
         <h2 className="text-sm font-semibold text-gray-600 mb-3">Other Salary Variants</h2>

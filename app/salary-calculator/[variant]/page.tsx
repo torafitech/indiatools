@@ -6,6 +6,8 @@ import { SalaryCalculator } from "@/components/tools/SalaryCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { calculateInHandSalary } from "@/lib/calculations/salary";
 import { formatINR, formatINRShort } from "@/lib/utils/format";
+import { salaryLPAContent } from "@/lib/content/salary-lpa-content";
+import { salaryCityContent } from "@/lib/content/salary-city-content";
 
 export async function generateStaticParams() {
   return salaryVariants.map((v) => ({ variant: v.slug }));
@@ -118,23 +120,87 @@ export default async function SalaryVariantPage({
         <AdSlot slot="SALARY_VARIANT_AFTER_RESULT" className="my-6" />
 
         {/* Variant-specific content */}
-        <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3">
-            {isCity
-              ? `${variant.label} Salary Structure & Professional Tax`
-              : `${variant.label} CTC Breakdown`}
-          </h2>
-          <p className="text-gray-600 text-sm leading-relaxed mb-3">
-            {isCity
-              ? `Employees in ${variant.label} are subject to ${variant.state} professional tax rules. With a typical CTC of ${formatINRShort(variant.ctc)}, the monthly gross comes to approximately ${formatINR(result.grossMonthly)}, and after PF, professional tax (${formatINR(result.professionalTax)}/month), and income tax deductions, the monthly in-hand salary is approximately ${formatINR(result.inHandMonthly)}.`
-              : `A ${variant.label} package in India translates to approximately ${formatINR(result.grossMonthly)}/month gross salary. After standard deductions including employee PF (${formatINR(result.employeePF)}/month) and income tax (${formatINR(result.incomeTaxMonthly)}/month under new regime), the monthly in-hand salary is ${formatINR(result.inHandMonthly)}.`
-            }
-          </p>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            The calculator above is pre-filled with typical values but you can adjust the CTC, PF opt-in,
-            and city type to match your specific situation. All calculations use FY 2025-26 tax slabs.
-          </p>
-        </section>
+        {!isCity && salaryLPAContent[slug] ? (() => {
+          const d = salaryLPAContent[slug];
+          const lpa = variant.label;
+          return (
+            <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-3">
+                {lpa} In-Hand Salary — Key Facts for FY 2025–26
+              </h2>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">{d.insight}</p>
+
+              <h3 className="text-base font-semibold text-gray-800 mb-2">Who Earns {lpa}?</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                {d.jobLevel}. Common roles at this package include {d.typicalRoles}.
+                The estimated monthly in-hand is {d.monthlyInHand} (annual: {d.annualInHand}),
+                assuming a standard metro-city salary structure with PF opted in.
+              </p>
+
+              <h3 className="text-base font-semibold text-gray-800 mb-2">Income Tax at {lpa}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                {d.taxRegime}. {d.taxTip}
+              </p>
+
+              <h3 className="text-base font-semibold text-gray-800 mb-2">Monthly Deductions Breakdown</h3>
+              <ul className="list-disc pl-5 space-y-1 text-gray-600 text-sm">
+                <li>Employee PF: {d.pfMonthly}/month (12% of basic salary)</li>
+                <li>Professional Tax: ₹150–200/month (varies by state — Delhi: ₹0)</li>
+                <li>Income Tax (TDS): Deducted monthly based on annual projection</li>
+              </ul>
+            </section>
+          );
+        })() : isCity && salaryCityContent[slug] ? (() => {
+          const d = salaryCityContent[slug];
+          return (
+            <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-3">
+                Salary Calculator for {variant.label} — What to Know
+              </h2>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">{d.insight}</p>
+
+              <h3 className="text-base font-semibold text-gray-800 mb-2">
+                Professional Tax in {d.state}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                {d.professionalTax}. {d.ptNote}.
+              </p>
+
+              <h3 className="text-base font-semibold text-gray-800 mb-2">Cost of Living Context</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                {d.costNote} Factor this into your savings planning alongside your in-hand salary.
+                Employees in {variant.label} should budget rent as a fixed monthly expense before
+                calculating investable surplus from their take-home.
+              </p>
+
+              <h3 className="text-base font-semibold text-gray-800 mb-2">
+                Salary Benchmarks in {variant.label}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {d.industry}. Typical salary range: {d.avgSalary}. The calculator is pre-filled
+                with a representative CTC for this city — adjust to your exact package.
+              </p>
+            </section>
+          );
+        })() : (
+          <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-3">
+              {isCity
+                ? `${variant.label} Salary Structure & Professional Tax`
+                : `${variant.label} CTC Breakdown`}
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-3">
+              {isCity
+                ? `Employees in ${variant.label} are subject to ${variant.state} professional tax rules. With a typical CTC of ${formatINRShort(variant.ctc)}, the monthly gross comes to approximately ${formatINR(result.grossMonthly)}, and after PF, professional tax (${formatINR(result.professionalTax)}/month), and income tax deductions, the monthly in-hand salary is approximately ${formatINR(result.inHandMonthly)}.`
+                : `A ${variant.label} package in India translates to approximately ${formatINR(result.grossMonthly)}/month gross salary. After standard deductions including employee PF (${formatINR(result.employeePF)}/month) and income tax (${formatINR(result.incomeTaxMonthly)}/month under new regime), the monthly in-hand salary is ${formatINR(result.inHandMonthly)}.`
+              }
+            </p>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              The calculator above is pre-filled with typical values but you can adjust the CTC, PF opt-in,
+              and city type to match your specific situation. All calculations use FY 2025-26 tax slabs.
+            </p>
+          </section>
+        )}
 
         <AdSlot slot="SALARY_VARIANT_BELOW_CONTENT" className="my-6" />
 

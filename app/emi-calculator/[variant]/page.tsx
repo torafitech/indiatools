@@ -120,21 +120,80 @@ export default async function VariantPage({
         <AdSlot slot="VARIANT_AFTER_RESULT" className="my-6" />
 
         {/* Variant-specific content */}
-        <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-3">
-            About {variant.bank ? `${variant.bank} ${variant.type}` : `${formatINRShort(variant.defaultAmount)} ${variant.type}`}
-          </h2>
-          <p className="text-gray-600 text-sm leading-relaxed mb-3">
-            {variant.bank
-              ? `${variant.bank} offers ${variant.type.toLowerCase()}s starting from ${variant.rate}% p.a. as of 2025. The EMI for a ₹${(variant.defaultAmount / 100000).toFixed(0)} lakh loan over ${variant.defaultTenureMonths / 12} years at this rate is ${formatINR(summary.emi)} per month, with total interest of ${formatINRShort(summary.totalInterest)}.`
-              : `The EMI for a ${formatINRShort(variant.defaultAmount)} ${variant.type.toLowerCase()} at ${variant.rate}% p.a. over ${variant.defaultTenureMonths / 12} years is ${formatINR(summary.emi)} per month. Total interest paid over the loan period is ${formatINRShort(summary.totalInterest)}.`
-            }
-          </p>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            Use the calculator above to adjust the loan amount, interest rate, and tenure to match your specific
-            requirements. The amortization schedule shows exactly how much principal and interest you pay each year.
-          </p>
-        </section>
+        {variant.bank ? (
+          <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
+              {variant.bank} {variant.type} — Rates &amp; Key Facts 2025
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              {variant.bank} currently offers {variant.type.toLowerCase()} interest rates starting at{" "}
+              {variant.rate}% per annum (subject to credit score and LTV ratio). EMI on a{" "}
+              {formatINRShort(variant.defaultAmount)} loan over {variant.defaultTenureMonths / 12} years
+              at {variant.rate}% works out to approximately{" "}
+              <strong className="text-gray-800">{formatINR(summary.emi)}/month</strong>.
+              Total interest paid over the full tenure is{" "}
+              <strong className="text-gray-800">{formatINRShort(summary.totalInterest)}</strong>.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">
+              Factors That Affect Your Actual Rate
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              The {variant.rate}% shown is the base rate for salaried borrowers with a CIBIL score of 750+.
+              Your actual rate depends on: credit score (750+ gets best rates, below 700 attracts a 0.5–1%
+              premium), loan-to-value ratio (80% LTV is standard — higher LTV means higher rate), employment
+              type (salaried vs self-employed), and the property type and age.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Processing Fees &amp; Charges</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Most banks charge 0.25%–1% of the loan amount as a one-time processing fee. For a{" "}
+              {formatINRShort(variant.defaultAmount)} loan, this is{" "}
+              {formatINR(variant.defaultAmount * 0.005)}–{formatINR(variant.defaultAmount * 0.01)}.
+              Compare total cost of loan (interest + fees + insurance) rather than just the headline rate.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Tips to Get a Lower Rate</h3>
+            <ul className="list-disc pl-5 space-y-1 text-gray-600 text-sm">
+              <li>Maintain a CIBIL score above 750 — check it free at CIBIL.com before applying</li>
+              <li>Keep your total EMI obligations below 40–50% of monthly income</li>
+              <li>Make a higher down payment to reduce LTV below 80%</li>
+              <li>Apply for a balance transfer if rates drop 0.5%+ after your loan starts</li>
+            </ul>
+          </section>
+        ) : (
+          <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
+              {formatINRShort(variant.defaultAmount)} {variant.type} — EMI &amp; Interest Breakdown
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              For a {formatINRShort(variant.defaultAmount)} {variant.type.toLowerCase()} at{" "}
+              {variant.rate}% p.a. over {variant.defaultTenureMonths / 12} years, the monthly EMI is{" "}
+              <strong className="text-gray-800">{formatINR(summary.emi)}</strong>. Total interest
+              paid over the full tenure is{" "}
+              <strong className="text-gray-800">{formatINRShort(summary.totalInterest)}</strong> — roughly{" "}
+              {Math.round((summary.totalInterest / variant.defaultAmount) * 100)}% of the principal.
+              Adjusting tenure or rate by even 0.5% can save ₹1–3 lakh over the life of the loan.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">How to Reduce Total Interest</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              The most effective strategies: make a larger down payment to reduce the principal, choose
+              a shorter tenure (higher EMI but far less total interest), and make annual prepayments of
+              1–2 months&apos; EMI value. A single annual prepayment of ₹50,000 can cut 2–3 years off a
+              20-year loan.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Choosing the Right Bank</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Rates vary across banks by 0.25–0.5%. For a{" "}
+              {formatINRShort(variant.defaultAmount)} loan, a 0.5% rate difference changes your EMI by{" "}
+              approximately {formatINR(Math.round(variant.defaultAmount * 0.005 / 1200))} per month and saves{" "}
+              {formatINRShort(Math.round(variant.defaultAmount * 0.005 / 1200 * variant.defaultTenureMonths))} in
+              total interest. Compare at least 3 banks before finalising.
+            </p>
+          </section>
+        )}
 
         <AdSlot slot="VARIANT_BELOW_CONTENT" className="my-6" />
 
