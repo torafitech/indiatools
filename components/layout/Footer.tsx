@@ -37,6 +37,7 @@ export function Footer() {
                 { href: "/salary-calculator",            label: "Salary Calculator" },
                 { href: "/invoice-generator",            label: "GST Invoice Generator" },
                 { href: "/construction-cost-calculator", label: "Construction Cost" },
+                { href: "/gold-jewellery-calculator",    label: "Gold Jewellery Calculator" },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-white/50 hover:text-white transition-colors">{l.label}</Link>

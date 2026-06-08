@@ -25,7 +25,7 @@ const numInputCls =
 
 export function GoldCalculator() {
   // ── shared ──────────────────────────────────────────────────
-  const [goldRate, setGoldRate] = useState("7500");
+  const [goldRate, setGoldRate] = useState("9200");
 
   // ── section 1 ───────────────────────────────────────────────
   const [weight, setWeight] = useState("10");
@@ -37,6 +37,7 @@ export function GoldCalculator() {
 
   // ── section 2 ───────────────────────────────────────────────
   const [oldWeight, setOldWeight] = useState("5");
+  const [oldWeightUnit, setOldWeightUnit] = useState<WeightUnit>("grams");
   const [oldPurityIdx, setOldPurityIdx] = useState(1);
   const [oldDeduction, setOldDeduction] = useState("5");
 
@@ -54,8 +55,9 @@ export function GoldCalculator() {
     isKadai,
   });
 
+  const oldWeightGrams = toGrams(Math.max(0, parseFloat(oldWeight) || 0), oldWeightUnit);
   const exchangeValue = calcExchangeValue(
-    Math.max(0, parseFloat(oldWeight) || 0),
+    oldWeightGrams,
     PURITIES[oldPurityIdx].value,
     rate,
     Math.min(30, Math.max(0, parseFloat(oldDeduction) || 0))
@@ -79,7 +81,7 @@ export function GoldCalculator() {
             type="number"
             value={goldRate}
             onChange={(e) => setGoldRate(e.target.value)}
-            placeholder="e.g. 7500 — check MCX or your jeweller"
+            placeholder="e.g. 9200 — check MCX or your jeweller"
             className={`flex-1 ${inputCls}`}
             min="0"
           />
@@ -310,16 +312,31 @@ export function GoldCalculator() {
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Inputs */}
           <div className="space-y-5">
-            <div className="flex items-center justify-between gap-4">
-              <label className="text-sm font-semibold text-[#0F2447]">Old Gold Weight (grams)</label>
-              <input
-                type="number"
-                value={oldWeight}
-                onChange={(e) => setOldWeight(e.target.value)}
-                min="0"
-                step="0.1"
-                className={numInputCls}
-              />
+            <div className="space-y-2">
+              <label className="text-sm font-semibold text-[#0F2447] block">Old Gold Weight</label>
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={oldWeight}
+                  onChange={(e) => setOldWeight(e.target.value)}
+                  min="0"
+                  step="0.1"
+                  className="w-28 border border-[#F0E4D4] rounded-xl px-3 py-2.5 text-sm font-semibold text-[#0F2447] focus:outline-none focus:ring-2 focus:ring-[#E8500A]/20 focus:border-[#E8500A]"
+                />
+                <select
+                  value={oldWeightUnit}
+                  onChange={(e) => setOldWeightUnit(e.target.value as WeightUnit)}
+                  className={`flex-1 ${inputCls} cursor-pointer appearance-none`}
+                >
+                  <option value="grams">Grams</option>
+                  <option value="tola">Tola (1 tola = 11.664g)</option>
+                  <option value="sovereign">Sovereign (= 8g)</option>
+                  <option value="pavan">Pavan (= 8g)</option>
+                </select>
+              </div>
+              {oldWeightUnit !== "grams" && parseFloat(oldWeight) > 0 && (
+                <p className="text-xs text-[#7A6048]">= {oldWeightGrams.toFixed(3)} grams</p>
+              )}
             </div>
 
             <div className="space-y-2">
