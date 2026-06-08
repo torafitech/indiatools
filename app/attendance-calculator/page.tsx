@@ -183,9 +183,9 @@ export default function AttendancePage() {
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>
           <div className="flex flex-wrap gap-2">
             {[
-              { href: "/income-tax-calculator", label: "Income Tax Calculator" },
-              { href: "/salary-calculator",     label: "CTC to In-Hand Calculator" },
-              { href: "/word-counter",           label: "Word Counter" },
+              { href: "/word-counter",               label: "Word Counter" },
+              { href: "/tdee-calculator",            label: "TDEE Calculator" },
+              { href: "/gold-jewellery-calculator",  label: "Gold Jewellery Calculator" },
             ].map((t) => (
               <Link
                 key={t.href}
