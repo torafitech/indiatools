@@ -32,6 +32,7 @@ const tools = [
   { slug: "/password-generator",                name: "Password Generator",           description: "Generate secure random passwords and test strength. 100% client-side, Web Crypto API.",     category: "Security",   popular: false, icon: "🔐", status: "live" },
   { slug: "/readme-generator",                  name: "GitHub README Generator",      description: "Generate a professional GitHub README.md with AI. Badges, ToC, installation steps, and usage examples in seconds.", category: "Developer", popular: false, icon: "📝", status: "live" },
   { slug: "/gold-jewellery-calculator",         name: "Gold Jewellery Calculator",    description: "Calculate gold jewellery price with making charges, wastage, GST (3%+5%), TCS, old gold exchange value, and loan eligibility.", category: "Finance", popular: false, icon: "🪙", status: "live" },
+  { slug: "/attendance-calculator",             name: "Attendance Calculator",         description: "Track attendance per subject, check how many classes you can bunk, and find how many to attend to recover. 75%/80%/85%/90% targets.", category: "Student Tools", popular: false, icon: "🎓", status: "live" },
 ];
 
 const stats = [

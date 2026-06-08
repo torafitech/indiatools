@@ -55,6 +55,7 @@ export function Footer() {
                 { href: "/word-counter",            label: "Word Counter" },
                 { href: "/qr-code-generator",       label: "QR Code Generator" },
                 { href: "/business-name-generator", label: "Business Names (AI)" },
+                { href: "/attendance-calculator",  label: "Attendance Calculator" },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-white/50 hover:text-white transition-colors">{l.label}</Link>
