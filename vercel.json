@@ -6,6 +6,19 @@
   "env": {
     "NEXT_PUBLIC_SITE_URL": "https://indiatools.in"
   },
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "utilspot.app"
+        }
+      ],
+      "destination": "https://www.utilspot.app/$1",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/sitemap.xml",
