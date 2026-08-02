@@ -7,6 +7,7 @@ import { AdSlot } from "@/components/layout/AdSlot";
 import { calculateEMISummary } from "@/lib/calculations/emi";
 import { formatINR, formatINRShort } from "@/lib/utils/format";
 import { getCurrentYear } from "@/lib/currentFY";
+import { RATES_LAST_REVIEWED } from "@/data/bank-rates";
 
 const year = getCurrentYear();
 
@@ -112,9 +113,12 @@ export default async function VariantPage({
           </div>
         )}
 
-        <p className="text-gray-500 mb-5 text-sm">
+        <p className="text-gray-500 mb-1 text-sm">
           Pre-filled with {variant.bank ? `${variant.bank}'s` : "standard"} current {variant.type.toLowerCase()} rate.
           Adjust the sliders to match your actual loan details.
+        </p>
+        <p className="text-xs text-gray-400 mb-5">
+          Rates last verified: {RATES_LAST_REVIEWED}. Actual rate depends on your credit score — confirm with the lender before applying.
         </p>
 
         <EMICalculator

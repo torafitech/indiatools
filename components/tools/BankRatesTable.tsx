@@ -21,8 +21,11 @@ export function BankRatesTable() {
         <h2 className="text-xl font-bold text-gray-900">EMI Calculator by Bank</h2>
         <span className="text-xs text-gray-400">Rates as of {ratesAsOf}</span>
       </div>
-      <p className="text-gray-500 text-sm mb-5">
+      <p className="text-gray-500 text-sm mb-1">
         Pre-filled calculators with each bank&apos;s current interest rate. Pick your bank and loan type.
+      </p>
+      <p className="text-xs text-gray-400 mb-5">
+        Rates last verified: {RATES_LAST_REVIEWED}. Actual rate depends on your credit score — confirm with the lender before applying.
       </p>
 
       {(["PSU", "Private", "HFC"] as const).map((cat) => {
