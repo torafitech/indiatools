@@ -3,9 +3,13 @@ import Link from "next/link";
 import { SalaryCalculator } from "@/components/tools/SalaryCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
+import { getCurrentFY, getCurrentYear } from "@/lib/currentFY";
+
+const fy = getCurrentFY();
+const year = getCurrentYear();
 
 export const metadata: Metadata = {
-  title: "CTC to In-Hand Salary Calculator 2026 — New Labour Code Impact",
+  title: `CTC to In-Hand Salary Calculator ${year} — New Labour Code Impact`,
   description:
     "Calculate your take-home salary under India's new Labour Code rules. See how the 50% basic wage rule affects your PF, gratuity, and monthly in-hand pay. Updated for Nov 2025 changes.",
   keywords: [
@@ -14,14 +18,14 @@ export const metadata: Metadata = {
     "take home salary calculator",
     "new labour code salary calculator",
     "50% basic salary rule calculator",
-    "labour code 2026 take home salary",
+    `labour code ${year} take home salary`,
     "CTC breakup calculator",
     "PF deduction calculator",
     "professional tax calculator",
     "monthly salary calculator India",
   ],
   openGraph: {
-    title: "CTC to In-Hand Salary Calculator India 2025",
+    title: `CTC to In-Hand Salary Calculator India ${year}`,
     description:
       "Calculate your monthly in-hand salary from CTC. Includes PF, professional tax, income tax under new regime.",
     url: "https://www.utilspot.app/salary-calculator",
@@ -87,7 +91,7 @@ const faqSchema = {
       name: "How much income tax is deducted from salary?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Under the new tax regime (FY 2025-26), income up to ₹12 lakh is effectively tax-free due to the ₹75,000 standard deduction and Section 87A rebate. For incomes above ₹12L, tax rates are 5% (₹4L–8L), 10% (₹8L–12L), 15% (₹12L–16L), 20% (₹16L–20L), 25% (₹20L–24L), and 30% above ₹24L. A 4% health and education cess is also applied. TDS is deducted monthly by your employer based on estimated annual tax liability.",
+        text: `Under the new tax regime (FY ${fy}), income up to ₹12 lakh is effectively tax-free due to the ₹75,000 standard deduction and Section 87A rebate. For incomes above ₹12L, tax rates are 5% (₹4L–8L), 10% (₹8L–12L), 15% (₹12L–16L), 20% (₹16L–20L), 25% (₹20L–24L), and 30% above ₹24L. A 4% health and education cess is also applied. TDS is deducted monthly by your employer based on estimated annual tax liability.`,
       },
     },
     {
@@ -136,7 +140,7 @@ export default function SalaryCalculatorPage() {
 
         <IndiaBadge note="Uses Indian PF rules, professional tax & CTC structure" />
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
-          CTC to In-Hand Salary Calculator — India 2026
+          CTC to In-Hand Salary Calculator — India {year}
         </h1>
         <p className="text-gray-500 mb-1 text-sm sm:text-base">
           Enter your annual CTC to calculate monthly in-hand salary with full breakdown — PF, HRA,
@@ -206,7 +210,7 @@ export default function SalaryCalculatorPage() {
               <strong>Professional Tax:</strong> A state-level tax applicable in states like Maharashtra (max ₹2,400/year), Karnataka (₹2,400/year for gross &gt; ₹15,000), West Bengal, Tamil Nadu, Telangana, Gujarat, and others. Delhi, UP, and several other states have no PT.
             </li>
             <li>
-              <strong>Income Tax (TDS):</strong> Tax Deducted at Source by your employer every month. Under the new regime (FY 2025-26), income up to ₹12 lakh is effectively zero tax. Above that, marginal rates apply from 5% to 30%.
+              <strong>Income Tax (TDS):</strong> Tax Deducted at Source by your employer every month. Under the new regime (FY {fy}), income up to ₹12 lakh is effectively zero tax. Above that, marginal rates apply from 5% to 30%.
             </li>
           </ul>
 

@@ -1,3 +1,7 @@
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
+
 export interface SalaryVariant {
   slug: string;
   ctc: number;
@@ -14,7 +18,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "5 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹5 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹5 LPA CTC in India ${year}.`,
   },
   {
     slug: "8-lpa",
@@ -22,7 +26,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "8 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹8 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹8 LPA CTC in India ${year}.`,
   },
   {
     slug: "10-lpa",
@@ -30,7 +34,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "10 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹10 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹10 LPA CTC in India ${year}.`,
   },
   {
     slug: "12-lpa",
@@ -38,7 +42,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "12 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹12 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹12 LPA CTC in India ${year}.`,
   },
   {
     slug: "15-lpa",
@@ -46,7 +50,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "15 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹15 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹15 LPA CTC in India ${year}.`,
   },
   {
     slug: "18-lpa",
@@ -54,7 +58,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "18 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹18 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹18 LPA CTC in India ${year}.`,
   },
   {
     slug: "20-lpa",
@@ -62,7 +66,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "20 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹20 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹20 LPA CTC in India ${year}.`,
   },
   {
     slug: "25-lpa",
@@ -70,7 +74,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "25 LPA",
     state: "Karnataka",
     city: "metro",
-    description: "In-hand salary for ₹25 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹25 LPA CTC in India ${year}.`,
   },
   {
     slug: "30-lpa",
@@ -78,7 +82,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "30 LPA",
     state: "Maharashtra",
     city: "metro",
-    description: "In-hand salary for ₹30 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹30 LPA CTC in India ${year}.`,
   },
   {
     slug: "35-lpa",
@@ -86,7 +90,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "35 LPA",
     state: "Maharashtra",
     city: "metro",
-    description: "In-hand salary for ₹35 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹35 LPA CTC in India ${year}.`,
   },
   {
     slug: "40-lpa",
@@ -94,7 +98,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "40 LPA",
     state: "Maharashtra",
     city: "metro",
-    description: "In-hand salary for ₹40 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹40 LPA CTC in India ${year}.`,
   },
   {
     slug: "50-lpa",
@@ -102,7 +106,7 @@ export const salaryVariants: SalaryVariant[] = [
     label: "50 LPA",
     state: "Maharashtra",
     city: "metro",
-    description: "In-hand salary for ₹50 LPA CTC in India 2025.",
+    description: `In-hand salary for ₹50 LPA CTC in India ${year}.`,
   },
   {
     slug: "bangalore",

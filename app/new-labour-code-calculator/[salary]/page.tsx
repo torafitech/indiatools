@@ -7,6 +7,9 @@ import { labourCodeVariants } from "@/lib/programmatic/labour-code-variants";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
 import { salaryLPAContent } from "@/lib/content/salary-lpa-content";
 import { formatINR } from "@/lib/utils/format";
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
 
 interface Props {
   params: Promise<{ salary: string }>;
@@ -67,7 +70,7 @@ export default async function LabourCodeVariantPage({ params }: Props) {
         return (
           <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-3">
-              New Labour Code Impact at {variant.label} — 2025
+              New Labour Code Impact at {variant.label} — {year}
             </h2>
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
               Under the New Labour Code, basic salary must be at least 50% of CTC. At{" "}

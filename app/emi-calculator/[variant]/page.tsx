@@ -6,6 +6,9 @@ import { EMICalculator } from "@/components/tools/EMICalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { calculateEMISummary } from "@/lib/calculations/emi";
 import { formatINR, formatINRShort } from "@/lib/utils/format";
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
 
 export async function generateStaticParams() {
   return emiVariants.map((v) => ({ variant: v.slug }));
@@ -22,7 +25,7 @@ export async function generateMetadata({
 
   const title =
     variant.bank
-      ? `${variant.bank} ${variant.type} EMI Calculator 2025 — Current Rate ${variant.rate}%`
+      ? `${variant.bank} ${variant.type} EMI Calculator ${year} — Current Rate ${variant.rate}%`
       : `${variant.type} EMI Calculator — ${formatINRShort(variant.defaultAmount)} at ${variant.rate}%`;
 
   const description =
@@ -42,6 +45,10 @@ export async function generateMetadata({
       url: `https://www.utilspot.app/emi-calculator/${variant.slug}`,
       siteName: "UtilSpot",
     },
+    // Bank×loan-type pages are template-generated with only bankName/rate swapped —
+    // thin content, noindex to avoid diluting crawl budget. Amount-only pages
+    // (20-lakh-home-loan etc.) answer a genuinely different query and stay indexed.
+    ...(variant.bank ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -123,7 +130,7 @@ export default async function VariantPage({
         {variant.bank ? (
           <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-3">
-              {variant.bank} {variant.type} — Rates &amp; Key Facts 2025
+              {variant.bank} {variant.type} — Rates &amp; Key Facts {year}
             </h2>
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
               {variant.bank} currently offers {variant.type.toLowerCase()} interest rates starting at{" "}

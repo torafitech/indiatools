@@ -3,14 +3,17 @@ import Link from "next/link";
 import { ConstructionCalculator } from "@/components/tools/ConstructionCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
 
 export const metadata: Metadata = {
-  title: "Construction Cost Calculator India 2026 — Cost Per Sqft by City",
+  title: `Construction Cost Calculator India ${year} — Cost Per Sqft by City`,
   description:
-    "Calculate home construction cost in India. City-specific rates per sqft for basic, standard, and premium construction. Updated 2025 rates for 30+ cities.",
+    `Calculate home construction cost in India. City-specific rates per sqft for basic, standard, and premium construction. Updated ${year} rates for 30+ cities.`,
   keywords: [
     "construction cost calculator India",
-    "construction cost per sqft India 2025",
+    `construction cost per sqft India ${year}`,
     "house construction cost India",
     "building cost per sqft",
     "home construction cost Bangalore",
@@ -19,9 +22,9 @@ export const metadata: Metadata = {
     "construction cost estimator India",
   ],
   openGraph: {
-    title: "Construction Cost Calculator India 2026 — Cost Per Sqft by City",
+    title: `Construction Cost Calculator India ${year} — Cost Per Sqft by City`,
     description:
-      "City-specific construction cost estimator for India. Basic, standard, and premium rates for 30+ cities. Updated 2025 data.",
+      `City-specific construction cost estimator for India. Basic, standard, and premium rates for 30+ cities. Updated ${year} data.`,
     url: "https://www.utilspot.app/construction-cost-calculator",
     siteName: "UtilSpot",
   },
@@ -53,7 +56,7 @@ const faqSchema = {
       name: "What is the average construction cost per sqft in India?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "As of 2025, the average construction cost in India ranges from ₹1,000–₹1,900 per sqft for basic construction, ₹1,300–₹2,500 per sqft for standard construction, and ₹2,000–₹4,500 per sqft for premium or luxury construction. Metro cities like Delhi (₹1,900–₹4,500/sqft) and Mumbai (₹1,800–₹4,000/sqft) are significantly more expensive than tier-3 cities like Agra or Patna (₹950–₹2,100/sqft).",
+        text: `As of ${year}, the average construction cost in India ranges from ₹1,000–₹1,900 per sqft for basic construction, ₹1,300–₹2,500 per sqft for standard construction, and ₹2,000–₹4,500 per sqft for premium or luxury construction. Metro cities like Delhi (₹1,900–₹4,500/sqft) and Mumbai (₹1,800–₹4,000/sqft) are significantly more expensive than tier-3 cities like Agra or Patna (₹950–₹2,100/sqft).`,
       },
     },
     {
@@ -85,7 +88,7 @@ const faqSchema = {
       name: "How much does it cost to build a 1000 sqft house in Bangalore?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "In Bangalore (2025 rates), building a 1,000 sqft house costs approximately ₹17–₹18.7 lakh for basic construction, ₹22–₹24.2 lakh for standard construction, and ₹35–₹38.5 lakh for premium construction. These estimates include a 10% contingency buffer. Material costs (cement, steel, sand, aggregate) have risen 8–12% since 2022 due to supply chain pressures. Getting 3+ contractor quotes is strongly recommended.",
+        text: `In Bangalore (${year} rates), building a 1,000 sqft house costs approximately ₹17–₹18.7 lakh for basic construction, ₹22–₹24.2 lakh for standard construction, and ₹35–₹38.5 lakh for premium construction. These estimates include a 10% contingency buffer. Material costs (cement, steel, sand, aggregate) have risen 8–12% since 2022 due to supply chain pressures. Getting 3+ contractor quotes is strongly recommended.`,
       },
     },
     {
@@ -132,9 +135,9 @@ export default function ConstructionCostCalculatorPage() {
           <span className="text-gray-600">Construction Cost Calculator</span>
         </nav>
 
-        <IndiaBadge note="City-specific rates for 30+ Indian cities — updated 2025" />
+        <IndiaBadge note={`City-specific rates for 30+ Indian cities — updated ${year}`} />
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
-          Construction Cost Calculator India 2026 — Cost Per Sqft by City
+          Construction Cost Calculator India {year} — Cost Per Sqft by City
         </h1>
         <div className="flex flex-wrap gap-3 mb-2">
           <span className="inline-flex items-center gap-1.5 text-xs bg-[#F1F5F9] text-[#475569] px-3 py-1 rounded-full font-medium">
@@ -148,7 +151,7 @@ export default function ConstructionCostCalculatorPage() {
         </div>
         <p className="text-gray-500 mb-6 text-sm sm:text-base">
           Estimate your home construction cost with city-specific rates for 30+ Indian cities.
-          Basic, standard, and premium construction rates updated for 2025.
+          Basic, standard, and premium construction rates updated for {year}.
         </p>
 
         <ConstructionCalculator />
@@ -158,7 +161,7 @@ export default function ConstructionCostCalculatorPage() {
         {/* SEO Content */}
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 prose prose-gray max-w-none">
           <h2 className="text-xl font-bold text-gray-900 mb-4">
-            Home Construction Cost in India — 2025 Guide
+            Home Construction Cost in India — {year} Guide
           </h2>
 
           <p className="text-gray-600 leading-relaxed mb-4">
@@ -216,7 +219,7 @@ export default function ConstructionCostCalculatorPage() {
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mb-2">
-            2025 Construction Rate Trends
+            {year} Construction Rate Trends
           </h3>
           <p className="text-gray-600 leading-relaxed mb-4">
             Construction costs in India have increased 12–18% between 2022 and 2025 due to

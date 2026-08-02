@@ -5,6 +5,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { salaryLPAContent } from "@/lib/content/salary-lpa-content";
+import { getCurrentFY } from "@/lib/currentFY";
+
+const fy = getCurrentFY();
 
 export async function generateStaticParams() {
   return incomeTaxVariants.map((v) => ({ variant: v.slug }));
@@ -64,7 +67,7 @@ export default async function IncomeTaxVariantPage({
           <span className="mx-2">›</span>
           <span className="text-[#7A6048]">₹{v.lpa} LPA</span>
         </nav>
-        <IndiaBadge note="Uses Indian IT Act slabs, FY 2025-26 — not applicable outside India" />
+        <IndiaBadge note={`Uses Indian IT Act slabs, FY ${fy} — not applicable outside India`} />
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">{v.h1}</h1>
         <p className="text-[#7A6048] mb-6 text-sm sm:text-base">{v.description}</p>
         <IncomeTaxCalculator defaultIncome={v.grossIncome} />
@@ -78,7 +81,7 @@ export default async function IncomeTaxVariantPage({
           return (
             <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-3">
-                Income Tax on ₹{v.lpa} LPA — New vs Old Regime FY 2025–26
+                Income Tax on ₹{v.lpa} LPA — New vs Old Regime FY {fy}
               </h2>
               {d ? (
                 <>
@@ -97,12 +100,12 @@ export default async function IncomeTaxVariantPage({
               )}
               <h3 className="text-base font-semibold text-gray-800 mb-2">Standard Deduction Impact</h3>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                The ₹75,000 standard deduction (FY 2025–26) reduces your taxable income to
+                The ₹75,000 standard deduction (FY {fy}) reduces your taxable income to
                 ₹{taxableIncomeLakh}L under the new regime. This is automatically applied — no
                 declaration or proof of investment needed. It replaced the earlier ₹50,000
                 standard deduction from FY 2024–25 onwards.
               </p>
-              <h3 className="text-base font-semibold text-gray-800 mb-2">New Regime Tax Slabs (FY 2025–26)</h3>
+              <h3 className="text-base font-semibold text-gray-800 mb-2">New Regime Tax Slabs (FY {fy})</h3>
               <ul className="list-disc pl-5 space-y-1 text-gray-600 text-sm">
                 <li>Up to ₹4 lakh — Nil</li>
                 <li>₹4L–₹8L — 5%</li>

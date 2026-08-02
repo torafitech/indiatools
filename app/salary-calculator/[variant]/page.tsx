@@ -8,6 +8,7 @@ import { calculateInHandSalary } from "@/lib/calculations/salary";
 import { formatINR, formatINRShort } from "@/lib/utils/format";
 import { salaryLPAContent } from "@/lib/content/salary-lpa-content";
 import { salaryCityContent } from "@/lib/content/salary-city-content";
+import { getCurrentFY, getCurrentYear } from "@/lib/currentFY";
 
 export async function generateStaticParams() {
   return salaryVariants.map((v) => ({ variant: v.slug }));
@@ -22,14 +23,15 @@ export async function generateMetadata({
   const variant = salaryVariants.find((v) => v.slug === slug);
   if (!variant) return {};
 
+  const year = getCurrentYear();
   const isCity = !variant.slug.match(/^\d/);
   const title = isCity
-    ? `${variant.label} Salary Calculator 2025 — CTC to In-Hand for ${variant.label} Employees`
-    : `${variant.label} CTC In-Hand Salary Calculator India 2025 — Take Home Pay`;
+    ? `${variant.label} Salary Calculator ${year} — CTC to In-Hand for ${variant.label} Employees`
+    : `${variant.label} CTC In-Hand Salary Calculator India ${year} — Take Home Pay`;
 
   const description = isCity
-    ? `Calculate monthly in-hand salary for ${variant.label} employees. Includes ${variant.state} professional tax, PF, and income tax under new regime 2025.`
-    : `Calculate monthly in-hand salary for ${variant.label} CTC in India. Full breakdown: PF, HRA, professional tax, income tax. Free calculator 2025.`;
+    ? `Calculate monthly in-hand salary for ${variant.label} employees. Includes ${variant.state} professional tax, PF, and income tax under new regime ${year}.`
+    : `Calculate monthly in-hand salary for ${variant.label} CTC in India. Full breakdown: PF, HRA, professional tax, income tax. Free calculator ${year}.`;
 
   return {
     title,
@@ -58,10 +60,12 @@ export default async function SalaryVariantPage({
   const result = calculateInHandSalary(variant.ctc, true, variant.state, variant.city);
 
   const isCity = !variant.slug.match(/^\d/);
+  const year = getCurrentYear();
+  const fy = getCurrentFY();
 
   const heading = isCity
-    ? `Salary Calculator for ${variant.label} — CTC to In-Hand 2025`
-    : `${variant.label} CTC — Monthly In-Hand Salary Breakdown India 2025`;
+    ? `Salary Calculator for ${variant.label} — CTC to In-Hand ${year}`
+    : `${variant.label} CTC — Monthly In-Hand Salary Breakdown India ${year}`;
 
   const webAppSchema = {
     "@context": "https://schema.org",
@@ -126,7 +130,7 @@ export default async function SalaryVariantPage({
           return (
             <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-3">
-                {lpa} In-Hand Salary — Key Facts for FY 2025–26
+                {lpa} In-Hand Salary — Key Facts for FY {fy}
               </h2>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">{d.insight}</p>
 
@@ -197,7 +201,7 @@ export default async function SalaryVariantPage({
             </p>
             <p className="text-gray-600 text-sm leading-relaxed">
               The calculator above is pre-filled with typical values but you can adjust the CTC, PF opt-in,
-              and city type to match your specific situation. All calculations use FY 2025-26 tax slabs.
+              and city type to match your specific situation. All calculations use FY {fy} tax slabs.
             </p>
           </section>
         )}

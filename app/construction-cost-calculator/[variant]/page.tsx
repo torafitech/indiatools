@@ -6,6 +6,9 @@ import { CITIES } from "@/data/cities";
 import { ConstructionCalculator } from "@/components/tools/ConstructionCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { formatINRShort } from "@/lib/utils/format";
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
 
 export async function generateStaticParams() {
   return constructionVariants.map((v) => ({ variant: v.slug }));
@@ -20,8 +23,8 @@ export async function generateMetadata({
   const v = constructionVariants.find((x) => x.slug === slug);
   if (!v) return {};
 
-  const title = `Construction Cost per Sqft in ${v.cityName} 2025 — Home Building Cost`;
-  const description = `Calculate home construction cost in ${v.cityName}, ${v.state}. Standard rate: ₹${v.standardCostPerSqft}/sqft. Basic, standard, and premium estimates for 2025.`;
+  const title = `Construction Cost per Sqft in ${v.cityName} ${year} — Home Building Cost`;
+  const description = `Calculate home construction cost in ${v.cityName}, ${v.state}. Standard rate: ₹${v.standardCostPerSqft}/sqft. Basic, standard, and premium estimates for ${year}.`;
 
   return {
     title,
@@ -56,7 +59,7 @@ export default async function ConstructionVariantPage({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: `Construction Cost Calculator — ${v.cityName}`,
-    description: `Home construction cost estimator for ${v.cityName}, ${v.state}. Rates as of 2025.`,
+    description: `Home construction cost estimator for ${v.cityName}, ${v.state}. Rates as of ${year}.`,
     url: `https://www.utilspot.app/construction-cost-calculator/${slug}`,
     applicationCategory: "FinanceApplication",
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
@@ -81,13 +84,13 @@ export default async function ConstructionVariantPage({
         </nav>
 
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
-          Construction Cost per Sqft in {v.cityName} 2025 — Home Building Cost
+          Construction Cost per Sqft in {v.cityName} {year} — Home Building Cost
         </h1>
 
         {/* City rate summary card */}
         <div className="bg-[#F0F4FF] border border-[#CBD5EF] rounded-xl p-4 mb-5">
           <p className="text-[#0F2447] text-sm font-medium mb-2">
-            2025 construction rates in {v.cityName}, {v.state} ({tierLabel} city)
+            {year} construction rates in {v.cityName}, {v.state} ({tierLabel} city)
           </p>
           <div className="grid grid-cols-3 gap-3 text-center">
             <div className="bg-white rounded-lg px-3 py-2 border border-[#CBD5EF]">
@@ -127,7 +130,7 @@ export default async function ConstructionVariantPage({
           <p className="text-gray-600 text-sm leading-relaxed mb-3">
             {v.cityName} is a {tierLabel} city in {v.state} where residential construction rates
             range from ₹{city.basicCostPerSqft}/sqft for basic construction to
-            ₹{city.premiumCostPerSqft}/sqft for premium finishes as of 2025. Standard construction —
+            ₹{city.premiumCostPerSqft}/sqft for premium finishes as of {year}. Standard construction —
             the most popular choice for self-use homes — costs ₹{city.standardCostPerSqft}/sqft,
             meaning a 1,500 sqft home would cost approximately{" "}
             {formatINRShort(city.standardCostPerSqft * 1500)} in construction cost

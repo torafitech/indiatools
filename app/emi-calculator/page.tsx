@@ -4,9 +4,12 @@ import { EMICalculator } from "@/components/tools/EMICalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
 import { BankRatesTableLazy } from "@/components/tools/BankRatesTableLazy";
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
 
 export const metadata: Metadata = {
-  title: "EMI Calculator — Free Home, Car & Personal Loan Calculator India 2025",
+  title: `EMI Calculator — Free Home, Car & Personal Loan Calculator India ${year}`,
   description:
     "Calculate your monthly EMI instantly. Free EMI calculator for home loan, car loan and personal loan with full amortization schedule. No signup required.",
   keywords: [
@@ -15,7 +18,7 @@ export const metadata: Metadata = {
     "car loan EMI calculator",
     "personal loan EMI",
     "loan EMI calculator India",
-    "EMI calculator 2025",
+    `EMI calculator ${year}`,
     "amortization schedule India",
   ],
   openGraph: {
@@ -85,7 +88,8 @@ const faqSchema = {
       name: "Which bank has the lowest home loan interest rate in India?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "As of 2025, SBI offers home loans starting from 8.50% p.a., HDFC from 8.75% p.a., ICICI from 8.75% p.a., and Kotak Mahindra Bank from 8.70% p.a. Rates vary based on your credit score, loan amount, and employment type. Use the BankBazaar comparison tool to see the latest rates from all major banks.",
+        // STALE RATE - VERIFY: SBI 8.50%, HDFC 8.75%, ICICI 8.75%, Kotak Mahindra 8.70% (also duplicated in data/bank-rates.ts — keep in sync)
+        text: `As of ${year}, SBI offers home loans starting from 8.50% p.a., HDFC from 8.75% p.a., ICICI from 8.75% p.a., and Kotak Mahindra Bank from 8.70% p.a. Rates vary based on your credit score, loan amount, and employment type. Use the BankBazaar comparison tool to see the latest rates from all major banks.`,
       },
     },
     {

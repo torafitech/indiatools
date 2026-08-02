@@ -42,6 +42,7 @@ const bankVariants: EMIVariant[] = BANK_RATES.flatMap((bank) =>
 );
 
 // Amount-specific landing pages (no bank — uses a representative market rate).
+// STALE RATE - VERIFY: representative market home loan rate 8.65% (all 6 amount variants below)
 const amountVariants: EMIVariant[] = [
   { slug: "20-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 2000000,  defaultTenureMonths: 240, description: "EMI for ₹20 lakh home loan at 8.65% p.a." },
   { slug: "30-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 3000000,  defaultTenureMonths: 240, description: "EMI for ₹30 lakh home loan at 8.65% p.a." },

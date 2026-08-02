@@ -3,23 +3,26 @@ import Link from "next/link";
 import { NewLabourCodeCalculator } from "@/components/tools/NewLabourCodeCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
+import { getCurrentYear } from "@/lib/currentFY";
+
+const year = getCurrentYear();
 
 export const metadata: Metadata = {
-  title: "New Labour Code Salary Calculator 2026 — 50% Basic Wage Rule Impact",
+  title: `New Labour Code Salary Calculator ${year} — 50% Basic Wage Rule Impact`,
   description:
     "Calculate how India's new Labour Code (Nov 2025) affects your salary. See changes to PF, gratuity, and monthly take-home under the 50% basic wage rule.",
   keywords: [
     "new labour code calculator",
     "50% basic salary rule calculator",
     "new wage code salary impact",
-    "labour code 2026 salary",
+    `labour code ${year} salary`,
     "code on social security 2020",
     "50% basic wage rule India",
     "new labour code PF impact",
     "labour code take home salary",
   ],
   openGraph: {
-    title: "New Labour Code Salary Calculator 2026 — 50% Basic Wage Rule Impact",
+    title: `New Labour Code Salary Calculator ${year} — 50% Basic Wage Rule Impact`,
     description:
       "See how India's new Labour Code changes your PF, gratuity, and monthly take-home. Free calculator updated for Nov 2025.",
     url: "https://www.utilspot.app/new-labour-code-calculator",
@@ -207,7 +210,7 @@ export default function NewLabourCodePage() {
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>
           <div className="flex flex-wrap gap-2">
             {[
-              { href: "/gratuity-calculator",               label: "Gratuity Calculator 2026" },
+              { href: "/gratuity-calculator",               label: `Gratuity Calculator ${year}` },
               { href: "/pf-calculator",                     label: "PF Corpus Calculator" },
               { href: "/full-final-settlement-calculator",  label: "F&F Settlement Calculator" },
               { href: "/salary-calculator",                 label: "CTC Salary Calculator" },

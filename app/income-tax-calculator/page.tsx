@@ -3,17 +3,20 @@ import Link from "next/link";
 import { IncomeTaxCalculator } from "@/components/tools/IncomeTaxCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
+import { getCurrentFY } from "@/lib/currentFY";
+
+const fy = getCurrentFY();
 
 export const metadata: Metadata = {
-  title: "Income Tax Calculator FY 2025-26 — New vs Old Regime Comparison India",
+  title: `Income Tax Calculator FY ${fy} — New vs Old Regime Comparison India`,
   description:
-    "Calculate income tax for FY 2025-26. Compare new vs old tax regime side-by-side and find out which saves more. Includes HRA, 80C, 80D, NPS, home loan deductions.",
+    `Calculate income tax for FY ${fy}. Compare new vs old tax regime side-by-side and find out which saves more. Includes HRA, 80C, 80D, NPS, home loan deductions.`,
   keywords: [
-    "income tax calculator 2025-26", "new regime vs old regime", "tax calculator India",
+    `income tax calculator ${fy}`, "new regime vs old regime", "tax calculator India",
     "income tax India", "80C deduction calculator", "HRA calculator",
   ],
   openGraph: {
-    title: "Income Tax Calculator FY 2025-26 — New vs Old Regime India",
+    title: `Income Tax Calculator FY ${fy} — New vs Old Regime India`,
     description: "Compare new and old tax regime instantly. Enter your salary and deductions to see which saves more tax.",
     url: "https://www.utilspot.app/income-tax-calculator",
     siteName: "UtilSpot",
@@ -24,8 +27,8 @@ export const metadata: Metadata = {
 const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Income Tax Calculator India FY 2025-26",
-  description: "Free income tax calculator for FY 2025-26. Compare new vs old tax regime with full deduction breakup.",
+  name: `Income Tax Calculator India FY ${fy}`,
+  description: `Free income tax calculator for FY ${fy}. Compare new vs old tax regime with full deduction breakup.`,
   url: "https://www.utilspot.app/income-tax-calculator",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
@@ -49,7 +52,7 @@ const faqSchema = {
       name: "Is income up to ₹12 lakh really tax-free under the new regime?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — under the new regime for FY 2025-26, income up to ₹12 lakh is effectively tax-free due to the rebate under Section 87A (₹60,000 rebate). After applying the ₹75,000 standard deduction, if your net income is ₹12 lakh or less, your tax liability is zero. However, if income exceeds ₹12 lakh even by ₹1, the rebate disappears and you pay tax on the entire amount above slab thresholds.",
+        text: `Yes — under the new regime for FY ${fy}, income up to ₹12 lakh is effectively tax-free due to the rebate under Section 87A (₹60,000 rebate). After applying the ₹75,000 standard deduction, if your net income is ₹12 lakh or less, your tax liability is zero. However, if income exceeds ₹12 lakh even by ₹1, the rebate disappears and you pay tax on the entire amount above slab thresholds.`,
       },
     },
     {
@@ -78,10 +81,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "What is the standard deduction for FY 2025-26?",
+      name: `What is the standard deduction for FY ${fy}?`,
       acceptedAnswer: {
         "@type": "Answer",
-        text: "For FY 2025-26, the standard deduction is ₹75,000 under the new regime (increased from ₹50,000 in Budget 2024) and ₹50,000 under the old regime. This is a flat deduction from gross salary income — no proof required. Salaried employees and pensioners can claim this automatically.",
+        text: `For FY ${fy}, the standard deduction is ₹75,000 under the new regime (increased from ₹50,000 in Budget 2024) and ₹50,000 under the old regime. This is a flat deduction from gross salary income — no proof required. Salaried employees and pensioners can claim this automatically.`,
       },
     },
   ],
@@ -110,9 +113,9 @@ export default function IncomeTaxCalculatorPage() {
           <span className="text-gray-600">Income Tax Calculator</span>
         </nav>
 
-        <IndiaBadge note="Uses Indian IT Act slabs, FY 2025-26 — not applicable outside India" />
+        <IndiaBadge note={`Uses Indian IT Act slabs, FY ${fy} — not applicable outside India`} />
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">
-          Income Tax Calculator FY 2025-26 — New vs Old Regime
+          Income Tax Calculator FY {fy} — New vs Old Regime
         </h1>
         <div className="flex flex-wrap gap-3 mb-2">
           <span className="inline-flex items-center gap-1.5 text-xs bg-[#F1F5F9] text-[#475569] px-3 py-1 rounded-full font-medium">
@@ -134,7 +137,7 @@ export default function IncomeTaxCalculatorPage() {
         <AdSlot slot="AFTER_RESULT_SLOT" className="my-6" />
 
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-          <h2 className="text-xl font-bold text-gray-900">New vs Old Tax Regime — FY 2025-26</h2>
+          <h2 className="text-xl font-bold text-gray-900">New vs Old Tax Regime — FY {fy}</h2>
 
           <p className="text-gray-600 leading-relaxed">
             Every salaried employee in India must choose between the <strong>New Tax Regime</strong> and the
@@ -143,7 +146,7 @@ export default function IncomeTaxCalculatorPage() {
             specific situation.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800">New Regime Slabs (FY 2025-26)</h3>
+          <h3 className="text-lg font-semibold text-gray-800">New Regime Slabs (FY {fy})</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
@@ -175,7 +178,7 @@ export default function IncomeTaxCalculatorPage() {
             Add 4% Health &amp; Education Cess on tax payable.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800 mt-2">Old Regime Slabs (FY 2025-26)</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mt-2">Old Regime Slabs (FY {fy})</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
