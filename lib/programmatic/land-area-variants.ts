@@ -170,7 +170,7 @@ export const landAreaVariants: LandAreaVariant[] = [
         a: "Patta and Chitta records for agricultural and rural land use Cent. Ground is a real-estate market convention for urban residential plots, not typically the unit printed on the Patta itself.",
       },
     ],
-    constructionCitySlugs: ["chennai", "coimbatore", "madurai"],
+    constructionCitySlugs: ["chennai", "coimbatore", "madurai", "tiruchirappalli"],
   },
   {
     slug: "west-bengal",
@@ -258,6 +258,6 @@ export const landAreaVariants: LandAreaVariant[] = [
         a: "Nearly — UP's Pucca Bigha is 27,225 sq ft and Bihar's Bigha is 27,220 sq ft, a negligible difference. Both are roughly double West Bengal's Bigha (14,400 sq ft).",
       },
     ],
-    constructionCitySlugs: ["lucknow", "agra", "patna"],
+    constructionCitySlugs: ["lucknow", "agra", "meerut", "patna"],
   },
 ];

@@ -5,13 +5,14 @@ import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
 
 export const metadata: Metadata = {
-  title: "Land Area Unit Converter — Sq Ft, Acre, Guntha, Bigha, Cent & More | UtilSpot",
+  title: "Land Area Unit Converter — Sq Ft, Acre, Guntha, Bigha, Cent & More",
   description:
     "Convert between Square Feet, Square Meter, Acre, Hectare, Cent, Guntha, Bigha, Katha, Ankanam, and Ground instantly. State-specific Bigha/Katha/Guntha values included.",
   keywords: [
     "land area converter",
     "sq ft to acre converter",
     "guntha to acre",
+    "gunta to acre",
     "bigha to square feet",
     "katha to square feet",
     "cent to square feet",
@@ -103,6 +104,14 @@ const faqSchema = {
     },
     {
       "@type": "Question",
+      name: "Is Guntha the same as Gunta?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. \"Guntha\" and \"Gunta\" are spelling variants of the same land unit — both equal 1,089 sq ft = 1/40 acre. Karnataka land records tend to use \"Gunta\"; Maharashtra, Andhra Pradesh, and Telangana more often use \"Guntha.\"",
+      },
+    },
+    {
+      "@type": "Question",
       name: "Why does Bigha mean a different area in different states?",
       acceptedAnswer: {
         "@type": "Answer",
@@ -172,18 +181,34 @@ export default function LandAreaConverterPage() {
             <li><strong>1 Ground = 2,400 sq ft</strong> (Tamil Nadu, especially Chennai)</li>
           </ul>
 
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Region-Dependent Units</h3>
-          <p className="text-gray-600 leading-relaxed mb-3">
-            <strong>Guntha</strong> (1/40 acre = 1,089 sq ft) is fairly consistent across the states
-            that use it — Karnataka, Maharashtra, Andhra Pradesh, and Telangana all treat 1 Guntha as
-            1,089 sq ft, a 33 ft × 33 ft plot.
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">Region-Dependent Units</h3>
+
+          <h4 className="font-semibold text-gray-800 text-sm mb-1">Guntha / Gunta</h4>
+          <p className="text-[#E8500A] text-sm font-semibold mb-1.5">
+            1 Guntha = 1,089 sq ft = 101.17 sq m = 1/40 acre.
           </p>
-          <p className="text-gray-600 leading-relaxed mb-3">
-            <strong>Bigha and Katha are genuinely different by state.</strong> West Bengal&apos;s Bigha
-            (≈14,400 sq ft) is roughly half of Uttar Pradesh&apos;s or Bihar&apos;s Pucca Bigha (≈27,225 sq ft),
-            and Katha follows the same split — 720 sq ft in Bengal vs. ≈1,361 sq ft in Bihar and UP.
-            Use the regional standard selector in the calculator above, and see the state-specific
-            guides below for the full explanation.
+          <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+            Fairly consistent across the states that use it — Karnataka, Maharashtra, Andhra Pradesh,
+            and Telangana all treat 1 Guntha (also spelled Gunta) as 1,089 sq ft, a 33 ft × 33 ft plot.
+          </p>
+
+          <h4 className="font-semibold text-gray-800 text-sm mb-1">Bigha</h4>
+          <p className="text-[#E8500A] text-sm font-semibold mb-1.5">
+            1 Bigha ranges from 14,400 sq ft (West Bengal) to ≈27,225 sq ft (Uttar Pradesh / Bihar).
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+            Bigha is genuinely different by state — West Bengal&apos;s Bigha is roughly half of Uttar
+            Pradesh&apos;s or Bihar&apos;s Pucca Bigha, despite sharing the same name. Use the regional
+            standard selector in the calculator above, or see the state-specific guides below.
+          </p>
+
+          <h4 className="font-semibold text-gray-800 text-sm mb-1">Katha</h4>
+          <p className="text-[#E8500A] text-sm font-semibold mb-1.5">
+            1 Katha ranges from 720 sq ft (West Bengal) to ≈1,361 sq ft (Bihar / Uttar Pradesh).
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-3 text-sm">
+            Katha follows the same regional split as Bigha — twenty Katha make one Bigha in both
+            Bengal and Bihar/UP, but the underlying sq-ft value differs by state.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mb-2">State-Specific Guides</h3>

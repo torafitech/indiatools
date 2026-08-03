@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 type Tool = {
@@ -161,10 +161,67 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
   const [active, setActive] = useState("All");
   const filtered = active === "All" ? tools : tools.filter((t) => t.category === active);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  function updateScrollButtons() {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }
+
+  useEffect(() => {
+    updateScrollButtons();
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateScrollButtons);
+    window.addEventListener("resize", updateScrollButtons);
+    return () => {
+      el.removeEventListener("scroll", updateScrollButtons);
+      window.removeEventListener("resize", updateScrollButtons);
+    };
+  }, []);
+
+  function scrollByAmount(dir: 1 | -1) {
+    scrollRef.current?.scrollBy({ left: dir * 220, behavior: "smooth" });
+  }
+
   return (
     <div>
       {/* Category filter pills */}
-      <div className="flex gap-2 overflow-x-auto pb-1 mb-6">
+      <div className="relative mb-6">
+        {canScrollLeft && (
+          <button
+            onClick={() => scrollByAmount(-1)}
+            aria-label="Scroll categories left"
+            className="hidden sm:flex absolute left-0 top-0 bottom-0 z-10 items-center justify-center w-8 bg-gradient-to-r from-white via-white to-transparent"
+          >
+            <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white border border-[#F0E4D4] text-[#7A6048] shadow-sm hover:text-[#E8500A] hover:border-[#E8500A]">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </span>
+          </button>
+        )}
+        {canScrollRight && (
+          <button
+            onClick={() => scrollByAmount(1)}
+            aria-label="Scroll categories right"
+            className="hidden sm:flex absolute right-0 top-0 bottom-0 z-10 items-center justify-center w-8 bg-gradient-to-l from-white via-white to-transparent"
+          >
+            <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white border border-[#F0E4D4] text-[#7A6048] shadow-sm hover:text-[#E8500A] hover:border-[#E8500A]">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </button>
+        )}
+        <div
+          ref={scrollRef}
+          className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
         {FILTER_LABELS.map((label) => {
           const cfg = CAT[label];
           const isActive = active === label;
@@ -185,6 +242,7 @@ export function ToolGrid({ tools }: { tools: Tool[] }) {
             </button>
           );
         })}
+        </div>
       </div>
 
       {/* Tool cards */}
