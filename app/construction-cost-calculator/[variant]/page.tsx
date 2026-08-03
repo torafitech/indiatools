@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { constructionVariants } from "@/lib/programmatic/construction-variants";
+import { landAreaVariants } from "@/lib/programmatic/land-area-variants";
 import { CITIES } from "@/data/cities";
 import { ConstructionCalculator } from "@/components/tools/ConstructionCalculator";
 import { AdSlot } from "@/components/layout/AdSlot";
@@ -54,6 +55,7 @@ export default async function ConstructionVariantPage({
   if (!city) notFound();
 
   const tierLabel = city.tier === 1 ? "metro" : city.tier === 2 ? "tier-2" : "tier-3";
+  const landVariant = landAreaVariants.find((lv) => lv.constructionCitySlugs.includes(slug));
 
   const webAppSchema = {
     "@context": "https://schema.org",
@@ -183,6 +185,23 @@ export default async function ConstructionVariantPage({
             </Link>
           </div>
         </section>
+
+        {/* Land area converter cross-link */}
+        {landVariant && (
+          <section className="mt-4 mb-4">
+            <h2 className="text-sm font-semibold text-gray-600 mb-3">
+              Checking Your Plot Size in {landVariant.stateName}?
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href={`/land-area-converter/${landVariant.slug}`}
+                className="text-sm px-3 py-1.5 bg-[#F0F4FF] text-[#0F2447] rounded-full hover:bg-[#E5EAFF] transition-colors"
+              >
+                {landVariant.stateName} Land Area Converter ({landVariant.primaryUnits.join(", ")}) →
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Cross-tool links */}
         <section className="mt-4 mb-4">
