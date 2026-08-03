@@ -23,6 +23,7 @@ const CAT: Record<string, {
   Business:     { iconBg: "bg-[#FFF8F2]",  iconText: "text-[#E8500A]",  badge: "bg-[#FFF8F2] text-[#E8500A] ring-[#FFDCBA]",   dot: "bg-[#E8500A]",   borderL: "border-l-[#E8500A]"   },
   Developer:    { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
   "Labour & HR":{ iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  "Real Estate & Construction": { iconBg: "bg-amber-50", iconText: "text-amber-700", badge: "bg-amber-50 text-amber-700 ring-amber-100", dot: "bg-amber-600", borderL: "border-l-amber-600" },
   Career:       { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
   Security:     { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
 };
@@ -57,6 +58,12 @@ function ToolIcon({ slug, className }: { slug: string; className?: string }) {
       <path d="M1 22h22"/>
       <path d="M7 22V11l5-4 5 4v11"/>
       <path d="M11 22v-5h2v5"/>
+    </>,
+    "/land-area-converter": <>
+      <path d="M3 21h18"/>
+      <path d="M3 21V8l6-5 6 5v13"/>
+      <path d="M9 21V13h6v8"/>
+      <path d="M15 3l6 5v13"/>
     </>,
     "/tdee-calculator": <>
       <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
@@ -143,7 +150,7 @@ function ToolIcon({ slug, className }: { slug: string; className?: string }) {
   );
 }
 
-const FILTER_LABELS = ["All", "Finance", "Labour & HR", "Health", "Developer", "Business", "Writing", "Career", "Security"];
+const FILTER_LABELS = ["All", "Finance", "Real Estate & Construction", "Labour & HR", "Health", "Developer", "Business", "Writing", "Career", "Security"];
 
 const STAGGER = [
   "stagger-1","stagger-2","stagger-3","stagger-4","stagger-5",
