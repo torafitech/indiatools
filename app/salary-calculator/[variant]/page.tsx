@@ -121,7 +121,7 @@ export default async function SalaryVariantPage({
           defaultPF
         />
 
-        <AdSlot slot="SALARY_VARIANT_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* Variant-specific content */}
         {!isCity && salaryLPAContent[slug] ? (() => {
@@ -206,7 +206,7 @@ export default async function SalaryVariantPage({
           </section>
         )}
 
-        <AdSlot slot="SALARY_VARIANT_BELOW_CONTENT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related variants */}
         <section className="mt-4 mb-4">

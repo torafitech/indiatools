@@ -125,7 +125,7 @@ export default function ColorPaletteGeneratorPage() {
 
         <ColorPaletteGenerator />
 
-        <AdSlot slot="COLOR_PALETTE_SLOT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* SEO Content */}
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 prose prose-gray max-w-none">
@@ -255,7 +255,7 @@ export default function ColorPaletteGeneratorPage() {
           </div>
         </section>
 
-        <AdSlot slot="BELOW_FAQ_SLOT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related tools */}
         <section className="mt-2 mb-4">

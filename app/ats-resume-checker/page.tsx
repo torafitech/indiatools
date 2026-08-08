@@ -126,7 +126,7 @@ export default function ATSResumeCheckerPage() {
 
         <ATSResumeChecker />
 
-        <AdSlot slot="ATS_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* SEO Content */}
         <section className="mt-8 bg-white rounded-xl border border-[#F0E4D4] p-6 space-y-5">
@@ -228,7 +228,7 @@ export default function ATSResumeCheckerPage() {
           </div>
         </section>
 
-        <AdSlot slot="ATS_BELOW_FAQ" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related Tools */}
         <section className="mt-2 mb-4">

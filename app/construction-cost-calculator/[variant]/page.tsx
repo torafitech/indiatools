@@ -122,7 +122,7 @@ export default async function ConstructionVariantPage({
 
         <ConstructionCalculator defaultCitySlug={slug} />
 
-        <AdSlot slot="CONSTRUCTION_VARIANT_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* City-specific content */}
         <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
@@ -157,7 +157,7 @@ export default async function ConstructionVariantPage({
           </p>
         </section>
 
-        <AdSlot slot="CONSTRUCTION_VARIANT_BELOW_CONTENT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related city links */}
         <section className="mt-4 mb-4">

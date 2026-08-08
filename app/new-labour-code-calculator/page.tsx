@@ -143,7 +143,7 @@ export default function NewLabourCodePage() {
 
         <NewLabourCodeCalculator />
 
-        <AdSlot slot="LABOUR_CODE_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* Salary variants */}
         <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
@@ -204,7 +204,7 @@ export default function NewLabourCodePage() {
           </div>
         </section>
 
-        <AdSlot slot="LABOUR_CODE_BELOW_FAQ" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         <section className="mt-2 mb-4">
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>

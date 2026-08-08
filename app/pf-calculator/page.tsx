@@ -132,7 +132,7 @@ export default function PFCalculatorPage() {
 
         <PFCalculator />
 
-        <AdSlot slot="PF_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 prose prose-gray max-w-none">
           <h2 className="text-xl font-bold text-gray-900 mb-4">How EPF Works and Why It Matters</h2>
@@ -175,7 +175,7 @@ export default function PFCalculatorPage() {
           </div>
         </section>
 
-        <AdSlot slot="PF_BELOW_FAQ" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         <section className="mt-2 mb-4">
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>

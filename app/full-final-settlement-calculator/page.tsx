@@ -132,7 +132,7 @@ export default function FullFinalSettlementPage() {
 
         <FullFinalSettlementCalculator />
 
-        <AdSlot slot="FNF_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 prose prose-gray max-w-none">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Understanding Full & Final Settlement in India</h2>
@@ -177,7 +177,7 @@ export default function FullFinalSettlementPage() {
           </div>
         </section>
 
-        <AdSlot slot="FNF_BELOW_FAQ" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         <section className="mt-2 mb-4">
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>

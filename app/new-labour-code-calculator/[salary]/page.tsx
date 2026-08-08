@@ -57,7 +57,7 @@ export default async function LabourCodeVariantPage({ params }: Props) {
 
       <NewLabourCodeCalculator defaultCTC={variant.ctc} defaultBasicPct={40} />
 
-      <AdSlot slot="LABOUR_CODE_VARIANT_RESULT" className="my-6" />
+      <AdSlot slot="7779500788" className="my-6" />
 
       {/* Content section */}
       {(() => {

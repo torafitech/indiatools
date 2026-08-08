@@ -123,7 +123,7 @@ export default function ReadmeGeneratorPage() {
 
         <ReadmeGenerator />
 
-        <AdSlot slot="README_GEN_SLOT" className="my-6 min-h-[90px]" />
+        <AdSlot slot="7779500788" className="my-6 min-h-[90px]" />
 
         {/* SEO Content */}
         <section className="mt-8 bg-white rounded-xl border border-[#F0E4D4] p-6 prose prose-gray max-w-none">
@@ -256,7 +256,7 @@ export default function ReadmeGeneratorPage() {
           </div>
         </section>
 
-        <AdSlot slot="README_GEN_SLOT" className="my-6 min-h-[90px]" />
+        <AdSlot slot="2743510532" className="my-6 min-h-[90px]" />
 
         {/* Related Tools */}
         <section className="mt-2 mb-4">

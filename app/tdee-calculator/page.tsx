@@ -126,7 +126,7 @@ export default function TDEECalculatorPage() {
 
         <TDEECalculator />
 
-        <AdSlot slot="AFTER_RESULT_SLOT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 space-y-4">
           <h2 className="text-xl font-bold text-gray-900">Understanding Your TDEE Results</h2>
@@ -200,7 +200,7 @@ export default function TDEECalculatorPage() {
           </div>
         </section>
 
-        <AdSlot slot="BELOW_FAQ_SLOT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         <section className="mt-2 mb-4">
           <h2 className="text-base font-semibold text-gray-700 mb-3">Related Tools</h2>

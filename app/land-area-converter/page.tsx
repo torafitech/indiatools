@@ -157,7 +157,7 @@ export default function LandAreaConverterPage() {
 
         <LandAreaConverter />
 
-        <AdSlot slot="LAND_AREA_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* SEO content */}
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 prose prose-gray max-w-none">
@@ -255,7 +255,7 @@ export default function LandAreaConverterPage() {
           </div>
         </section>
 
-        <AdSlot slot="LAND_AREA_BELOW_FAQ" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related tools */}
         <section className="mt-2 mb-4">

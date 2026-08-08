@@ -102,7 +102,7 @@ export default async function LandAreaVariantPage({
           defaultRegion={v.region}
         />
 
-        <AdSlot slot="LAND_AREA_VARIANT_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* Why it differs */}
         <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
@@ -153,7 +153,7 @@ export default async function LandAreaVariantPage({
           </div>
         </section>
 
-        <AdSlot slot="LAND_AREA_VARIANT_BELOW_CONTENT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Cross-link to construction cost calculator cities */}
         {relatedCities.length > 0 && (
