@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BANK_RATES, RATES_LAST_REVIEWED } from "@/data/bank-rates";
+import { BANK_RATES, RBI_REPO_RATE_LAST_UPDATED, getRateDisplay, type LoanRate } from "@/data/bank-rates";
 
 const CATEGORY_LABELS: Record<string, string> = {
   PSU: "Public Sector Banks",
@@ -9,23 +9,25 @@ const CATEGORY_LABELS: Record<string, string> = {
   HFC: "Housing Finance & NBFCs",
 };
 
-const ratesAsOf = new Date(RATES_LAST_REVIEWED).toLocaleDateString("en-IN", {
-  month: "long",
-  year: "numeric",
-});
+function loanLabel(prefix: string, loan: LoanRate | undefined, bankName: string) {
+  const display = getRateDisplay(loan, bankName);
+  return display ? `${prefix} ${display.shortLabel}` : prefix;
+}
 
 export function BankRatesTable() {
   return (
     <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
       <div className="flex items-baseline justify-between flex-wrap gap-2 mb-1">
         <h2 className="text-xl font-bold text-gray-900">EMI Calculator by Bank</h2>
-        <span className="text-xs text-gray-400">Rates as of {ratesAsOf}</span>
+        <span className="text-xs text-gray-400">Repo rate last updated: {RBI_REPO_RATE_LAST_UPDATED}</span>
       </div>
       <p className="text-gray-500 text-sm mb-1">
         Pre-filled calculators with each bank&apos;s current interest rate. Pick your bank and loan type.
       </p>
       <p className="text-xs text-gray-400 mb-5">
-        Rates last verified: {RATES_LAST_REVIEWED}. Actual rate depends on your credit score — confirm with the lender before applying.
+        Rates are computed from the RBI repo rate plus each bank&apos;s published spread and refreshed
+        whenever the repo rate changes. Actual rate depends on your credit score — confirm with the
+        lender before applying.
       </p>
 
       {(["PSU", "Private", "HFC"] as const).map((cat) => {
@@ -42,19 +44,19 @@ export function BankRatesTable() {
                     {bank.homeLoan !== undefined && (
                       <Link href={`/emi-calculator/${bank.slug}-home-loan`}
                         className="text-xs px-2 py-1 bg-[#F0F4FF] text-[#0F2447] rounded-md hover:bg-[#E5EAFF] transition-colors">
-                        Home {bank.homeLoan}%
+                        {loanLabel("Home", bank.homeLoan, bank.name)}
                       </Link>
                     )}
                     {bank.carLoan !== undefined && (
                       <Link href={`/emi-calculator/${bank.slug}-car-loan`}
                         className="text-xs px-2 py-1 bg-[#F0F4FF] text-[#0F2447] rounded-md hover:bg-[#E5EAFF] transition-colors">
-                        Car {bank.carLoan}%
+                        {loanLabel("Car", bank.carLoan, bank.name)}
                       </Link>
                     )}
                     {bank.personalLoan !== undefined && (
                       <Link href={`/emi-calculator/${bank.slug}-personal-loan`}
                         className="text-xs px-2 py-1 bg-[#F0F4FF] text-[#0F2447] rounded-md hover:bg-[#E5EAFF] transition-colors">
-                        Personal {bank.personalLoan}%
+                        {loanLabel("Personal", bank.personalLoan, bank.name)}
                       </Link>
                     )}
                   </div>

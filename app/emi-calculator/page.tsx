@@ -5,8 +5,24 @@ import { AdSlot } from "@/components/layout/AdSlot";
 import { IndiaBadge } from "@/components/ui/IndiaBadge";
 import { BankRatesTableLazy } from "@/components/tools/BankRatesTableLazy";
 import { getCurrentYear } from "@/lib/currentFY";
+import { BANK_RATES, getRateDisplay } from "@/data/bank-rates";
 
 const year = getCurrentYear();
+
+// Pulls from the same BANK_RATES source as BankRatesTable / emi-variants —
+// no separate hardcoded copy to drift out of sync.
+const majorBankRateBlurb = ["sbi", "hdfc", "icici", "kotak"]
+  .map((slug) => {
+    const bank = BANK_RATES.find((b) => b.slug === slug);
+    if (!bank) return null;
+    const display = getRateDisplay(bank.homeLoan, bank.name);
+    if (!display) return null;
+    if (display.kind === "precise") return `${bank.name} from ${display.rate}% p.a.`;
+    if (display.kind === "range") return `${bank.name} (${display.sentence})`;
+    return `${bank.name} (rate not yet published — contact bank)`;
+  })
+  .filter((s): s is string => s !== null)
+  .join(", ");
 
 export const metadata: Metadata = {
   title: `EMI Calculator — Free Home, Car & Personal Loan Calculator India ${year}`,
@@ -88,8 +104,7 @@ const faqSchema = {
       name: "Which bank has the lowest home loan interest rate in India?",
       acceptedAnswer: {
         "@type": "Answer",
-        // STALE RATE - VERIFY: SBI 8.50%, HDFC 8.75%, ICICI 8.75%, Kotak Mahindra 8.70% (also duplicated in data/bank-rates.ts — keep in sync)
-        text: `As of ${year}, SBI offers home loans starting from 8.50% p.a., HDFC from 8.75% p.a., ICICI from 8.75% p.a., and Kotak Mahindra Bank from 8.70% p.a. Rates vary based on your credit score, loan amount, and employment type. Use the BankBazaar comparison tool to see the latest rates from all major banks.`,
+        text: `As of ${year}: ${majorBankRateBlurb}. Rates vary based on your credit score, loan amount, and employment type. Use the BankBazaar comparison tool to see the latest rates from all major banks.`,
       },
     },
     {
@@ -157,7 +172,7 @@ export default function EMICalculatorPage() {
 
         <EMICalculator />
 
-        <AdSlot slot="AFTER_RESULT_SLOT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* SEO Content */}
         <section className="mt-8 bg-white rounded-xl border border-gray-200 p-6 prose prose-gray max-w-none">
@@ -240,7 +255,7 @@ export default function EMICalculatorPage() {
           </div>
         </section>
 
-        <AdSlot slot="BELOW_FAQ_SLOT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related tools */}
         <section className="mt-2 mb-4">

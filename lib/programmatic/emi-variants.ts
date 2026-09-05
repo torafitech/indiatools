@@ -1,9 +1,11 @@
-import { BANK_RATES, type BankRate } from "@/data/bank-rates";
+import { BANK_RATES, getRateDisplay, type BankRate, type RateType } from "@/data/bank-rates";
 
 export interface EMIVariant {
   slug: string;
   bank: string;
-  rate: number;
+  rate: number;         // numeric value fed to the calculator's slider default — 0 when unavailable/range, never shown as a factual claim on its own
+  rateType: RateType;   // precise ("EBLR-linked"/"fixed") / "EBLR-linked-range" / "unavailable"
+  rateSentence: string; // single source of truth for the rate prose — from getRateDisplay(), don't re-derive elsewhere
   type: string;
   defaultAmount: number;
   defaultTenureMonths: number;
@@ -27,16 +29,20 @@ const LOAN_CONFIGS: LoanTypeConfig[] = [
 // Generate one variant per (bank × loan type) where the bank offers that loan.
 const bankVariants: EMIVariant[] = BANK_RATES.flatMap((bank) =>
   LOAN_CONFIGS.flatMap((cfg) => {
-    const rate = bank[cfg.key];
-    if (rate === undefined) return [];
+    const loan = bank[cfg.key];
+    if (loan === undefined) return [];
+    const display = getRateDisplay(loan, bank.name);
+    const sentence = display?.sentence ?? "Rate unavailable — contact bank for current pricing.";
     return [{
       slug: `${bank.slug}-${cfg.suffix}`,
       bank: bank.name,
-      rate,
+      rate: display?.rate ?? 0,
+      rateType: loan.rateType,
+      rateSentence: sentence,
       type: cfg.type,
       defaultAmount: cfg.defaultAmount,
       defaultTenureMonths: cfg.defaultTenureMonths,
-      description: `${bank.name} ${cfg.type.toLowerCase()} at ${rate.toFixed(2)}% p.a.`,
+      description: `${bank.name} ${cfg.type.toLowerCase()} — ${sentence}`,
     }];
   })
 );
@@ -44,12 +50,12 @@ const bankVariants: EMIVariant[] = BANK_RATES.flatMap((bank) =>
 // Amount-specific landing pages (no bank — uses a representative market rate).
 // STALE RATE - VERIFY: representative market home loan rate 8.65% (all 6 amount variants below)
 const amountVariants: EMIVariant[] = [
-  { slug: "20-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 2000000,  defaultTenureMonths: 240, description: "EMI for ₹20 lakh home loan at 8.65% p.a." },
-  { slug: "30-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 3000000,  defaultTenureMonths: 240, description: "EMI for ₹30 lakh home loan at 8.65% p.a." },
-  { slug: "40-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 4000000,  defaultTenureMonths: 240, description: "EMI for ₹40 lakh home loan at 8.65% p.a." },
-  { slug: "50-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 5000000,  defaultTenureMonths: 240, description: "EMI for ₹50 lakh home loan at 8.65% p.a." },
-  { slug: "75-lakh-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 7500000,  defaultTenureMonths: 240, description: "EMI for ₹75 lakh home loan at 8.65% p.a." },
-  { slug: "1-crore-home-loan", bank: "", rate: 8.65, type: "Home Loan", defaultAmount: 10000000, defaultTenureMonths: 240, description: "EMI for ₹1 crore home loan at 8.65% p.a." },
+  { slug: "20-lakh-home-loan", bank: "", rate: 8.65, rateType: "fixed", rateSentence: "8.65% p.a.", type: "Home Loan", defaultAmount: 2000000,  defaultTenureMonths: 240, description: "EMI for ₹20 lakh home loan at 8.65% p.a." },
+  { slug: "30-lakh-home-loan", bank: "", rate: 8.65, rateType: "fixed", rateSentence: "8.65% p.a.", type: "Home Loan", defaultAmount: 3000000,  defaultTenureMonths: 240, description: "EMI for ₹30 lakh home loan at 8.65% p.a." },
+  { slug: "40-lakh-home-loan", bank: "", rate: 8.65, rateType: "fixed", rateSentence: "8.65% p.a.", type: "Home Loan", defaultAmount: 4000000,  defaultTenureMonths: 240, description: "EMI for ₹40 lakh home loan at 8.65% p.a." },
+  { slug: "50-lakh-home-loan", bank: "", rate: 8.65, rateType: "fixed", rateSentence: "8.65% p.a.", type: "Home Loan", defaultAmount: 5000000,  defaultTenureMonths: 240, description: "EMI for ₹50 lakh home loan at 8.65% p.a." },
+  { slug: "75-lakh-home-loan", bank: "", rate: 8.65, rateType: "fixed", rateSentence: "8.65% p.a.", type: "Home Loan", defaultAmount: 7500000,  defaultTenureMonths: 240, description: "EMI for ₹75 lakh home loan at 8.65% p.a." },
+  { slug: "1-crore-home-loan", bank: "", rate: 8.65, rateType: "fixed", rateSentence: "8.65% p.a.", type: "Home Loan", defaultAmount: 10000000, defaultTenureMonths: 240, description: "EMI for ₹1 crore home loan at 8.65% p.a." },
 ];
 
 export const emiVariants: EMIVariant[] = [...bankVariants, ...amountVariants];

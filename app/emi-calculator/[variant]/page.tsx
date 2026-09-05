@@ -7,7 +7,7 @@ import { AdSlot } from "@/components/layout/AdSlot";
 import { calculateEMISummary } from "@/lib/calculations/emi";
 import { formatINR, formatINRShort } from "@/lib/utils/format";
 import { getCurrentYear } from "@/lib/currentFY";
-import { RATES_LAST_REVIEWED } from "@/data/bank-rates";
+import { RBI_REPO_RATE_LAST_UPDATED } from "@/data/bank-rates";
 
 const year = getCurrentYear();
 
@@ -24,14 +24,23 @@ export async function generateMetadata({
   const variant = emiVariants.find((v) => v.slug === slug);
   if (!variant) return {};
 
+  const isPrecise = variant.rateType === "EBLR-linked" || variant.rateType === "fixed";
+  const isRange = variant.rateType === "EBLR-linked-range";
+
   const title =
     variant.bank
-      ? `${variant.bank} ${variant.type} EMI Calculator ${year} — Current Rate ${variant.rate}%`
+      ? isPrecise
+        ? `${variant.bank} ${variant.type} EMI Calculator ${year} — Current Rate ${variant.rate}%`
+        : isRange
+          ? `${variant.bank} ${variant.type} EMI Calculator ${year} — Typical Rate Range`
+          : `${variant.bank} ${variant.type} EMI Calculator ${year} — Check Current Rate`
       : `${variant.type} EMI Calculator — ${formatINRShort(variant.defaultAmount)} at ${variant.rate}%`;
 
   const description =
     variant.bank
-      ? `Calculate your ${variant.bank} ${variant.type} EMI instantly. Current interest rate: ${variant.rate}% p.a. Free amortization schedule, no signup.`
+      ? isPrecise
+        ? `Calculate your ${variant.bank} ${variant.type} EMI instantly. Current interest rate: ${variant.rate}% p.a. Free amortization schedule, no signup.`
+        : `Calculate your ${variant.bank} ${variant.type} EMI instantly. ${variant.rateSentence} Free amortization schedule, no signup.`
       : `Calculate EMI for ${formatINRShort(variant.defaultAmount)} ${variant.type.toLowerCase()} at ${variant.rate}% p.a. Free calculator with amortization schedule.`;
 
   return {
@@ -62,6 +71,10 @@ export default async function VariantPage({
   const variant = emiVariants.find((v) => v.slug === slug);
   if (!variant) notFound();
 
+  const isPrecise = variant.rateType === "EBLR-linked" || variant.rateType === "fixed";
+  const isRange = variant.rateType === "EBLR-linked-range";
+  const isUnavailable = variant.rateType === "unavailable";
+
   const summary = calculateEMISummary(
     variant.defaultAmount,
     variant.rate,
@@ -69,8 +82,14 @@ export default async function VariantPage({
   );
 
   const heading = variant.bank
-    ? `${variant.bank} ${variant.type} EMI Calculator — ${variant.rate}% Rate`
+    ? isPrecise
+      ? `${variant.bank} ${variant.type} EMI Calculator — ${variant.rate}% Rate`
+      : `${variant.bank} ${variant.type} EMI Calculator`
     : `${formatINRShort(variant.defaultAmount)} ${variant.type} EMI Calculator`;
+
+  const bankSearchUrl = variant.bank
+    ? `https://www.google.com/search?q=${encodeURIComponent(`${variant.bank} ${variant.type} interest rate`)}`
+    : "";
 
   const webAppSchema = {
     "@context": "https://schema.org",
@@ -100,15 +119,44 @@ export default async function VariantPage({
 
         <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2447] mb-2">{heading}</h1>
 
-        {variant.bank && (
+        {variant.bank && isPrecise && (
           <div className="bg-[#F0F4FF] border border-[#CBD5EF] rounded-xl p-4 mb-5 text-sm">
             <p className="text-[#0F2447]">
-              <strong>{variant.bank}</strong> current {variant.type.toLowerCase()} interest rate:{" "}
+              <strong>{variant.bank}</strong> {variant.rateType === "EBLR-linked" ? "typical" : "current"}{" "}
+              {variant.type.toLowerCase()} interest rate:{" "}
               <strong className="text-[#0F2447]">{variant.rate}% p.a.</strong>
+              {variant.rateType === "EBLR-linked" && " — varies by credit score"}
             </p>
             <p className="text-[#0F2447] mt-1 text-xs">
               For a {formatINRShort(variant.defaultAmount)} loan over {variant.defaultTenureMonths / 12} years —
               estimated monthly EMI: <strong>{formatINR(summary.emi)}</strong>
+            </p>
+          </div>
+        )}
+
+        {variant.bank && isRange && (
+          <div className="bg-[#F0F4FF] border border-[#CBD5EF] rounded-xl p-4 mb-5 text-sm">
+            <p className="text-[#0F2447]">
+              <strong>{variant.bank}</strong> {variant.type.toLowerCase()} rate: {variant.rateSentence}
+            </p>
+            <p className="text-[#0F2447] mt-1 text-xs">
+              Enter your quoted rate in the calculator below to see your exact EMI for a{" "}
+              {formatINRShort(variant.defaultAmount)} loan over {variant.defaultTenureMonths / 12} years.
+            </p>
+          </div>
+        )}
+
+        {variant.bank && isUnavailable && (
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-5 text-sm">
+            <p className="text-gray-700">
+              We don&apos;t have a verified current rate for <strong>{variant.bank}</strong> {variant.type.toLowerCase()}s.{" "}
+              <a href={bankSearchUrl} target="_blank" rel="nofollow noopener"
+                className="text-[#E8500A] hover:underline">
+                Contact {variant.bank} for current rates →
+              </a>
+            </p>
+            <p className="text-gray-500 mt-1 text-xs">
+              Enter your own quoted rate in the calculator below to see your EMI.
             </p>
           </div>
         )}
@@ -118,7 +166,9 @@ export default async function VariantPage({
           Adjust the sliders to match your actual loan details.
         </p>
         <p className="text-xs text-gray-400 mb-5">
-          Rates last verified: {RATES_LAST_REVIEWED}. Actual rate depends on your credit score — confirm with the lender before applying.
+          Repo rate last updated: {RBI_REPO_RATE_LAST_UPDATED}. Bank rates are computed from the repo
+          rate plus each bank&apos;s published spread. Actual rate depends on your credit score —
+          confirm with the lender before applying.
         </p>
 
         <EMICalculator
@@ -128,10 +178,10 @@ export default async function VariantPage({
           defaultType={variant.type === "Home Loan" ? 0 : variant.type === "Car Loan" ? 1 : 2}
         />
 
-        <AdSlot slot="VARIANT_AFTER_RESULT" className="my-6" />
+        <AdSlot slot="7779500788" className="my-6" />
 
         {/* Variant-specific content */}
-        {variant.bank ? (
+        {variant.bank && isPrecise ? (
           <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-3">
               {variant.bank} {variant.type} — Rates &amp; Key Facts {year}
@@ -154,6 +204,86 @@ export default async function VariantPage({
               Your actual rate depends on: credit score (750+ gets best rates, below 700 attracts a 0.5–1%
               premium), loan-to-value ratio (80% LTV is standard — higher LTV means higher rate), employment
               type (salaried vs self-employed), and the property type and age.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Processing Fees &amp; Charges</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Most banks charge 0.25%–1% of the loan amount as a one-time processing fee. For a{" "}
+              {formatINRShort(variant.defaultAmount)} loan, this is{" "}
+              {formatINR(variant.defaultAmount * 0.005)}–{formatINR(variant.defaultAmount * 0.01)}.
+              Compare total cost of loan (interest + fees + insurance) rather than just the headline rate.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Tips to Get a Lower Rate</h3>
+            <ul className="list-disc pl-5 space-y-1 text-gray-600 text-sm">
+              <li>Maintain a CIBIL score above 750 — check it free at CIBIL.com before applying</li>
+              <li>Keep your total EMI obligations below 40–50% of monthly income</li>
+              <li>Make a higher down payment to reduce LTV below 80%</li>
+              <li>Apply for a balance transfer if rates drop 0.5%+ after your loan starts</li>
+            </ul>
+          </section>
+        ) : variant.bank && isRange ? (
+          <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
+              {variant.bank} {variant.type} — Rates &amp; Key Facts {year}
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              {variant.rateSentence} {variant.bank} {variant.type.toLowerCase()}s are EBLR-linked
+              (rate moves with the RBI repo rate) — enter your quoted rate into the calculator above
+              for an exact monthly EMI on a {formatINRShort(variant.defaultAmount)} loan over{" "}
+              {variant.defaultTenureMonths / 12} years.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">
+              Why It&apos;s a Range, Not a Single Number
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              EBLR-linked loans price off repo rate + a spread that varies by credit score, loan-to-value
+              ratio, employment type, and the property type and age — so {variant.bank} won&apos;t quote
+              the same number to every applicant. 750+ CIBIL and 80% or lower LTV typically land at the
+              bottom of the range.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Processing Fees &amp; Charges</h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Most banks charge 0.25%–1% of the loan amount as a one-time processing fee. For a{" "}
+              {formatINRShort(variant.defaultAmount)} loan, this is{" "}
+              {formatINR(variant.defaultAmount * 0.005)}–{formatINR(variant.defaultAmount * 0.01)}.
+              Compare total cost of loan (interest + fees + insurance) rather than just the headline rate.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">Tips to Get a Lower Rate</h3>
+            <ul className="list-disc pl-5 space-y-1 text-gray-600 text-sm">
+              <li>Maintain a CIBIL score above 750 — check it free at CIBIL.com before applying</li>
+              <li>Keep your total EMI obligations below 40–50% of monthly income</li>
+              <li>Make a higher down payment to reduce LTV below 80%</li>
+              <li>Apply for a balance transfer if rates drop 0.5%+ after your loan starts</li>
+            </ul>
+          </section>
+        ) : variant.bank && isUnavailable ? (
+          <section className="mt-6 bg-white rounded-xl border border-gray-200 p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
+              {variant.bank} {variant.type} — Rate Not Yet Published
+            </h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              We don&apos;t have a verified current {variant.type.toLowerCase()} rate for{" "}
+              {variant.bank} on file, so we&apos;re not showing a number we can&apos;t stand behind.{" "}
+              <a href={bankSearchUrl} target="_blank" rel="nofollow noopener"
+                className="text-[#E8500A] hover:underline">
+                Check {variant.bank}&apos;s official rate
+              </a>{" "}
+              and enter it into the calculator above to get an accurate EMI for a{" "}
+              {formatINRShort(variant.defaultAmount)} loan over {variant.defaultTenureMonths / 12} years.
+            </p>
+
+            <h3 className="text-base font-semibold text-gray-800 mb-2">
+              What Affects Your Actual Rate
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Whatever rate {variant.bank} quotes you will depend on: credit score (750+ CIBIL gets the
+              best rates, below 700 attracts a 0.5–1% premium), loan-to-value ratio (80% LTV is standard —
+              higher LTV means higher rate), employment type (salaried vs self-employed), and the property
+              type and age.
             </p>
 
             <h3 className="text-base font-semibold text-gray-800 mb-2">Processing Fees &amp; Charges</h3>
@@ -206,7 +336,7 @@ export default async function VariantPage({
           </section>
         )}
 
-        <AdSlot slot="VARIANT_BELOW_CONTENT" className="my-6" />
+        <AdSlot slot="2743510532" className="my-6" />
 
         {/* Related variant links */}
         <section className="mt-4 mb-4">

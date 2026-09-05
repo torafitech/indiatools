@@ -1,73 +1,59 @@
 # Session Handoff — UtilSpot
 
-## Current State (2026-06-04)
+## ⚠️ ACTION NEEDED NOW (blocks pending EMI rate-refactor work)
 
-### All 24 tools LIVE ✅ — committed + pushed to main
+RBI's monetary policy committee met Aug 3–5, 2026. **Ask the user for the confirmed repo rate outcome first thing this session** — a Phase 2 EMI rate refactor is built, tested, and sitting **uncommitted** in the working tree waiting on it. Do not guess the number, do not search for it — ask.
 
-| # | Tool | Route | Category | AI | Status |
-|---|------|-------|----------|----|--------|
-| 01 | EMI Calculator | /emi-calculator | Finance | — | ✅ |
-| 02 | Income Tax Calculator | /income-tax-calculator | Finance | — | ✅ |
-| 03 | SIP Calculator | /sip-calculator | Finance | — | ✅ |
-| 04 | CTC to In-Hand Calculator | /salary-calculator | Finance | — | ✅ |
-| 05 | GST Invoice Generator | /invoice-generator | Business | — | ✅ |
-| 06 | Construction Cost Estimator | /construction-cost-calculator | Finance | — | ✅ |
-| 07 | TDEE Calculator | /tdee-calculator | Health | — | ✅ |
-| 08 | Word Counter | /word-counter | Writing | — | ✅ |
-| 09 | QR Code Generator | /qr-code-generator | Developer | — | ✅ |
-| 10 | AI Business Name Generator | /business-name-generator | Business | ✅ | ✅ |
-| 11 | ATS Resume Checker | /ats-resume-checker | Career | ✅ | ✅ |
-| 12 | AI Legal Document Generator | /legal-document-generator | Legal | ✅ | ✅ |
-| 13 | AI Social Media Calendar | /social-media-calendar | Marketing | ✅ | ✅ |
-| 14 | Freelance Rate Calculator | /freelance-rate-calculator | Career | — | ✅ |
-| 15 | AI Color Palette Generator | /color-palette-generator | Design | ✅ | ✅ |
-| 16 | AI README Generator | /readme-generator | Developer | ✅ | ✅ |
-| 17 | Website SEO Analyzer | /seo-analyzer | Developer | — | ✅ |
-| 18 | Accessibility Checker | /accessibility-checker | Developer | — | ✅ |
-| 19 | Equity & Dilution Calculator | /equity-calculator | Finance | — | ✅ |
-| 20 | Email Subject Line Tester | /email-subject-tester | Marketing | ✅ | ✅ |
-| 21 | FSSAI Nutrition Label | /nutrition-label-calculator | Health | — | ✅ |
-| 22 | Cron Expression Builder | /cron-builder | Developer | — | ✅ |
-| 23 | AI Meeting Agenda Generator | /meeting-agenda-generator | Productivity | ✅ | ✅ |
-| 24 | Password Generator | /password-generator | Security | — | ✅ |
+Once you have it:
+1. Set `RBI_REPO_RATE` in `data/bank-rates.ts` (currently `0`, typed `: number` so this is safe) and `RBI_REPO_RATE_LAST_UPDATED` to today's date.
+2. Run `npm run build`, confirm the 8 majors (SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara Bank) render a real computed "Typically X%–Y% p.a." range instead of the "Rate data pending update" fallback — spot-check `/emi-calculator/sbi-home-loan` and a couple others.
+3. Full context on what this refactor does and why: `/rate-refactor-report.md` (repo root, not yet committed — read it before touching this).
+4. Only commit + push after the user explicitly says so (they've been gating every push on this project).
 
-**8 AI tools** (need `ANTHROPIC_API_KEY`): tools 10–13, 15–16, 20, 23  
-**16 pure frontend** (zero API cost): all others
+**Uncommitted files right now** (`git status`):
+```
+M app/emi-calculator/[variant]/page.tsx
+M app/emi-calculator/page.tsx
+M components/tools/BankRatesTable.tsx
+M data/bank-rates.ts
+M lib/programmatic/emi-variants.ts
+?? rate-refactor-report.md
+```
+If the user hasn't mentioned the repo rate and asks for something unrelated, that's fine — just don't lose track of this; it's real uncommitted work, not scratch.
+
+---
+
+## Current State (2026-08-03)
+
+### All 24 original tools LIVE, plus several more added since — committed + pushed to main
+Tool count has grown past the original 24 (Attendance Calculator, Gold/Jewellery Calculator, New Labour Code Calculator, PF Corpus Calculator, Gratuity Calculator, Full & Final Settlement Calculator, and others — see `app/page.tsx` for the authoritative current list, this table is not exhaustive anymore).
+
+### Recent work (last few sessions, chronological)
+- **SEO content-accuracy pass**: fixed hardcoded `2025`/`FY 2025-26` strings across salary/income-tax/labour-code/construction/EMI programmatic templates — added `lib/currentFY.ts` (India Apr–Mar FY helper) as the shared fix instead of hardcoding per-template.
+- **EMI bank rates**: flagged (not guessed) every hardcoded rate in `data/bank-rates.ts` — see `/rate-audit-checklist.md`.
+- **EMI noindex**: the 78 `/emi-calculator/[bank]-[loantype]` pages (thin, template-only-swap content) are `noindex`; the 6 amount-based pages (`20-lakh-home-loan` etc.) stay indexed. Sitemap regenerated to match. See `/emi-noindex-report.md`.
+- **EMI rate disclaimer**: "Rates last verified" notice added near every rate display (small pushed already, live).
+- **EMI repo-rate + spread refactor (Phase 2)**: see the blocker section above — this is the in-progress piece.
+- **Vercel Analytics**: `<Analytics/>` from `@vercel/analytics/next` wired into `app/layout.tsx`, committed + pushed (`405259b`).
 
 ---
 
 ## What Needs Doing Next
 
+### Priority 0: RBI repo rate (see blocker above)
+
 ### Priority 1: Vercel env var
 Set `ANTHROPIC_API_KEY` in Vercel → Project → Settings → Environment Variables.
-Without it all 8 AI tools return 500.
+Without it AI tools return 500. (Verify this is still outstanding — may have been done since this note was last true.)
 
-### Priority 2: AI tool rate limiting (deferred — discussed)
-Options:
-- `localStorage` daily cap (3 uses/day, no login)
-- Per-IP server-side limit
-- Show AdSense interstitial before AI result
-Decision pending. Brainstorm next session.
+### Priority 2: AI tool rate limiting (deferred — discussed, decision still pending)
+Options: `localStorage` daily cap, per-IP server-side limit, AdSense interstitial before AI result.
 
-### Priority 3: Programmatic SEO pages
-Static pages using `generateStaticParams()`:
-```
-/emi-calculator/sbi-home-loan
-/emi-calculator/hdfc-home-loan
-/emi-calculator/40-lakh-20-years
-/salary-calculator/bangalore
-/salary-calculator/hyderabad
-/construction-cost-calculator/bangalore
-/construction-cost-calculator/hyderabad
-```
-Pattern: same component, different pre-filled defaults + unique metadata.
-
-### Priority 4: AdSense
+### Priority 3: AdSense
 Replace `ca-pub-XXXXXXXXXXXXXXXX` in `app/layout.tsx` with real publisher ID once approved.
-All AdSlot placeholders already in place on every page.
 
-### Priority 5: Analytics
-Add Google Analytics / Vercel Analytics to track which tools get most traffic.
+### Priority 4: Bank rate data for the other 22 banks
+`data/bank-rates.ts` has 8 majors on `"EBLR-linked-range"` (generic repo+3.0–3.5% band) and 22 banks/HFCs on `"unavailable"` ("Contact {bank}") because every single bank×loan-type page got noindexed in one pass with no traffic-tier exemption — see `/rate-refactor-report.md` for the full callout. If the user wants specific banks upgraded with real per-bank spreads, that's manual data entry, not something to estimate.
 
 ---
 
@@ -75,15 +61,21 @@ Add Google Analytics / Vercel Analytics to track which tools get most traffic.
 
 ```
 app/page.tsx                    — tools array (add new tools here)
+app/layout.tsx                  — root layout: AdSense script, GA, Vercel Analytics
 components/layout/AdSlot.tsx    — ad slot component
 components/layout/Header.tsx    — site nav
-app/layout.tsx                  — root layout (AdSense script goes here)
+data/bank-rates.ts              — EMI bank rate source of truth (repo rate + spread model)
+lib/currentFY.ts                — India FY helper, use instead of hardcoding years
+rate-audit-checklist.md         — bank rates needing manual verification
+rate-refactor-report.md         — EMI repo-rate refactor status (uncommitted work, read before touching)
+emi-noindex-report.md           — which EMI variant pages are noindexed and why
 agents/HANDOFF.md               — this file (update each session)
 CLAUDE.md                       — project rules + coding standards
 ```
 
 ## Git State
-- Last commit: `e87c932` — feat: add tools 11-24
+- Last commit: `405259b` — feat: add Vercel Analytics
 - Branch: main
 - Remote: https://github.com/torafitech/indiatools.git
 - Vercel: auto-deploys on push to main
+- **Uncommitted work exists** — see blocker section at top
