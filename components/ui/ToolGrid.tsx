@@ -26,6 +26,7 @@ const CAT: Record<string, {
   "Real Estate & Construction": { iconBg: "bg-amber-50", iconText: "text-amber-700", badge: "bg-amber-50 text-amber-700 ring-amber-100", dot: "bg-amber-600", borderL: "border-l-amber-600" },
   Career:       { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
   Security:     { iconBg: "bg-[#F0F4FF]",  iconText: "text-[#0F2447]",  badge: "bg-[#F0F4FF] text-[#0F2447] ring-[#CBD5EF]",   dot: "bg-[#0F2447]",   borderL: "border-l-[#0F2447]"   },
+  "AI Resources": { iconBg: "bg-violet-50", iconText: "text-violet-600", badge: "bg-violet-50 text-violet-700 ring-violet-100", dot: "bg-violet-500", borderL: "border-l-violet-500" },
 };
 
 /* ── Lucide-style inline SVG icons per tool ─────────────────────────── */
@@ -138,6 +139,13 @@ function ToolIcon({ slug, className }: { slug: string; className?: string }) {
       <circle cx="11" cy="11" r="8"/>
       <line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </>,
+    "/ai-resources": <>
+      <rect x="3" y="11" width="18" height="10" rx="2"/>
+      <circle cx="12" cy="5" r="2"/>
+      <path d="M12 7v4"/>
+      <line x1="8" y1="16" x2="8" y2="16"/>
+      <line x1="16" y1="16" x2="16" y2="16"/>
+    </>,
   };
   return (
     <svg
@@ -154,7 +162,7 @@ function ToolIcon({ slug, className }: { slug: string; className?: string }) {
   );
 }
 
-const FILTER_LABELS = ["All", "Finance", "Real Estate & Construction", "Labour & HR", "Health", "Developer", "Business", "Writing", "Career", "Security"];
+const FILTER_LABELS = ["All", "AI Resources", "Finance", "Real Estate & Construction", "Labour & HR", "Health", "Developer", "Business", "Writing", "Career", "Security"];
 
 const STAGGER = [
   "stagger-1","stagger-2","stagger-3","stagger-4","stagger-5",

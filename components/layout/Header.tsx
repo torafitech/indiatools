@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: "/income-tax-calculator", label: "Tax" },
   { href: "/sip-calculator",        label: "SIP" },
   { href: "/invoice-generator",     label: "Invoice" },
+  { href: "/ai-resources",          label: "AI Resources" },
   { href: "/#tools",                label: "All Tools" },
 ];
 

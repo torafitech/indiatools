@@ -6,8 +6,8 @@ export function Footer() {
   return (
     <footer className="bg-[#0F2447] text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
-        {/* Three-column grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-10">
+        {/* Four-column grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
 
           {/* Col 1: Logo + description */}
           <div className="col-span-2 sm:col-span-1">
@@ -46,7 +46,25 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Other Tools + Legal */}
+          {/* Col 3: AI Resources */}
+          <div>
+            <p className="font-bold text-white text-sm mb-4">AI Resources</p>
+            <ul className="space-y-2.5 text-sm">
+              {[
+                { href: "/ai-resources",                                label: "Browse All" },
+                { href: "/ai-resources/customer-support-ticket-triager",label: "Support Ticket GPT" },
+                { href: "/ai-resources/invoice-data-extractor-skill",   label: "Invoice Extractor Skill" },
+                { href: "/ai-resources/sales-cold-outreach-agent",      label: "Sales Outreach Agent" },
+                { href: "/ai-resources/seo-blog-outline-system-prompt", label: "SEO Outline Prompt" },
+              ].map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-white/50 hover:text-white transition-colors">{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4: Other Tools + Legal */}
           <div>
             <p className="font-bold text-white text-sm mb-4">Other Tools</p>
             <ul className="space-y-2.5 text-sm mb-6">

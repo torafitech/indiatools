@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 const tools = [
+  { slug: "/ai-resources",                      name: "AI Resource Library",         description: "Free Custom GPTs, Claude Skills, AI agent templates, and system prompts — copy and deploy in minutes.", category: "AI Resources", popular: true, icon: "🤖", status: "live" },
   { slug: "/emi-calculator",                    name: "EMI Calculator",              description: "Calculate monthly EMI for home, car, and personal loans with full amortization schedule.",  category: "Finance",    popular: true,  icon: "🏦", status: "live" },
   { slug: "/income-tax-calculator",             name: "Income Tax Calculator",        description: "Compare old vs new tax regime for FY 2025-26. Find out which regime saves you more.",      category: "Finance",    popular: true,  icon: "📊", status: "live" },
   { slug: "/sip-calculator",                    name: "SIP Calculator",              description: "Calculate SIP returns, goal-based SIP planning, and lump sum investment growth.",            category: "Finance",    popular: true,  icon: "📈", status: "live" },
